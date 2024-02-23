@@ -21,6 +21,8 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
             AbstractState.Create<MonSleepState, MonsterState>(MonsterState.MON_SLEEP, this),
             AbstractState.Create<MonAttackState, MonsterState>(MonsterState.MON_ATTACK, this)
         );
+
+        Manager = transform.GetComponent<MonsterManager>();
     }
     public class MonIdleState : AbstractState
     {
