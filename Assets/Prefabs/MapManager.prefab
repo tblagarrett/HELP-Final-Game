@@ -2382,5 +2382,6 @@ MonoBehaviour:
   foodTile: {fileID: 11400000, guid: ad3b30c88aee0974eb8244b07d2c822f, type: 2}
   terrainMap: {fileID: 7665823417418946489}
   objectMap: {fileID: 6124475322556026845}
-  foodPrefab: {fileID: 0}
+  foodPrefab: {fileID: 932342347511325503, guid: f823dd94245887741a983faa7e9b0d59, type: 3}
+  foodContainer: {fileID: 8028375594843259294}
   howMuchFood: 3

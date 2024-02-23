@@ -5,10 +5,10 @@ using UnityEngine.Tilemaps;
 
 public class MapManager : MonoBehaviour
 {
-    [SerializeField] private Tile foodTile;
     [SerializeField] private Tilemap terrainMap;
     [SerializeField] private Tilemap objectMap;
     [SerializeField] private GameObject foodPrefab;
+    [SerializeField] private GameObject foodContainer;
     [SerializeField] private int howMuchFood;
 
     // Singleton Initialization
@@ -55,7 +55,11 @@ public class MapManager : MonoBehaviour
         {
             int x = Random.Range(-(xSize/2) + 1, xSize/2);
             int y = Random.Range(-(ySize/2) + 1, ySize/2);
-            objectMap.SetTile(new Vector3Int(x, y, 1), foodTile);
+
+            // Creates an instance of the object and sets its random position
+            GameObject currentFood = Instantiate(foodPrefab, foodContainer.transform);
+            currentFood.transform.position = new Vector3(x, y, 0);
+            currentFood.layer = 10;
         }
     }
 }
