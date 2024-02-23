@@ -5,16 +5,24 @@ using KevinCastejon.FiniteStateMachine;
 
 public class PlayerManager : MonoBehaviour
 {
+    //movement vars
     [SerializeField] private float moveSpeed;
     float speedX, speedY;
     private Rigidbody2D rb;
 
-    public PlayerScripts Player;
-    public PlayerStateMachine PlayerSM;
+    //player objects
+    [SerializeField] private PlayerScripts Player;
+    [SerializeField] private PlayerStateMachine PlayerSM;
 
+    //instances for singleton
     private static PlayerManager _instance; // make a static private variable of the component data type
     public static PlayerManager Instance { get { return _instance; } } // make a public way to access the private variable\
 
+    //variables for hunger and health decay
+    [SerializeField] private float hungerDelay;
+    [SerializeField] private float healthDelay;
+    [SerializeField] private int subHunger;
+    [SerializeField] private int subHealth;
 
     private void Awake()
     {
@@ -33,7 +41,9 @@ public class PlayerManager : MonoBehaviour
     void Start()
     {
         rb = Player.GetComponent<Rigidbody2D>();
-        PlayerSM = this.GetComponent<PlayerStateMachine>();
+
+        HungerDecay();
+
     }
 
     // Update is called once per frame
@@ -55,6 +65,25 @@ public class PlayerManager : MonoBehaviour
     {
         Player.health += mod;
 
+    }
+
+    public IEnumerator HungerDecay()
+    {
+        yield return new WaitForSeconds(hungerDelay);
+        Player.hunger -= subHunger;
+
+        if(Player.hunger <= 0)
+        {
+            HealthDecay();
+        }
+
+        HungerDecay();
+    }
+
+    public IEnumerator HealthDecay()
+    {
+        ModHealth(-subHealth);
+        yield return new WaitForSeconds(healthDelay);
     }
 
 }
