@@ -38,6 +38,6 @@ public class PlayerManager : MonoBehaviour
         speedX = Input.GetAxisRaw("Horizontal") * moveSpeed;
         //y movement
         speedY = Input.GetAxisRaw("Vertical") * moveSpeed;
-        rb.velocity = new Vector2(speedX, speedY);
+        rb.velocity = new Vector2(speedX, speedY).normalized * moveSpeed;
     }
 }

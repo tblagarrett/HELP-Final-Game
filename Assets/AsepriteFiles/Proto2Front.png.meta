@@ -143,7 +143,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Proto2Front_0: 9055872910609982296
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
