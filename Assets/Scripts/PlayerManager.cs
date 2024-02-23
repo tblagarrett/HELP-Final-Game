@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using KevinCastejon.FiniteStateMachine;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -8,9 +9,12 @@ public class PlayerManager : MonoBehaviour
     float speedX, speedY;
     private Rigidbody2D rb;
 
+    public PlayerScripts Player;
+    public PlayerStateMachine PlayerSM;
+
     private static PlayerManager _instance; // make a static private variable of the component data type
     public static PlayerManager Instance { get { return _instance; } } // make a public way to access the private variable\
-    public GameObject Player { get { return GameObject.FindWithTag("Player"); } }
+    
 
     private void Awake()
     {
@@ -28,7 +32,8 @@ public class PlayerManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        rb = Player.GetComponent<Rigidbody2D>();
+        PlayerSM = this.GetComponent<PlayerStateMachine>();
     }
 
     // Update is called once per frame
