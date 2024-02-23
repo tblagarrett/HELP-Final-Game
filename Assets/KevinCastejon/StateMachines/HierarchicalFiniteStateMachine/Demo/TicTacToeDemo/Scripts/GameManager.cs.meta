@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 6d95175b12ff11a488b92fdd7b38a891
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 229841
+  packageName: StateMachines
+  packageVersion: 1.0
+  assetPath: Assets/KevinCastejon/StateMachines/HierarchicalFiniteStateMachine/Demo/TicTacToeDemo/Scripts/GameManager.cs
+  uploadId: 576528

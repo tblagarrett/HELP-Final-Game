@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: bce3b040e26cf3c4ba74c1f0cfd7ad42
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 229841
+  packageName: StateMachines
+  packageVersion: 1.0
+  assetPath: Assets/KevinCastejon/StateMachines/FiniteStateMachine/Demos/TechnicalDemo/Scenes/TechnicalDemo.unity
+  uploadId: 576528

@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: f31d739c06c46724da69994475285062
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 229841
+  packageName: StateMachines
+  packageVersion: 1.0
+  assetPath: Assets/KevinCastejon/StateMachines/FiniteStateMachine/Core/AbstractFiniteStateMachine.cs
+  uploadId: 576528
