@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e51d3375ae27a4f41b6d7174fad0c3d4
+guid: f2ec78bf77ceff443ad38df8b85c9d4a
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -121,7 +121,7 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: SpritePrototype
+  - name: Proto2
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -130,9 +130,9 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 88
-      height: 128
-    spriteID: 4ed33a0343ff43f4482f3911ef203ae8
+      width: 28
+      height: 32
+    spriteID: 78b5cf7a022aae44e9825533deb708ac
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -144,24 +144,24 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: 328373351
-    name: SpritePrototype
+    guid: -1650813310
+    name: Proto2
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: SpritePrototype
+    - name: Proto2
       frameIndex: 0
       cellRect:
-        x: 0
+        x: 2
         y: 0
-        width: 88
-        height: 128
-      spriteId: 4ed33a0343ff43f4482f3911ef203ae8
+        width: 28
+        height: 32
+      spriteId: 78b5cf7a022aae44e9825533deb708ac
     linkedCells: []
     parentIndex: -1
   platformSettings: []
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 88, y: 128}
+  canvasSize: {x: 32, y: 32}

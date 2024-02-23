@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 291a0d7b93defe74abf25c6c3ecefa66
+guid: 07c881533ec92ff49ac6df65a7b25b85
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3757219762809950366
-    second: SpriteFront_0
+      213: 9055872910609982296
+    second: Proto2Front_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: SpriteFront_0
+      name: Proto2Front_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 5
         y: 0
-        width: 22
-        height: 32
+        width: 86
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -127,8 +127,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e905d59b773542430800000000000000
-      internalID: 3757219762809950366
+      spriteID: 853adff9e6cecad70800000000000000
+      internalID: 9055872910609982296
       vertices: []
       indices: 
       edges: []
@@ -143,8 +143,7 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable:
-      SpriteFront_0: 3757219762809950366
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
