@@ -45,4 +45,16 @@ public class PlayerManager : MonoBehaviour
         speedY = Input.GetAxisRaw("Vertical") * moveSpeed;
         rb.velocity = new Vector2(speedX, speedY).normalized * moveSpeed;
     }
+
+    public int GetHealth()
+    {
+        return Player.health;
+    }
+
+    public void ModHealth(int mod)
+    {
+        Player.health += mod;
+
+    }
+
 }
