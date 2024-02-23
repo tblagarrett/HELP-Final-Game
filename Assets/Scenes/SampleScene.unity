@@ -741,6 +741,22 @@ PrefabInstance:
       propertyPath: Player
       value: 
       objectReference: {fileID: 1523614345}
+    - target: {fileID: 1071189275063388305, guid: 9c9729c529a1b464382befa60b79deb2, type: 3}
+      propertyPath: subHealth
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1071189275063388305, guid: 9c9729c529a1b464382befa60b79deb2, type: 3}
+      propertyPath: subHunger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1071189275063388305, guid: 9c9729c529a1b464382befa60b79deb2, type: 3}
+      propertyPath: healthDelay
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1071189275063388305, guid: 9c9729c529a1b464382befa60b79deb2, type: 3}
+      propertyPath: hungerDelay
+      value: 60
+      objectReference: {fileID: 0}
     - target: {fileID: 3975773505504487197, guid: 9c9729c529a1b464382befa60b79deb2, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.848979
