@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: be298129bbbcf7b4f84432b154561ca1
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 229841
+  packageName: StateMachines
+  packageVersion: 1.0
+  assetPath: Assets/KevinCastejon/StateMachines/DoxygenLayout.xml
+  uploadId: 576528

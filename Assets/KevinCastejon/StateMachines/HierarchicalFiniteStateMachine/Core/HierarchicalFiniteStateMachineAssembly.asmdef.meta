@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 67fc692f256a69246bc0b8de9227c3ce
+AssemblyDefinitionImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 229841
+  packageName: StateMachines
+  packageVersion: 1.0
+  assetPath: Assets/KevinCastejon/StateMachines/HierarchicalFiniteStateMachine/Core/HierarchicalFiniteStateMachineAssembly.asmdef
+  uploadId: 576528

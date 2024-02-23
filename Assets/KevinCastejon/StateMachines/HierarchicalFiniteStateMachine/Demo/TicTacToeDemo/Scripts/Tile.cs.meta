@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: e3424afd7b62b5e42a18f4835bb490f1
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 229841
+  packageName: StateMachines
+  packageVersion: 1.0
+  assetPath: Assets/KevinCastejon/StateMachines/HierarchicalFiniteStateMachine/Demo/TicTacToeDemo/Scripts/Tile.cs
+  uploadId: 576528

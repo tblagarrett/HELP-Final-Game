@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: bb0c595f9302b814f8a346b41fb3588a
+AssemblyDefinitionImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 229841
+  packageName: StateMachines
+  packageVersion: 1.0
+  assetPath: Assets/KevinCastejon/StateMachines/HierarchicalFiniteStateMachine/Core/Editor/HierarchicalFiniteStateMachineEditorAssembly.asmdef
+  uploadId: 576528
