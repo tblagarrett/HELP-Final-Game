@@ -5,9 +5,6 @@ using KevinCastejon.FiniteStateMachine;
 
 public class MonsterManager : MonoBehaviour
 {
-    // prefab of Monster
-    [SerializeField] private MonsterScript MonsterPrefab;
-
     public MonsterScript Monster;
     public GameObject Parent;
 
@@ -21,8 +18,8 @@ public class MonsterManager : MonoBehaviour
 
     void Start()
     {
-        Monster = Instantiate(MonsterPrefab, Parent.transform);
-        HungerDecay();
+        Monster = Instantiate(Monster, Parent.transform);
+        StartCoroutine(HungerDecay());
     }
 
     // Update is called once per frame
@@ -38,15 +35,16 @@ public class MonsterManager : MonoBehaviour
         
         if (Monster.hunger <= 0)
         {
-            HealthDecay();
+            StartCoroutine(HealthDecay());
         }
 
-        HungerDecay();
+        StartCoroutine(HungerDecay());
     }
     public IEnumerator HealthDecay()
     {
         Monster.health -= subHealth;
         yield return new WaitForSeconds(healthDelay);
+        StartCoroutine(HealthDecay());
     }
     public void SetMax()
     {
