@@ -167,6 +167,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6180963130459756397, guid: 27fd6f60fab0c1c48a2f68b11cbf973c, type: 3}
+      propertyPath: howMuchFood
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 8622642353332343972, guid: 27fd6f60fab0c1c48a2f68b11cbf973c, type: 3}
       propertyPath: m_Name
       value: MapManager
