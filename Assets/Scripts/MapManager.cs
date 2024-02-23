@@ -8,7 +8,25 @@ public class MapManager : MonoBehaviour
     [SerializeField] private Tile foodTile;
     [SerializeField] private Tilemap terrainMap;
     [SerializeField] private Tilemap objectMap;
+    [SerializeField] private GameObject foodPrefab;
     [SerializeField] private int howMuchFood;
+
+    // Singleton Initialization
+    private static MapManager _instance; // make a static private variable of the component data type
+    public static MapManager Instance { get { return _instance; } } // make a public way to access the private variable
+
+    private void Awake()
+    {
+        if (_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            _instance = this;
+        }
+        DontDestroyOnLoad(this);
+    }
 
     // Start is called before the first frame update
     void Start()

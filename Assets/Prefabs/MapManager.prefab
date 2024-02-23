@@ -2301,6 +2301,37 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
+--- !u!1 &8028375594843259294
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1002769983731923518}
+  m_Layer: 0
+  m_Name: Food
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1002769983731923518
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8028375594843259294}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1110329483114333979}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8622642353332343972
 GameObject:
   m_ObjectHideFlags: 0
@@ -2333,6 +2364,7 @@ Transform:
   m_Children:
   - {fileID: 6246465687700665706}
   - {fileID: 984075921883915108}
+  - {fileID: 1002769983731923518}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6180963130459756397
@@ -2350,4 +2382,5 @@ MonoBehaviour:
   foodTile: {fileID: 11400000, guid: ad3b30c88aee0974eb8244b07d2c822f, type: 2}
   terrainMap: {fileID: 7665823417418946489}
   objectMap: {fileID: 6124475322556026845}
+  foodPrefab: {fileID: 0}
   howMuchFood: 3
