@@ -5,6 +5,7 @@ using KevinCastejon.FiniteStateMachine;
 using System.Threading;
 public class MonsterStateMachine : AbstractFiniteStateMachine
 {
+    public MonsterManager Manager { get; set; }
     public enum MonsterState
     {
         MON_IDLE,
@@ -23,13 +24,12 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
     }
     public class MonIdleState : AbstractState
     {
-        public MonsterScript Monster;
         public override void OnEnter()
         {
             // start anim
 
             // it's visibility is max
-            Monster.curVisRadius = Monster.maxVisRadius;
+            GetStateMachine<MonsterStateMachine>().Manager.SetMax();
         }
         public override void OnUpdate()
         {
@@ -40,13 +40,12 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
     }
     public class MonRunState : AbstractState
     {
-        public MonsterScript Monster;
         public override void OnEnter()
         {
             // start anim
 
             // it's visibility is max
-            Monster.curVisRadius = Monster.maxVisRadius;
+            GetStateMachine<MonsterStateMachine>().Manager.SetMax();
         }
         public override void OnUpdate()
         {
@@ -57,13 +56,12 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
     }
     public class MonSleepState : AbstractState
     {
-        public MonsterScript Monster;
         public override void OnEnter()
         {
             // start anim
 
             // it's visibility is min
-            Monster.curVisRadius = Monster.minVisRadius;
+            GetStateMachine<MonsterStateMachine>().Manager.SetMin();
         }
         public override void OnUpdate()
         {
@@ -74,13 +72,12 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
     }
     public class MonAttackState : AbstractState
     {
-        public MonsterScript Monster;
         public override void OnEnter()
         {
             // start anim
 
             // it's visibility is max
-            Monster.curVisRadius = Monster.maxVisRadius;
+            GetStateMachine<MonsterStateMachine>().Manager.SetMax();
         }
         public override void OnUpdate()
         {
