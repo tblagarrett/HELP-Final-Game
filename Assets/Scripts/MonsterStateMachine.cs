@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using KevinCastejon.FiniteStateMachine;
+using System.Threading;
 public class MonsterStateMachine : AbstractFiniteStateMachine
 {
     public enum MonsterState
@@ -22,8 +23,13 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
     }
     public class MonIdleState : AbstractState
     {
+        public MonsterScript Monster;
         public override void OnEnter()
         {
+            // start anim
+
+            // it's visibility is max
+            Monster.curVisRadius = Monster.maxVisRadius;
         }
         public override void OnUpdate()
         {
@@ -34,8 +40,13 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
     }
     public class MonRunState : AbstractState
     {
+        public MonsterScript Monster;
         public override void OnEnter()
         {
+            // start anim
+
+            // it's visibility is max
+            Monster.curVisRadius = Monster.maxVisRadius;
         }
         public override void OnUpdate()
         {
@@ -46,8 +57,13 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
     }
     public class MonSleepState : AbstractState
     {
+        public MonsterScript Monster;
         public override void OnEnter()
         {
+            // start anim
+
+            // it's visibility is min
+            Monster.curVisRadius = Monster.minVisRadius;
         }
         public override void OnUpdate()
         {
@@ -58,8 +74,13 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
     }
     public class MonAttackState : AbstractState
     {
+        public MonsterScript Monster;
         public override void OnEnter()
         {
+            // start anim
+
+            // it's visibility is max
+            Monster.curVisRadius = Monster.maxVisRadius;
         }
         public override void OnUpdate()
         {
