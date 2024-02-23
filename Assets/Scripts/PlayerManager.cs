@@ -42,7 +42,7 @@ public class PlayerManager : MonoBehaviour
     {
         rb = Player.GetComponent<Rigidbody2D>();
 
-        HungerDecay();
+        StartCoroutine(HungerDecay());
 
     }
 
@@ -72,18 +72,25 @@ public class PlayerManager : MonoBehaviour
         yield return new WaitForSeconds(hungerDelay);
         Player.hunger -= subHunger;
 
-        if(Player.hunger <= 0)
+        if (Player.hunger <= 0)
         {
-            HealthDecay();
+            StartCoroutine(HealthDecay());
         }
-
-        HungerDecay();
+        else
+        {
+            StartCoroutine(HungerDecay());
+        }
     }
 
     public IEnumerator HealthDecay()
     {
         ModHealth(-subHealth);
         yield return new WaitForSeconds(healthDelay);
+
+        if (Player.hunger <= 0 && Player.health != 0)
+        {
+            StartCoroutine(HealthDecay());
+        }
     }
 
 }

@@ -32,19 +32,25 @@ public class MonsterManager : MonoBehaviour
     {
         yield return new WaitForSeconds(hungerDelay);
         Monster.hunger -= subHunger;
-        
+
         if (Monster.hunger <= 0)
         {
             StartCoroutine(HealthDecay());
         }
-
-        StartCoroutine(HungerDecay());
+        else
+        {
+            StartCoroutine(HungerDecay());
+        }
     }
     public IEnumerator HealthDecay()
     {
         Monster.health -= subHealth;
         yield return new WaitForSeconds(healthDelay);
-        StartCoroutine(HealthDecay());
+
+        if (Monster.hunger <= 0 && Monster.health != 0)
+        {
+            StartCoroutine(HealthDecay());
+        }
     }
     public void SetMax()
     {
