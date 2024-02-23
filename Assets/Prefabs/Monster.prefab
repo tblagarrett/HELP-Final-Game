@@ -45,8 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1131e639eb32dee4cb4487f392da4e87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
-  hunger: 0
+  health: 10
+  hunger: 10
   curVisRadius: 0
   maxVisRadius: 0
   minVisRadius: 0

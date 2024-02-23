@@ -47,10 +47,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Monster: {fileID: 3728377525890497143, guid: 0ac86ae92d3e8104a8dc49777925adc5, type: 3}
   Parent: {fileID: 7869222596745503790}
-  hungerDelay: 0
-  healthDelay: 0
-  subHunger: 0
-  subHealth: 0
+  hungerDelay: 2
+  healthDelay: 2
+  subHunger: 1
+  subHealth: 1
 --- !u!114 &7061284650958348147
 MonoBehaviour:
   m_ObjectHideFlags: 0
