@@ -45,12 +45,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c4330ab286e36c4797e26283c00d7ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MapManager: {fileID: 0}
+  PlayerManager: {fileID: 0}
   Monster: {fileID: 3728377525890497143, guid: 0ac86ae92d3e8104a8dc49777925adc5, type: 3}
   Parent: {fileID: 7869222596745503790}
+  VisualRadar: {fileID: 0}
   hungerDelay: 2
   healthDelay: 2
   subHunger: 1
   subHealth: 1
+  idle: 1
+  chasing: 0
+  attacking: 0
+  walking: 0
+  sleeping: 0
+  hurt: 0
 --- !u!114 &7061284650958348147
 MonoBehaviour:
   m_ObjectHideFlags: 0

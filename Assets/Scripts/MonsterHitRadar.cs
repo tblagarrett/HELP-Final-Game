@@ -10,7 +10,7 @@ public class MonsterHitRadar : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Manager.HitPlayer();
+            Manager.attacking = true;
         }
     }
 }

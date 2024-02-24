@@ -9,7 +9,15 @@ public class MonsterVisualRadar : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player")) {
-            Manager.ChasePlayer();
+            Manager.chasing = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            Manager.chasing = false;
         }
     }
 }
