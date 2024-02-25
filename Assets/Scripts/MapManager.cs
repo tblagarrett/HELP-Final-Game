@@ -15,6 +15,10 @@ public class MapManager : MonoBehaviour
     private static MapManager _instance; // make a static private variable of the component data type
     public static MapManager Instance { get { return _instance; } } // make a public way to access the private variable
 
+    // array of all food on the map
+    // for monster manager to read
+    public Vector2[] activeFood;
+
     private void Awake()
     {
         if (_instance != null && _instance != this)
@@ -50,6 +54,9 @@ public class MapManager : MonoBehaviour
         int xSize = terrainMap.size[0];
         int ySize = terrainMap.size[1];
 
+        // instatialize food array
+        activeFood = new Vector2[howMuchFood];
+
         // places the given number of food in random spots throughout the map
         for (int i = 0; i < howManyFood; i++)
         {
@@ -60,6 +67,10 @@ public class MapManager : MonoBehaviour
             GameObject currentFood = Instantiate(foodPrefab, foodContainer.transform);
             currentFood.transform.position = new Vector3(x, y, 0);
             currentFood.layer = 10;
+
+            // add food position to array
+            activeFood[i] = currentFood.transform.position;
+            currentFood.GetComponent<FoodScript>().foodArray = i;
         }
     }
 }
