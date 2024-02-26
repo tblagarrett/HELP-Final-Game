@@ -34,9 +34,6 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
         {
             // start anim
 
-            // it's visibility is max
-            GetStateMachine<MonsterStateMachine>().Manager.SetMax();
-
             // start idle 
             GetStateMachine<MonsterStateMachine>().Manager.StartIdle();
         }
@@ -78,9 +75,6 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
         public override void OnEnter()
         {
             // start anim
-
-            // it's visibility is max
-            GetStateMachine<MonsterStateMachine>().Manager.SetMax();
 
             // start walking in one direction
             GetStateMachine<MonsterStateMachine>().Manager.StartWalking();
@@ -145,6 +139,7 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
         }
         public override void OnExit()
         {
+            GetStateMachine<MonsterStateMachine>().Manager.SetMax();
         }
     }
     public class MonAttackState : AbstractState

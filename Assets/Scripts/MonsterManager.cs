@@ -191,6 +191,22 @@ public class MonsterManager : MonoBehaviour
         }
     }
 
+    public void Chasing()
+    {
+        Agent.SetDestination(PlayerManager.transform.position);
+    }
+
+    public void Attacking()
+    {
+        // instantiate attack collider where monster is facing
+    }
+
+    // for player to use when attacking monster
+    public void HurtMonster(int damage)
+    {
+        Monster.health -= damage;
+        hurt = true;
+    }
 
     // functions for statemachine to start and stop coroutines
     public void StartIdle()
