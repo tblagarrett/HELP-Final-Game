@@ -47,6 +47,8 @@ public class MonsterManager : MonoBehaviour
 
         // navmeshagent
         Agent = Monster.GetComponent<NavMeshAgent>();
+        Agent.updateRotation = false;
+        Agent.updateUpAxis = false;
 
         // set colliders
         VisualRadar = Monster.transform.Find("VisualRadar").GetComponent<CircleCollider2D>();
