@@ -24,6 +24,12 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private int subHunger;
     [SerializeField] private int subHealth;
 
+    //state machine vars
+    public bool idle = true;
+    public bool walking = false;
+    public bool hurt = false;
+    public bool attacking = false;
+
     private void Awake()
     {
         if (_instance != null && _instance != this)
