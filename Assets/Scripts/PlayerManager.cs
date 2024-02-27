@@ -14,6 +14,9 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private PlayerScripts Player;
     [SerializeField] private PlayerStateMachine PlayerSM;
 
+    //monster ref
+    [SerializeField] private MonsterManager MonsterMan;
+
     //instances for singleton
     private static PlayerManager _instance; // make a static private variable of the component data type
     public static PlayerManager Instance { get { return _instance; } } // make a public way to access the private variable\
@@ -21,8 +24,15 @@ public class PlayerManager : MonoBehaviour
     //variables for hunger and health decay
     [SerializeField] private float hungerDelay;
     [SerializeField] private float healthDelay;
+    [SerializeField] private float slashDelay;
     [SerializeField] private int subHunger;
     [SerializeField] private int subHealth;
+
+    //state machine vars
+    public bool idle = true;
+    public bool walking = false;
+    public bool hurt = false;
+    public bool attacking = false;
 
     private void Awake()
     {
@@ -54,19 +64,28 @@ public class PlayerManager : MonoBehaviour
         //y movement
         speedY = Input.GetAxisRaw("Vertical") * moveSpeed;
         rb.velocity = new Vector2(speedX, speedY).normalized * moveSpeed;
+
+        //slash + coroutine
+        if(Input.GetMouseButtonDown(0))
+        {
+            Slash();
+        }
     }
 
+    //health access func
     public int GetHealth()
     {
         return Player.health;
     }
 
+    //health manipulation func
     public void ModHealth(int mod)
     {
         Player.health += mod;
 
     }
 
+    //hunger coroutine
     public IEnumerator HungerDecay()
     {
         yield return new WaitForSeconds(hungerDelay);
@@ -82,15 +101,24 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
+    //health coroutine
     public IEnumerator HealthDecay()
     {
         ModHealth(-subHealth);
         yield return new WaitForSeconds(healthDelay);
+        hurt = true;
 
         if (Player.hunger <= 0 && Player.health != 0)
         {
             StartCoroutine(HealthDecay());
         }
+    }
+
+    public IEnumerator Slash()
+    {
+        attacking = true;
+        yield return new WaitForSeconds(slashDelay);
+        attacking = false;
     }
 
 }
