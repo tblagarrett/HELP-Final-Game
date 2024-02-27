@@ -45,7 +45,6 @@ public class MapManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
     }
 
     // Generates food based on the size of the map, placed randomly within it
@@ -72,5 +71,7 @@ public class MapManager : MonoBehaviour
             activeFood[i] = currentFood.transform.position;
             currentFood.GetComponent<FoodScript>().foodArray = i;
         }
+
+        Debug.Log(activeFood);
     }
 }

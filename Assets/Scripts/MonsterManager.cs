@@ -49,6 +49,7 @@ public class MonsterManager : MonoBehaviour
         Agent = Monster.GetComponent<NavMeshAgent>();
         Agent.updateRotation = false;
         Agent.updateUpAxis = false;
+        // for more information https://github.com/h8man/NavMeshPlus/wiki/HOW-TO#nav-mesh-basics
 
         // set colliders
         VisualRadar = Monster.transform.Find("VisualRadar").GetComponent<CircleCollider2D>();
@@ -57,12 +58,6 @@ public class MonsterManager : MonoBehaviour
 
         // start hunger and health decay
         StartCoroutine(HungerDecay());
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     public IEnumerator HungerDecay()
@@ -128,6 +123,7 @@ public class MonsterManager : MonoBehaviour
 
     public IEnumerator Walking()
     {
+        Debug.Log(MapManager.activeFood);
         // decide destination
         Vector2 destination = NearestFood();
 
