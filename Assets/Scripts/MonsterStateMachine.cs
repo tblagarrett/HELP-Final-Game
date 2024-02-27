@@ -81,6 +81,7 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
         }
         public override void OnUpdate()
         {
+            Debug.Log("Chek while walk");
             if (GetStateMachine<MonsterStateMachine>().Manager.chasing)
             {
                 GetStateMachine<MonsterStateMachine>().Manager.StopWalking();
@@ -89,6 +90,7 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
 
             if (GetStateMachine<MonsterStateMachine>().Manager.sleeping)
             {
+                Debug.Log("Enter sleep");
                 TransitionToState(MonsterState.MON_SLEEP);
             }
 

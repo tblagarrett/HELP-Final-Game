@@ -71,7 +71,5 @@ public class MapManager : MonoBehaviour
             activeFood[i] = currentFood.transform.position;
             currentFood.GetComponent<FoodScript>().foodArray = i;
         }
-
-        Debug.Log(activeFood);
     }
 }
