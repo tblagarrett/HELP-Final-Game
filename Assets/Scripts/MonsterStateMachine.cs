@@ -34,13 +34,14 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
         {
             // start anim
 
-            // it's visibility is max
-            GetStateMachine<MonsterStateMachine>().Manager.SetMax();
+            // start idle 
+            GetStateMachine<MonsterStateMachine>().Manager.StartIdle();
         }
         public override void OnUpdate()
         {
             if(GetStateMachine<MonsterStateMachine>().Manager.chasing)
             {
+                GetStateMachine<MonsterStateMachine>().Manager.StopIdle();
                 TransitionToState(MonsterState.MON_CHASE);
             }
 
@@ -51,6 +52,7 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
 
             if (GetStateMachine<MonsterStateMachine>().Manager.hurt)
             {
+                GetStateMachine<MonsterStateMachine>().Manager.StopIdle();
                 TransitionToState(MonsterState.MON_HURT);
             }
 
@@ -61,8 +63,8 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
         }
         public override void OnExit()
         {
-            // if hurt because of health decay return to idle
-            if(!GetStateMachine<MonsterStateMachine>().Manager.hurt)
+            // if hurt from hunger decay return to idle
+            if (!GetStateMachine<MonsterStateMachine>().Manager.hurt)
             {
                 GetStateMachine<MonsterStateMachine>().Manager.idle = false;
             }
@@ -74,9 +76,6 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
         {
             // start anim
 
-            // it's visibility is max
-            GetStateMachine<MonsterStateMachine>().Manager.SetMax();
-
             // start walking in one direction
             GetStateMachine<MonsterStateMachine>().Manager.StartWalking();
         }
@@ -84,6 +83,7 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
         {
             if (GetStateMachine<MonsterStateMachine>().Manager.chasing)
             {
+                GetStateMachine<MonsterStateMachine>().Manager.StopWalking();
                 TransitionToState(MonsterState.MON_CHASE);
             }
 
@@ -94,6 +94,7 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
 
             if (GetStateMachine<MonsterStateMachine>().Manager.hurt)
             {
+                GetStateMachine<MonsterStateMachine>().Manager.StopWalking();
                 TransitionToState(MonsterState.MON_HURT);
             }
 
@@ -119,25 +120,26 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
 
             // it's visibility is min
             GetStateMachine<MonsterStateMachine>().Manager.SetMin();
-            
+
             // start coroutine (sleep timer)
+            GetStateMachine<MonsterStateMachine>().Manager.StartSleep();
         }
         public override void OnUpdate()
         {
             if (GetStateMachine<MonsterStateMachine>().Manager.hurt)
             {
+                GetStateMachine<MonsterStateMachine>().Manager.StopSleep();
                 TransitionToState(MonsterState.MON_HURT);
             }
 
-            if (GetStateMachine<MonsterStateMachine>().Manager.idle) // return to idle once timer is up
+            if (!GetStateMachine<MonsterStateMachine>().Manager.sleeping) // return to idle once timer is up
             {
                 TransitionToState(MonsterState.MON_IDLE);
             }
         }
         public override void OnExit()
         {
-            // will not return to sleeping when hurt
-            GetStateMachine<MonsterStateMachine>().Manager.sleeping = false;
+            GetStateMachine<MonsterStateMachine>().Manager.SetMax();
         }
     }
     public class MonAttackState : AbstractState

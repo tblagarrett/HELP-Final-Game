@@ -23,11 +23,11 @@ public class MonsterManager : MonoBehaviour
     [SerializeField] private int subHealth;
 
     // variables for state machine
-    public bool idle = true;
-    public bool chasing = false;
+    public bool idle = true;        // 1
+    public bool sleeping = false;   // 2
+    public bool walking = false;    // 3, 4
     public bool attacking = false;
-    public bool walking = false;
-    public bool sleeping = false;
+    public bool chasing = false;
     public bool hurt = false;
 
     // random timer for states
@@ -49,12 +49,12 @@ public class MonsterManager : MonoBehaviour
         Agent = Monster.GetComponent<NavMeshAgent>();
 
         // set colliders
-        VisualRadar = Monster.GetComponent<CircleCollider2D>();
+        VisualRadar = Monster.transform.Find("VisualRadar").GetComponent<CircleCollider2D>();
         VisualRadar.radius = Monster.curVisRadius;
+        Debug.Log("set vis");
 
         // start hunger and health decay
         StartCoroutine(HungerDecay());
-
     }
 
     // Update is called once per frame
@@ -103,7 +103,28 @@ public class MonsterManager : MonoBehaviour
         VisualRadar.radius = Monster.curVisRadius;
     }
 
-    public IEnumerator StartWalking()
+    public IEnumerator Idle()
+    {
+        if(idle) // if entering idle state to be idle
+        {
+            timer = Random.Range(1f, 5f);
+            yield return new WaitForSeconds(timer);
+        } // else only entering idle to switch to another state
+
+        int state = Random.Range(2, 5); // choose to walk or to sleep
+        if(state > 2) { walking = true; } else { sleeping = true; }
+    }
+
+    public IEnumerator Sleep()
+    {
+        timer = Random.Range(1f, 5f);
+        yield return new WaitForSeconds(timer);
+
+        // finish sleeping
+        sleeping = false;
+    }
+
+    public IEnumerator Walking()
     {
         // decide destination
         Vector2 destination = NearestFood();
@@ -128,6 +149,10 @@ public class MonsterManager : MonoBehaviour
         // end of timer stop walking
         yield return new WaitForSeconds(timer);
         Agent.ResetPath();
+
+        // choose new state
+        int state = Random.Range(1, 5); // choose to walk, sleep, or idle
+        if (state > 2) { walking = true; } else if (state == 2) { sleeping = true; } else { idle = true; }
     }
 
     // iterates through all active food
@@ -164,5 +189,52 @@ public class MonsterManager : MonoBehaviour
         {
             return MapManager.activeFood[curFood]; // return closest food
         }
+    }
+
+    public void Chasing()
+    {
+        Agent.SetDestination(PlayerManager.transform.position);
+    }
+
+    public void Attacking()
+    {
+        // instantiate attack collider where monster is facing
+    }
+
+    // for player to use when attacking monster
+    public void HurtMonster(int damage)
+    {
+        Monster.health -= damage;
+        hurt = true;
+    }
+
+    // functions for statemachine to start and stop coroutines
+    public void StartIdle()
+    {
+        StartCoroutine(Idle());
+    }
+
+    public void StopIdle()
+    {
+        StopCoroutine(Idle());
+    }
+    public void StartSleep()
+    {
+        StartCoroutine(Sleep());
+    }
+
+    public void StopSleep()
+    {
+        sleeping = false;
+        StopCoroutine(Walking());
+    }
+    public void StartWalking()
+    {
+        StartCoroutine(Walking());
+    }
+
+    public void StopWalking()
+    {
+        StopCoroutine(Walking());
     }
 }
