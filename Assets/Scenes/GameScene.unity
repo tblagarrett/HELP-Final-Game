@@ -759,6 +759,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 10
   hunger: 10
+  sRen: {fileID: 1523614343}
 --- !u!1 &1545092871
 GameObject:
   m_ObjectHideFlags: 0
@@ -918,6 +919,17 @@ MonoBehaviour:
   m_YawDamping: 0
   m_RollDamping: 0
   m_AngularDamping: 0
+--- !u!114 &1656614055 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 49442012906171472, guid: 33a2b5fab21b08a42be9cd60d27be140, type: 3}
+  m_PrefabInstance: {fileID: 1116114890}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c4330ab286e36c4797e26283c00d7ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1853509044 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2792929356791042316, guid: 27fd6f60fab0c1c48a2f68b11cbf973c, type: 3}
@@ -969,6 +981,22 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1071189275063388305, guid: 9c9729c529a1b464382befa60b79deb2, type: 3}
+      propertyPath: up
+      value: 
+      objectReference: {fileID: 6039401644064406039, guid: e5a291bcb9a3b9646a5c03b1ca8f7f9b, type: 3}
+    - target: {fileID: 1071189275063388305, guid: 9c9729c529a1b464382befa60b79deb2, type: 3}
+      propertyPath: down
+      value: 
+      objectReference: {fileID: 9055872910609982296, guid: 07c881533ec92ff49ac6df65a7b25b85, type: 3}
+    - target: {fileID: 1071189275063388305, guid: 9c9729c529a1b464382befa60b79deb2, type: 3}
+      propertyPath: left
+      value: 
+      objectReference: {fileID: 2906429255372920327, guid: fdc90126dc3035a4fb03cd9dee62b706, type: 3}
+    - target: {fileID: 1071189275063388305, guid: 9c9729c529a1b464382befa60b79deb2, type: 3}
+      propertyPath: right
+      value: 
+      objectReference: {fileID: -5249313409927821884, guid: 265069e02e5fe174b83d8d58665af981, type: 3}
+    - target: {fileID: 1071189275063388305, guid: 9c9729c529a1b464382befa60b79deb2, type: 3}
       propertyPath: Player
       value: 
       objectReference: {fileID: 1523614345}
@@ -979,6 +1007,14 @@ PrefabInstance:
     - target: {fileID: 1071189275063388305, guid: 9c9729c529a1b464382befa60b79deb2, type: 3}
       propertyPath: subHunger
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1071189275063388305, guid: 9c9729c529a1b464382befa60b79deb2, type: 3}
+      propertyPath: MonsterMan
+      value: 
+      objectReference: {fileID: 1656614055}
+    - target: {fileID: 1071189275063388305, guid: 9c9729c529a1b464382befa60b79deb2, type: 3}
+      propertyPath: slashDelay
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 1071189275063388305, guid: 9c9729c529a1b464382befa60b79deb2, type: 3}
       propertyPath: healthDelay

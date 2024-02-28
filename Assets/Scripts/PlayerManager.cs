@@ -34,6 +34,12 @@ public class PlayerManager : MonoBehaviour
     public bool hurt = false;
     public bool attacking = false;
 
+    //anims
+    [SerializeField] private Sprite up;
+    [SerializeField] private Sprite down;
+    [SerializeField] private Sprite left;
+    [SerializeField] private Sprite right;
+
     private void Awake()
     {
         if (_instance != null && _instance != this)
@@ -51,6 +57,7 @@ public class PlayerManager : MonoBehaviour
     void Start()
     {
         rb = Player.GetComponent<Rigidbody2D>();
+        Player.sRen.sprite = down;
 
         StartCoroutine(HungerDecay());
 
@@ -64,6 +71,42 @@ public class PlayerManager : MonoBehaviour
         //y movement
         speedY = Input.GetAxisRaw("Vertical") * moveSpeed;
         rb.velocity = new Vector2(speedX, speedY).normalized * moveSpeed;
+
+        if(attacking == false && hurt == false)
+        {
+            if (Input.anyKey)
+            {
+                walking = true;
+                idle = false;
+            }
+            else
+            {
+                idle = true;
+                walking = false;
+            }
+        }
+
+        //check sprite based on movement
+        if(walking == true)
+        {
+            if(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
+            {
+                Player.sRen.sprite = up;
+            }
+            else if(Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
+            {
+                Player.sRen.sprite = down;
+            }
+            else if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
+            {
+                Player.sRen.sprite = left;
+            }
+            else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+            {
+                Player.sRen.sprite = right;
+            }
+        }
+
 
         //slash + coroutine
         if(Input.GetMouseButtonDown(0))
