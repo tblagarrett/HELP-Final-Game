@@ -15,6 +15,7 @@ public class MonsterManager : MonoBehaviour
     public GameObject Parent;
     public CircleCollider2D VisualRadar;
     public NavMeshAgent Agent;
+    private MonsterAttack MonAttack;
 
     // variables for hunger and healh decay
     [SerializeField] private float hungerDelay;
@@ -43,7 +44,10 @@ public class MonsterManager : MonoBehaviour
     // 1 = y axis;
     private int axis;
 
-    //public PlayerManager Player;
+    // variables for attacking
+    public bool enter = false;
+    public bool stay = false;
+    public bool exit = false;
 
     void Start()
     {
@@ -208,7 +212,12 @@ public class MonsterManager : MonoBehaviour
 
     public void Attacking()
     {
-        // instantiate attack collider where monster is facing
+        MonAttack.TurnOnAttack();
+    }
+
+    public void HurtPlayer()
+    {
+
     }
 
     // temp hurt timer
