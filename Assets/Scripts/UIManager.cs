@@ -2,11 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum GameMenu
 {
     None,
-    MainMenu
+    MainMenu,
+    Options,
+    Credits,
+    GameOver
 }
 
 public class UIManager : MonoBehaviour
@@ -119,5 +123,11 @@ public class UIManager : MonoBehaviour
     public void Exit()
     {
         Application.Quit();
+    }
+
+    public void GoToGameScene()
+    {
+        SceneManager.LoadScene("GameScene", LoadSceneMode.Single);
+        GoToMenu(GameMenu.None);
     }
 }
