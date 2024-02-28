@@ -6,16 +6,28 @@ public class MonsterVisualRadar : MonoBehaviour
 {
     public MonsterManager Manager;
 
-    private void OnTriggerEnter(Collider other)
+    private void Start()
     {
-        if (other.CompareTag("Player")) {
+        Manager = transform.parent.parent.GetComponent<MonsterManager>();
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log("Seen");
+        if (collision.gameObject.tag == "Player") {
             Manager.chasing = true;
         }
     }
-
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerStay2D(Collider2D collision)
     {
-        if (other.CompareTag("Player"))
+        if (collision.gameObject.tag == "Player")
+        {
+            Manager.Chasing(collision);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
         {
             Manager.chasing = false;
         }

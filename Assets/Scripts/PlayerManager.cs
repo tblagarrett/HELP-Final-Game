@@ -11,7 +11,7 @@ public class PlayerManager : MonoBehaviour
     private Rigidbody2D rb;
 
     //player objects
-    [SerializeField] private PlayerScripts Player;
+    public PlayerScripts Player;
     [SerializeField] private PlayerStateMachine PlayerSM;
 
     //monster ref
