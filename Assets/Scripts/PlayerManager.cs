@@ -5,11 +5,7 @@ using KevinCastejon.FiniteStateMachine;
 
 public class PlayerManager : MonoBehaviour
 {
-    //movement vars
-    [SerializeField] private float moveSpeed;
-    float speedX, speedY;
     private Rigidbody2D rb;
-
     //player objects
     public PlayerScripts Player;
     [SerializeField] private PlayerStateMachine PlayerSM;
@@ -35,10 +31,10 @@ public class PlayerManager : MonoBehaviour
     public bool attacking = false;
 
     //anims
-    [SerializeField] private Sprite up;
-    [SerializeField] private Sprite down;
-    [SerializeField] private Sprite left;
-    [SerializeField] private Sprite right;
+    public Sprite up;
+    public Sprite down;
+    public Sprite left;
+    public Sprite right;
 
     private void Awake()
     {
@@ -66,11 +62,11 @@ public class PlayerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //x movement
-        speedX = Input.GetAxisRaw("Horizontal") * moveSpeed;
-        //y movement
-        speedY = Input.GetAxisRaw("Vertical") * moveSpeed;
-        rb.velocity = new Vector2(speedX, speedY).normalized * moveSpeed;
+        //setting state
+        if(Input.anyKey == false)
+        {
+            idle = true;
+        }
 
         if(attacking == false && hurt == false)
         {
@@ -86,28 +82,7 @@ public class PlayerManager : MonoBehaviour
             }
         }
 
-        //check sprite based on movement
-        if(walking == true)
-        {
-            if(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
-            {
-                Player.sRen.sprite = up;
-            }
-            else if(Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
-            {
-                Player.sRen.sprite = down;
-            }
-            else if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
-            {
-                Player.sRen.sprite = left;
-            }
-            else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
-            {
-                Player.sRen.sprite = right;
-            }
-        }
-
-
+        
         //slash + coroutine
         if(Input.GetMouseButtonDown(0))
         {
@@ -148,8 +123,9 @@ public class PlayerManager : MonoBehaviour
     public IEnumerator HealthDecay()
     {
         ModHealth(-subHealth);
-        yield return new WaitForSeconds(healthDelay);
         hurt = true;
+        yield return new WaitForSeconds(healthDelay);
+        hurt = false;
 
         if (Player.hunger <= 0 && Player.health != 0)
         {
