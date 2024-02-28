@@ -14,7 +14,7 @@ public class MonsterManager : MonoBehaviour
     public MonsterScript Monster;
     public GameObject Parent;
     public CircleCollider2D VisualRadar;
-    private NavMeshAgent Agent;
+    public NavMeshAgent Agent;
 
     // variables for hunger and healh decay
     [SerializeField] private float hungerDelay;
@@ -49,7 +49,6 @@ public class MonsterManager : MonoBehaviour
     {
         // instantiate monster into the scene
         Monster = Instantiate(Monster, Parent.transform);
-        Monster.GetComponent<BoxCollider2D>().tag = "Monster";
 
         // navmeshagent
         Agent = Monster.GetComponent<NavMeshAgent>();
@@ -139,13 +138,13 @@ public class MonsterManager : MonoBehaviour
         axis = Random.Range(0, 2);
 
         // create destination for axis
-        if(axis == 0)
+        /*if(axis == 0)
         {
             destination = new Vector2(destination.x, Monster.transform.position.y);
         } else
         {
             destination = new Vector2(Monster.transform.position.x, destination.y);
-        }
+        }*/
 
         // decide how long to walk in this direction
         timer = Random.Range(2f, 7f);
@@ -201,10 +200,10 @@ public class MonsterManager : MonoBehaviour
         }
     }
 
-    public void Chasing()
+    public void Chasing(Collider2D player)
     {
         Debug.Log("Chasing");
-        Agent.SetDestination(PlayerManager.transform.position);
+        Agent.SetDestination(player.transform.position);
     }
 
     public void Attacking()
@@ -263,5 +262,12 @@ public class MonsterManager : MonoBehaviour
     public void StartHurting()
     {
         StartCoroutine(Hurting());
+    }
+
+    public void StopChasing()
+    {
+        Agent.ResetPath();
+        Agent.speed /= 2;
+        Agent.angularSpeed /= 2;
     }
 }

@@ -43,7 +43,10 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
         {
             if(GetStateMachine<MonsterStateMachine>().Manager.chasing)
             {
-                GetStateMachine<MonsterStateMachine>().Manager.StopIdle();
+                if (GetStateMachine<MonsterStateMachine>().Manager.idle)
+                {
+                    GetStateMachine<MonsterStateMachine>().Manager.StopIdle();
+                }
                 TransitionToState(MonsterState.MON_CHASE);
             }
 
@@ -54,7 +57,10 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
 
             if (GetStateMachine<MonsterStateMachine>().Manager.hurt)
             {
-                GetStateMachine<MonsterStateMachine>().Manager.StopIdle();
+                if (GetStateMachine<MonsterStateMachine>().Manager.idle)
+                {
+                    GetStateMachine<MonsterStateMachine>().Manager.StopIdle();
+                }
                 TransitionToState(MonsterState.MON_HURT);
             }
 
@@ -204,7 +210,10 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
         public override void OnEnter()
         {
             // start anim
-            
+
+            // speed up
+            GetStateMachine<MonsterStateMachine>().Manager.Agent.speed *= 2;
+            GetStateMachine<MonsterStateMachine>().Manager.Agent.angularSpeed *= 2;
         }
         public override void OnUpdate()
         {
@@ -227,7 +236,7 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
         }
         public override void OnExit()
         {
-          
+            GetStateMachine<MonsterStateMachine>().Manager.StopChasing();
         }
     }
     public class MonDeathState : AbstractState

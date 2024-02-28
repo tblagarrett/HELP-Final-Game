@@ -5,8 +5,12 @@ using UnityEngine;
 public class MonsterHitRadar : MonoBehaviour
 {
     public MonsterManager Manager;
+    private void Start()
+    {
+        Manager = transform.parent.parent.GetComponent<MonsterManager>();
+    }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
