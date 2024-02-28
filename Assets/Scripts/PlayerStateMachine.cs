@@ -6,6 +6,10 @@ using System.Threading;
 
 public class PlayerStateMachine : AbstractFiniteStateMachine
 {
+    //movement vars
+    [SerializeField] private float moveSpeed;
+    float speedX, speedY;
+    private Rigidbody2D rb;
     public PlayerManager PlayMan { get; set; }
     public enum PlayerState
     {
@@ -25,6 +29,7 @@ public class PlayerStateMachine : AbstractFiniteStateMachine
         );
 
         PlayMan = transform.GetComponent<PlayerManager>();
+        rb = PlayMan.Player.GetComponent<Rigidbody2D>();
     }
 
     public class PlayIdleState : AbstractState
@@ -64,6 +69,31 @@ public class PlayerStateMachine : AbstractFiniteStateMachine
         }
         public override void OnUpdate()
         {
+            //x movement
+            GetStateMachine<PlayerStateMachine>().speedX = Input.GetAxisRaw("Horizontal") * GetStateMachine<PlayerStateMachine>().moveSpeed;
+            //y movement
+            GetStateMachine<PlayerStateMachine>().speedY = Input.GetAxisRaw("Vertical") * GetStateMachine<PlayerStateMachine>().moveSpeed;
+            GetStateMachine<PlayerStateMachine>().rb.velocity = new Vector2(GetStateMachine<PlayerStateMachine>().speedX, GetStateMachine<PlayerStateMachine>().speedY).normalized * GetStateMachine<PlayerStateMachine>().moveSpeed;
+
+            //check sprite based on movement
+            if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
+            {
+                GetStateMachine<PlayerStateMachine>().PlayMan.Player.sRen.sprite = GetStateMachine<PlayerStateMachine>().PlayMan.up;
+            }
+            else if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
+            {
+                GetStateMachine<PlayerStateMachine>().PlayMan.Player.sRen.sprite = GetStateMachine<PlayerStateMachine>().PlayMan.down;
+            }
+            else if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
+            {
+                GetStateMachine<PlayerStateMachine>().PlayMan.Player.sRen.sprite = GetStateMachine<PlayerStateMachine>().PlayMan.left;
+            }
+            else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+            {
+                GetStateMachine<PlayerStateMachine>().PlayMan.Player.sRen.sprite = GetStateMachine<PlayerStateMachine>().PlayMan.right;
+            }
+
+
             if (GetStateMachine<PlayerStateMachine>().PlayMan.idle)
             {
                 TransitionToState(PlayerState.PLAY_IDLE);
