@@ -10,6 +10,9 @@ public class PlayerStateMachine : AbstractFiniteStateMachine
     [SerializeField] private float moveSpeed;
     float speedX, speedY;
     private Rigidbody2D rb;
+
+    //facing vars
+    Vector2 mousePos;
     public PlayerManager PlayMan { get; set; }
     public enum PlayerState
     {
@@ -36,11 +39,40 @@ public class PlayerStateMachine : AbstractFiniteStateMachine
     {
         public override void OnEnter()
         {
+            //set mouse position
+            GetStateMachine<PlayerStateMachine>().mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
             //start anim
 
         }
         public override void OnUpdate()
         {
+            //player facing follows mouse
+            Vector2 playerPos = GetStateMachine<PlayerStateMachine>().PlayMan.Player.transform.position;
+            //set mouse position
+            GetStateMachine<PlayerStateMachine>().mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 dir = GetStateMachine<PlayerStateMachine>().mousePos - playerPos;
+
+            //mouse angle relative to player
+            float angle = (Mathf.Atan2(dir.y, dir.x)) * Mathf.Rad2Deg;
+
+            if((angle < 45 && angle >= 0) || (angle <= 360 && angle > 315))
+            {
+                GetStateMachine<PlayerStateMachine>().PlayMan.Player.sRen.sprite = GetStateMachine<PlayerStateMachine>().PlayMan.right;
+            }
+            else if(angle < 315 && angle > 225)
+            {
+                GetStateMachine<PlayerStateMachine>().PlayMan.Player.sRen.sprite = GetStateMachine<PlayerStateMachine>().PlayMan.down;
+            }
+            else if(angle < -45 && angle > -135)
+            {
+                GetStateMachine<PlayerStateMachine>().PlayMan.Player.sRen.sprite = GetStateMachine<PlayerStateMachine>().PlayMan.left;
+            }
+            else if(angle < 135 && angle > 45)
+            {
+                GetStateMachine<PlayerStateMachine>().PlayMan.Player.sRen.sprite = GetStateMachine<PlayerStateMachine>().PlayMan.up;
+            }
+
             if (GetStateMachine<PlayerStateMachine>().PlayMan.walking)
             {
                 TransitionToState(PlayerState.PLAY_WALK);
