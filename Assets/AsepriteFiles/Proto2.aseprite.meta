@@ -130,7 +130,7 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 84
+      width: 54
       height: 96
     spriteID: 78b5cf7a022aae44e9825533deb708ac
     spriteBone: []
@@ -153,9 +153,9 @@ ScriptedImporter:
     - name: Proto2
       frameIndex: 0
       cellRect:
-        x: 6
+        x: 21
         y: 0
-        width: 84
+        width: 54
         height: 96
       spriteId: 78b5cf7a022aae44e9825533deb708ac
     linkedCells: []
