@@ -13,7 +13,8 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
         MON_SLEEP,
         MON_ATTACK,
         MON_HURT,
-        MON_CHASE
+        MON_CHASE,
+        MON_DEATH
     }
     private void Awake()
     {
@@ -23,7 +24,8 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
             AbstractState.Create<MonSleepState, MonsterState>(MonsterState.MON_SLEEP, this),
             AbstractState.Create<MonAttackState, MonsterState>(MonsterState.MON_ATTACK, this),
             AbstractState.Create<MonHurtState, MonsterState>(MonsterState.MON_HURT, this),
-            AbstractState.Create<MonChaseState, MonsterState>(MonsterState.MON_CHASE, this)
+            AbstractState.Create<MonChaseState, MonsterState>(MonsterState.MON_CHASE, this),
+            AbstractState.Create<MonDeathState, MonsterState>(MonsterState.MON_DEATH, this)
         );
 
         Manager = transform.GetComponent<MonsterManager>();
@@ -81,7 +83,7 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
         }
         public override void OnUpdate()
         {
-            Debug.Log("Chek while walk");
+            //Debug.Log("Chek while walk");
             if (GetStateMachine<MonsterStateMachine>().Manager.chasing)
             {
                 GetStateMachine<MonsterStateMachine>().Manager.StopWalking();
@@ -96,6 +98,7 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
 
             if (GetStateMachine<MonsterStateMachine>().Manager.hurt)
             {
+                Debug.Log("Hurt");
                 GetStateMachine<MonsterStateMachine>().Manager.StopWalking();
                 TransitionToState(MonsterState.MON_HURT);
             }
@@ -173,19 +176,26 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
         public override void OnEnter()
         {
             // start anim
-
+            GetStateMachine<MonsterStateMachine>().Manager.StartHurting();
         }
         public override void OnUpdate()
         {
-            if (GetStateMachine<MonsterStateMachine>().Manager.idle) // change to if anim over
+            if (!GetStateMachine<MonsterStateMachine>().Manager.hurt) // change to if anim over
             {
+                // if health reaches 0 die
+                if(GetStateMachine<MonsterStateMachine>().Manager.Monster.health == 0)
+                {
+                    TransitionToState(MonsterState.MON_DEATH);
+                }
+
+                Debug.Log("Back to idle");
                 // send back to idle which will send it back to it's previous state
                 TransitionToState(MonsterState.MON_IDLE);
             }
         }
         public override void OnExit()
         {
-            GetStateMachine<MonsterStateMachine>().Manager.hurt = false;
+            //GetStateMachine<MonsterStateMachine>().Manager.hurt = false;
         }
     }
 
@@ -218,6 +228,21 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
         public override void OnExit()
         {
           
+        }
+    }
+    public class MonDeathState : AbstractState
+    {
+        public override void OnEnter()
+        {
+            // start anim
+            GetStateMachine<MonsterStateMachine>().Manager.Monster.enabled = false;
+        }
+        public override void OnUpdate()
+        {
+
+        }
+        public override void OnExit()
+        {
         }
     }
 }

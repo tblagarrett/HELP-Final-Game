@@ -30,6 +30,11 @@ public class MonsterManager : MonoBehaviour
     public bool chasing = false;
     public bool hurt = false;
 
+    // variables to store coroutines
+    private Coroutine IdleCo;
+    private Coroutine SleepCo;
+    private Coroutine WalkCo;
+
     // random timer for states
     private float timer;
 
@@ -44,6 +49,7 @@ public class MonsterManager : MonoBehaviour
     {
         // instantiate monster into the scene
         Monster = Instantiate(Monster, Parent.transform);
+        Monster.GetComponent<BoxCollider2D>().tag = "Monster";
 
         // navmeshagent
         Agent = Monster.GetComponent<NavMeshAgent>();
@@ -142,7 +148,7 @@ public class MonsterManager : MonoBehaviour
         }
 
         // decide how long to walk in this direction
-        timer = Random.Range(1f, 5f);
+        timer = Random.Range(2f, 7f);
 
         Debug.Log(destination);
         Debug.Log(Monster.transform.position);
@@ -206,6 +212,15 @@ public class MonsterManager : MonoBehaviour
         // instantiate attack collider where monster is facing
     }
 
+    // temp hurt timer
+    public IEnumerator Hurting()
+    {
+        Debug.Log("Start hurting");
+        yield return new WaitForSeconds(0.5f);
+        Debug.Log("Stop hurting");
+        hurt = false;
+    }
+
     // for player to use when attacking monster
     public void HurtMonster(int damage)
     {
@@ -216,30 +231,37 @@ public class MonsterManager : MonoBehaviour
     // functions for statemachine to start and stop coroutines
     public void StartIdle()
     {
-        StartCoroutine(Idle());
+        IdleCo = StartCoroutine(Idle());
     }
 
     public void StopIdle()
     {
-        StopCoroutine(Idle());
+        StopCoroutine(IdleCo);
     }
     public void StartSleep()
     {
-        StartCoroutine(Sleep());
+        SleepCo = StartCoroutine(Sleep());
     }
 
     public void StopSleep()
     {
         sleeping = false;
-        StopCoroutine(Walking());
+        StopCoroutine(SleepCo);
     }
     public void StartWalking()
     {
-        StartCoroutine(Walking());
+        WalkCo = StartCoroutine(Walking());
     }
 
     public void StopWalking()
     {
-        StopCoroutine(Walking());
+        Debug.Log("Stop Walking coroutine");
+        Agent.ResetPath();
+        StopCoroutine(WalkCo);
+    }
+
+    public void StartHurting()
+    {
+        StartCoroutine(Hurting());
     }
 }
