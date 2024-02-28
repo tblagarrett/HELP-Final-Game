@@ -102,7 +102,8 @@ public class MonsterManager : MonoBehaviour
 
     public IEnumerator Idle()
     {
-        if(idle) // if entering idle state to be idle
+        Debug.Log("Idle");
+        if (idle) // if entering idle state to be idle
         {
             timer = Random.Range(1f, 5f);
             yield return new WaitForSeconds(timer);
@@ -114,6 +115,7 @@ public class MonsterManager : MonoBehaviour
 
     public IEnumerator Sleep()
     {
+        Debug.Log("Sleep");
         timer = Random.Range(1f, 5f);
         yield return new WaitForSeconds(timer);
 
@@ -123,7 +125,7 @@ public class MonsterManager : MonoBehaviour
 
     public IEnumerator Walking()
     {
-        Debug.Log(MapManager.activeFood);
+        Debug.Log("Walking");
         // decide destination
         Vector2 destination = NearestFood();
 
@@ -142,15 +144,19 @@ public class MonsterManager : MonoBehaviour
         // decide how long to walk in this direction
         timer = Random.Range(1f, 5f);
 
+        Debug.Log(destination);
+        Debug.Log(Monster.transform.position);
         Agent.SetDestination(destination);
 
         // end of timer stop walking
         yield return new WaitForSeconds(timer);
         Agent.ResetPath();
 
+        Debug.Log("Stop Walk");
         // choose new state
         int state = Random.Range(1, 5); // choose to walk, sleep, or idle
-        if (state > 2) { walking = true; } else if (state == 2) { sleeping = true; } else { idle = true; }
+        Debug.Log(state);
+        if (state > 2) { StartWalking(); } else if (state == 2) { sleeping = true; Debug.Log("seelpign truw"); } else { idle = true; }
     }
 
     // iterates through all active food
@@ -191,6 +197,7 @@ public class MonsterManager : MonoBehaviour
 
     public void Chasing()
     {
+        Debug.Log("Chasing");
         Agent.SetDestination(PlayerManager.transform.position);
     }
 
