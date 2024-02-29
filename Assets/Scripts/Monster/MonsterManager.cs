@@ -35,6 +35,7 @@ public class MonsterManager : MonoBehaviour
     private Coroutine IdleCo;
     private Coroutine SleepCo;
     private Coroutine WalkCo;
+    private Coroutine AttackCo;
 
     // random timer for states
     private float timer;
@@ -45,9 +46,11 @@ public class MonsterManager : MonoBehaviour
     private int axis;
 
     // variables for attacking
-    public bool enter = false;
     public bool stay = false;
-    public bool exit = false;
+    public bool chasingAttack = false;
+    [SerializeField] private bool chasingAttackDelay = false;
+    [SerializeField] private float attackDelay;
+    [SerializeField] private int attackDamage;
 
     void Start()
     {
@@ -208,16 +211,41 @@ public class MonsterManager : MonoBehaviour
     {
         Debug.Log("Chasing");
         Agent.SetDestination(player.transform.position);
+        AttackCo = StartCoroutine(ChaseAttack());
     }
 
-    public void Attacking()
+    private IEnumerator ChaseAttack()
+    {
+        if(attacking) { 
+            chasingAttack = true;
+        }
+    }
+
+    public IEnumerator Attacking()
     {
         MonAttack.TurnOnAttack();
+        
+        // delay attack
+        attacking = false;
+        yield return new WaitForSeconds(attackDelay);
+
+        // now start checking for collision
+        attacking = true;
+    }
+
+    public void EndAttack()
+    {
+        attacking = false;
+        MonAttack.TurnOffAttack();
     }
 
     public void HurtPlayer()
     {
-
+        if(stay && attacking)
+        {
+            PlayerManager.ModHealth(attackDamage);
+            attacking = false;
+        }
     }
 
     // temp hurt timer
@@ -278,5 +306,10 @@ public class MonsterManager : MonoBehaviour
         Agent.ResetPath();
         Agent.speed /= 2;
         Agent.angularSpeed /= 2;
+        chasingAttack = false;
+    }
+    public void StartAttacking()
+    {
+        StartCoroutine(Attacking());
     }
 }

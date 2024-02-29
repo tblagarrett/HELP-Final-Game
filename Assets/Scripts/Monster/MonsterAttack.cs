@@ -4,30 +4,22 @@ using UnityEngine;
 
 public class MonsterAttack : MonoBehaviour
 {
-    private BoxCollider2D collider;
+    private BoxCollider2D hitCollider;
     public MonsterManager Manager;
 
     // Start is called before the first frame update
     void Start()
     {
-        collider = GetComponent<BoxCollider2D>();
+        hitCollider = GetComponent<BoxCollider2D>();
     }
 
     public void TurnOnAttack()
     {
-        collider.enabled = true;
+        hitCollider.enabled = true;
     }
     public void TurnOffAttack()
     {
-        collider.enabled = false;
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            Manager.enter = true;
-        }
+        hitCollider.enabled = false;
     }
 
     private void OnTriggerStay2D(Collider2D other)
@@ -42,7 +34,7 @@ public class MonsterAttack : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Manager.exit = true;
+            Manager.stay = false;
         }
     }
 }
