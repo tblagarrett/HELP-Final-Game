@@ -8,6 +8,7 @@ public class PlayerManager : MonoBehaviour
     private Rigidbody2D rb;
     //player objects
     public PlayerScripts Player;
+    public GameObject stick;
     [SerializeField] private PlayerStateMachine PlayerSM;
 
     //monster ref
@@ -36,6 +37,8 @@ public class PlayerManager : MonoBehaviour
     public Sprite left;
     public Sprite right;
 
+    public Animator anim;
+
     private void Awake()
     {
         if (_instance != null && _instance != this)
@@ -53,15 +56,19 @@ public class PlayerManager : MonoBehaviour
     void Start()
     {
         rb = Player.GetComponent<Rigidbody2D>();
+        anim = stick.GetComponent<Animator>();
         Player.sRen.sprite = down;
 
         StartCoroutine(HungerDecay());
+
+        stick.SetActive(false);
 
     }
 
     // Update is called once per frame
     void Update()
     {
+        
         //setting state
         if(Input.anyKey == false)
         {

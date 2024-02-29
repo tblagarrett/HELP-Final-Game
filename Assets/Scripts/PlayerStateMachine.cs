@@ -178,10 +178,42 @@ public class PlayerStateMachine : AbstractFiniteStateMachine
         public override void OnEnter()
         {
             //start anim
-
+            GetStateMachine<PlayerStateMachine>().PlayMan.stick.SetActive(true);
         }
         public override void OnUpdate()
         {
+            //check mouse relative to player angle
+            Vector2 playerPos = GetStateMachine<PlayerStateMachine>().PlayMan.Player.transform.position;
+            //set mouse position
+            GetStateMachine<PlayerStateMachine>().mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 dir = GetStateMachine<PlayerStateMachine>().mousePos - playerPos;
+
+            //mouse angle relative to player
+            float angle = (Mathf.Atan2(dir.y, dir.x)) * Mathf.Rad2Deg;
+
+            if ((angle < 45 && angle >= 0) || (angle <= 360 && angle > 315))
+            {
+                GetStateMachine<PlayerStateMachine>().PlayMan.Player.sRen.sprite = GetStateMachine<PlayerStateMachine>().PlayMan.right;
+                GetStateMachine<PlayerStateMachine>().PlayMan.anim.Play("Right Swing");
+
+            }
+            else if (angle < 315 && angle > 225)
+            {
+                GetStateMachine<PlayerStateMachine>().PlayMan.Player.sRen.sprite = GetStateMachine<PlayerStateMachine>().PlayMan.down;
+                GetStateMachine<PlayerStateMachine>().PlayMan.anim.Play("Down Swing");
+            }
+            else if (angle < -45 && angle > -135)
+            {
+                GetStateMachine<PlayerStateMachine>().PlayMan.Player.sRen.sprite = GetStateMachine<PlayerStateMachine>().PlayMan.left;
+                GetStateMachine<PlayerStateMachine>().PlayMan.anim.Play("Left Swing");
+            }
+            else if (angle < 135 && angle > 45)
+            {
+                GetStateMachine<PlayerStateMachine>().PlayMan.Player.sRen.sprite = GetStateMachine<PlayerStateMachine>().PlayMan.up;
+                GetStateMachine<PlayerStateMachine>().PlayMan.anim.Play("Up Swing");
+            }
+
+
             if (GetStateMachine<PlayerStateMachine>().PlayMan.walking)
             {
                 TransitionToState(PlayerState.PLAY_WALK);
@@ -198,6 +230,7 @@ public class PlayerStateMachine : AbstractFiniteStateMachine
         public override void OnExit()
         {
             //do stuff
+            GetStateMachine<PlayerStateMachine>().PlayMan.stick.SetActive(true);
         }
     }
 /*
