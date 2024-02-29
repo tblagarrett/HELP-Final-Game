@@ -7,6 +7,14 @@ public class MapManager : MonoBehaviour
 {
     [SerializeField] private Tilemap terrainMap;
     [SerializeField] private Tilemap objectMap;
+    [SerializeField] private GameObject backgroundImage;
+
+    // Fields for setting up the map generation
+    [SerializeField] private int mapSizeX;
+    [SerializeField] private int mapSizeY;
+    [SerializeField] Tile[] terrainTiles;
+    [SerializeField] private int terrainCount;
+
     [SerializeField] private GameObject foodPrefab;
     [SerializeField] private GameObject foodContainer;
     [SerializeField] private int howMuchFood;
@@ -35,6 +43,10 @@ public class MapManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Set the size of the background image to be the size of the map
+        backgroundImage.transform.localScale = new Vector3(mapSizeX, mapSizeY, 1);
+        generateMap();
+
         // Makes the size of the tilemap be bounded to the outermost tiles, basically it makes sure the size is right
         terrainMap.CompressBounds();
 
@@ -45,6 +57,19 @@ public class MapManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+    }
+
+    // Generate the random map using the tiles passed into terrainTiles
+    void generateMap()
+    {
+        for (int i = 0; i < terrainCount; i++)
+        {
+            // Get a random terrain tile
+            Tile tile = terrainTiles[Random.Range(0, terrainTiles.Length)];
+
+            Vector3Int position = new Vector3Int(Random.Range(-(mapSizeX/2) + 1, mapSizeX/2), Random.Range(-(mapSizeY/2) + 1, mapSizeY/2));
+            terrainMap.SetTile(position, tile);
+        }
     }
 
     // Generates food based on the size of the map, placed randomly within it
