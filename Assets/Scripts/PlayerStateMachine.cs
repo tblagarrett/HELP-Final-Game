@@ -231,6 +231,8 @@ public class PlayerStateMachine : AbstractFiniteStateMachine
         {
             //do stuff
             GetStateMachine<PlayerStateMachine>().PlayMan.stick.SetActive(true);
+            GetStateMachine<PlayerStateMachine>().PlayMan.idle = true;
+            TransitionToState(PlayerState.PLAY_IDLE);
         }
     }
 /*
