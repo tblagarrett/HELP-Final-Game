@@ -797,7 +797,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.86, y: 0.96}
+    oldSize: {x: 1.1, y: 1.92}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -875,7 +875,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 9055872910609982296, guid: 07c881533ec92ff49ac6df65a7b25b85, type: 3}
+  m_Sprite: {fileID: -6972091813066732394, guid: cf9628a3c00388e408f8d159983d7213, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1141,19 +1141,19 @@ PrefabInstance:
     - target: {fileID: 1071189275063388305, guid: 9c9729c529a1b464382befa60b79deb2, type: 3}
       propertyPath: up
       value: 
-      objectReference: {fileID: 6039401644064406039, guid: e5a291bcb9a3b9646a5c03b1ca8f7f9b, type: 3}
+      objectReference: {fileID: 2325108893702335704, guid: 7464bc7e56ecfb747951053a8b89d9aa, type: 3}
     - target: {fileID: 1071189275063388305, guid: 9c9729c529a1b464382befa60b79deb2, type: 3}
       propertyPath: down
       value: 
-      objectReference: {fileID: 9055872910609982296, guid: 07c881533ec92ff49ac6df65a7b25b85, type: 3}
+      objectReference: {fileID: -6972091813066732394, guid: cf9628a3c00388e408f8d159983d7213, type: 3}
     - target: {fileID: 1071189275063388305, guid: 9c9729c529a1b464382befa60b79deb2, type: 3}
       propertyPath: left
       value: 
-      objectReference: {fileID: 2906429255372920327, guid: fdc90126dc3035a4fb03cd9dee62b706, type: 3}
+      objectReference: {fileID: -4143886939304239777, guid: e8a329c891f752f44b2579795fa10e10, type: 3}
     - target: {fileID: 1071189275063388305, guid: 9c9729c529a1b464382befa60b79deb2, type: 3}
       propertyPath: right
       value: 
-      objectReference: {fileID: -5249313409927821884, guid: 265069e02e5fe174b83d8d58665af981, type: 3}
+      objectReference: {fileID: -8872771098430965044, guid: e18c0316b7067a34597e429dfcc5d7b6, type: 3}
     - target: {fileID: 1071189275063388305, guid: 9c9729c529a1b464382befa60b79deb2, type: 3}
       propertyPath: stick
       value: 
