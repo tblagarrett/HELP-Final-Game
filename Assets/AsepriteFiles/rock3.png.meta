@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: fdc90126dc3035a4fb03cd9dee62b706
+guid: fca25e6d7061c094680b63d57daefb1f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2906429255372920327
-    second: Proto2Left_0
+      213: -1027316089336844762
+    second: rock3_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Proto2Left_0
+      name: rock3_0
       rect:
         serializedVersion: 2
-        x: 20
-        y: 0
-        width: 56
-        height: 96
+        x: 29
+        y: 59
+        width: 134
+        height: 74
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -127,8 +127,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7065e434206b55820800000000000000
-      internalID: 2906429255372920327
+      spriteID: 62ea80fa57d3eb1f0800000000000000
+      internalID: -1027316089336844762
       vertices: []
       indices: 
       edges: []
@@ -143,8 +143,7 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable:
-      Proto2Left_0: 2906429255372920327
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
