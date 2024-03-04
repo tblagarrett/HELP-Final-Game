@@ -75,9 +75,18 @@ public class PlayerManager : MonoBehaviour
             idle = true;
         }
 
-        if(attacking == false && hurt == false)
+        //slash + coroutine
+        if (Input.GetMouseButtonDown(0))
         {
-            if (Input.anyKey)
+            walking = false;
+            idle = false;
+            Slash();
+        }
+
+        //checking walking
+        if (attacking == false && hurt == false)
+        {
+            if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow))
             {
                 walking = true;
                 idle = false;
@@ -89,15 +98,9 @@ public class PlayerManager : MonoBehaviour
             }
         }
 
+
         
-        //slash + coroutine
-        if(Input.GetMouseButtonDown(0))
-        {
-            walking = false;
-            idle = false;
-            hurt = false;
-            Slash();
-        }
+        
     }
 
     //health access func

@@ -142,6 +142,7 @@ public class PlayerStateMachine : AbstractFiniteStateMachine
         public override void OnExit()
         {
             //do stuff
+            GetStateMachine<PlayerStateMachine>().PlayMan.idle = true;
         }
     }
 
@@ -230,9 +231,8 @@ public class PlayerStateMachine : AbstractFiniteStateMachine
         public override void OnExit()
         {
             //do stuff
-            GetStateMachine<PlayerStateMachine>().PlayMan.stick.SetActive(true);
+            GetStateMachine<PlayerStateMachine>().PlayMan.stick.SetActive(false);
             GetStateMachine<PlayerStateMachine>().PlayMan.idle = true;
-            TransitionToState(PlayerState.PLAY_IDLE);
         }
     }
 /*
