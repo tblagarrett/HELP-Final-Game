@@ -2,17 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.UIElements;
 
 public class MapManager : MonoBehaviour
 {
     [SerializeField] private Tilemap terrainMap;
     [SerializeField] private Tilemap objectMap;
+    [SerializeField] private Tilemap groundMap;
     [SerializeField] private GameObject backgroundImage;
 
     // Fields for setting up the map generation
     [SerializeField] private int mapSizeX;
     [SerializeField] private int mapSizeY;
     [SerializeField] Tile[] terrainTiles;
+    [SerializeField] Tile groundTile;
     [SerializeField] private int terrainCount;
 
     [SerializeField] private GameObject foodPrefab;
@@ -62,6 +65,12 @@ public class MapManager : MonoBehaviour
     // Generate the random map using the tiles passed into terrainTiles
     void generateMap()
     {
+        // Place the background tiles
+        groundMap.origin = new Vector3Int(-mapSizeX/2, -mapSizeY/2);
+        groundMap.size = new Vector3Int(mapSizeX, mapSizeY);
+        groundMap.FloodFill(groundMap.origin, groundTile);
+        groundMap.ResizeBounds();
+
         for (int i = 0; i < terrainCount; i++)
         {
             // Get a random terrain tile
