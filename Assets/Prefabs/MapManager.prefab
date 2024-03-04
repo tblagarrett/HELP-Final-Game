@@ -594,7 +594,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 24
+  m_SortingOrder: -10
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -858,17 +858,15 @@ MonoBehaviour:
   mapSizeX: 20
   mapSizeY: 20
   terrainTiles:
-  - {fileID: 11400000, guid: 159a3f3b3b3e5a545bc98eb7fac26417, type: 2}
-  - {fileID: 11400000, guid: 6d694fb9c16545147986cdb6e238dbb8, type: 2}
-  - {fileID: 11400000, guid: 52d404af5d8f6484d89896d9670964af, type: 2}
-  - {fileID: 11400000, guid: a7c96c850f0e65342a30bedea2a66e4b, type: 2}
-  - {fileID: 11400000, guid: c22d77c86aff2454a80cf8510bdca6c4, type: 2}
-  - {fileID: 11400000, guid: b14b3e767513e2043835c1830c7d59a2, type: 2}
-  - {fileID: 11400000, guid: c8e02356ad715144293019e9a9092121, type: 2}
-  - {fileID: 11400000, guid: c3b2b4feb911cb74684eaa16e3b1411c, type: 2}
-  - {fileID: 11400000, guid: 1e0d4c02c3afb3749a5fa203b24068e7, type: 2}
-  - {fileID: 11400000, guid: 235ef2ff5d583584a925cbb99946db1c, type: 2}
-  - {fileID: 11400000, guid: 235ef2ff5d583584a925cbb99946db1c, type: 2}
+  - {fileID: 11400000, guid: c77bd74c4fe63b5498c1acd791b016f3, type: 2}
+  - {fileID: 11400000, guid: bf938288df656a64d812baaf6a71bbc9, type: 2}
+  - {fileID: 11400000, guid: 9a1686da6facf0349ab6c0471844e819, type: 2}
+  - {fileID: 11400000, guid: 36d96c6d70c9c9e47a6ec5c2f5a1ace7, type: 2}
+  - {fileID: 11400000, guid: c58027a02b0c6204eb78e034b55fe9c3, type: 2}
+  - {fileID: 11400000, guid: 3ba52a342fe281d478007567aa2871ab, type: 2}
+  - {fileID: 11400000, guid: 517c16156e3ae014588e8b5f3b9e8eaf, type: 2}
+  - {fileID: 11400000, guid: c22c75de25a073e438d3d5f48d801fb4, type: 2}
+  - {fileID: 11400000, guid: 9c8cc2fcbf2508b48998aa5c8fb07ae9, type: 2}
   groundTile: {fileID: 11400000, guid: b82927207e7a8be408b4bdc844a05d34, type: 2}
   terrainCount: 10
   foodPrefab: {fileID: 932342347511325503, guid: f823dd94245887741a983faa7e9b0d59, type: 3}
