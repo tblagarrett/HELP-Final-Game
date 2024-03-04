@@ -594,7 +594,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -10
+  m_SortingOrder: 24
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -855,7 +855,7 @@ MonoBehaviour:
   objectMap: {fileID: 6124475322556026845}
   groundMap: {fileID: 412208779666804311}
   backgroundImage: {fileID: 1353978608215838792}
-  mapSizeX: 30
+  mapSizeX: 20
   mapSizeY: 20
   terrainTiles:
   - {fileID: 11400000, guid: 159a3f3b3b3e5a545bc98eb7fac26417, type: 2}
