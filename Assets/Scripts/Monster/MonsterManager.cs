@@ -15,6 +15,7 @@ public class MonsterManager : MonoBehaviour
     public GameObject Parent;
     public CircleCollider2D VisualRadar;
     public NavMeshAgent Agent;
+    public MonsterAttack MonAttack;
 
     // variables for hunger and healh decay
     [SerializeField] private float hungerDelay;
@@ -34,6 +35,7 @@ public class MonsterManager : MonoBehaviour
     private Coroutine IdleCo;
     private Coroutine SleepCo;
     private Coroutine WalkCo;
+    private Coroutine AttackCo;
 
     // random timer for states
     private float timer;
@@ -43,7 +45,13 @@ public class MonsterManager : MonoBehaviour
     // 1 = y axis;
     private int axis;
 
-    //public PlayerManager Player;
+    // variables for attacking
+    public bool stay = false;
+    public bool chasingAttack = false;
+    [SerializeField] private float attackDelay;
+    [SerializeField] private int attackDamage;
+    [SerializeField] private int coolDownDelay;
+    private bool attackCoolDown = true;
 
     void Start()
     {
@@ -52,7 +60,7 @@ public class MonsterManager : MonoBehaviour
 
         // navmeshagent
         Agent = Monster.GetComponent<NavMeshAgent>();
-        Agent.updateRotation = false;
+        //Agent.updateRotation = false;
         Agent.updateUpAxis = false;
         // for more information https://github.com/h8man/NavMeshPlus/wiki/HOW-TO#nav-mesh-basics
 
@@ -204,11 +212,53 @@ public class MonsterManager : MonoBehaviour
     {
         Debug.Log("Chasing");
         Agent.SetDestination(player.transform.position);
+        ChaseAttack();
     }
 
-    public void Attacking()
+    public void ChaseAttack()
     {
-        // instantiate attack collider where monster is facing
+        if(attacking && attackCoolDown) { 
+            chasingAttack = true;
+        }
+    }
+
+    private IEnumerator AttackCool()
+    {
+        // delay next attack
+        attackCoolDown = false;
+        yield return new WaitForSeconds(coolDownDelay);
+        attackCoolDown = true;
+    }
+
+    public IEnumerator Attacking()
+    {
+        // start attack anim
+        MonAttack.TurnOnAttack();
+        
+        // delay attack
+        attacking = false;
+        yield return new WaitForSeconds(attackDelay);
+
+        // now start checking for collision
+        attacking = true;
+    }
+
+    public void EndAttack()
+    {
+        attacking = false;
+        MonAttack.TurnOffAttack();
+
+        // delay next attack
+        StartCoroutine(AttackCool());
+    }
+
+    public void HurtPlayer()
+    {
+        if(stay && attacking)
+        {
+            PlayerManager.ModHealth(attackDamage);
+            attacking = false;
+        }
     }
 
     // temp hurt timer
@@ -269,5 +319,10 @@ public class MonsterManager : MonoBehaviour
         Agent.ResetPath();
         Agent.speed /= 2;
         Agent.angularSpeed /= 2;
+        chasingAttack = false;
+    }
+    public void StartAttacking()
+    {
+        StartCoroutine(Attacking());
     }
 }

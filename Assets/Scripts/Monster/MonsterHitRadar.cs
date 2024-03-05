@@ -17,4 +17,18 @@ public class MonsterHitRadar : MonoBehaviour
             Manager.attacking = true;
         }
     }
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            Manager.attacking = true;
+        }
+    }
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            Manager.attacking = false;
+        }
+    }
 }
