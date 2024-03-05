@@ -53,21 +53,25 @@ public class MonsterManager : MonoBehaviour
     [SerializeField] private int coolDownDelay;
     private bool attackCoolDown = true;
 
-    void Start()
+    IEnumerator Start()
     {
+        yield return new WaitForFixedUpdate();
         // instantiate monster into the scene
         Monster = Instantiate(Monster, Parent.transform);
 
         // navmeshagent
         Agent = Monster.GetComponent<NavMeshAgent>();
-        //Agent.updateRotation = false;
+        Agent.updateRotation = false;
         Agent.updateUpAxis = false;
         // for more information https://github.com/h8man/NavMeshPlus/wiki/HOW-TO#nav-mesh-basics
 
         // set colliders
         VisualRadar = Monster.transform.Find("VisualRadar").GetComponent<CircleCollider2D>();
         VisualRadar.radius = Monster.curVisRadius;
-        Debug.Log("set vis");
+
+        // get monster attack
+        GameObject MonAttackChild = Monster.transform.GetChild(2).gameObject;
+        MonAttack = MonAttackChild.GetComponent<MonsterAttack>();
 
         // start hunger and health decay
         StartCoroutine(HungerDecay());

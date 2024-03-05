@@ -206,6 +206,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3039869692693654567, guid: 27fd6f60fab0c1c48a2f68b11cbf973c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2026108812}
+    - targetCorrespondingSourceObject: {fileID: 3039869692693654567, guid: 27fd6f60fab0c1c48a2f68b11cbf973c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2026108815}
     - targetCorrespondingSourceObject: {fileID: 2792929356791042316, guid: 27fd6f60fab0c1c48a2f68b11cbf973c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1853509051}
@@ -929,6 +932,7 @@ GameObject:
   - component: {fileID: 1545092874}
   - component: {fileID: 1545092873}
   - component: {fileID: 1545092872}
+  - component: {fileID: 1545092875}
   m_Layer: 0
   m_Name: NavMesh
   m_TagString: Untagged
@@ -948,7 +952,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70bd44a44cd62c64fbfc1eea95b24880, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_OverrideByGrid: 0
+  m_OverrideByGrid: 1
   m_UseMeshPrefab: {fileID: 0}
   m_CompressBounds: 0
   m_OverrideVector: {x: 1, y: 1, z: 1}
@@ -997,6 +1001,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1545092875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1545092871}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fec7b7904f76c4498a68fd145934563, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rootSources:
+  - {fileID: 2026108809}
 --- !u!1 &1612160990
 GameObject:
   m_ObjectHideFlags: 3
@@ -1130,6 +1148,19 @@ MonoBehaviour:
   m_Area: 0
   m_IgnoreFromBuild: 0
   m_AffectedAgents: ffffffff
+--- !u!114 &2026108815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2026108809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01655f32942479340b99cad0dfcbea24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Surface2D: {fileID: 1545092873}
 --- !u!1001 &8594773552751971364
 PrefabInstance:
   m_ObjectHideFlags: 0
