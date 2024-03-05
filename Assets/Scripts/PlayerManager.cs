@@ -153,4 +153,24 @@ public class PlayerManager : MonoBehaviour
         attacking = false;
     }
 
+    public void rightSwing()
+    {
+        anim.SetTrigger("Right Swing");
+    }
+
+    public void leftSwing()
+    {
+        anim.SetTrigger("Left Swing");
+    }
+
+    public void upSwing()
+    {
+        anim.SetTrigger("Up Swing");
+    }
+
+    public void downSwing()
+    {
+        anim.SetTrigger("Down Swing");
+    }
+
 }

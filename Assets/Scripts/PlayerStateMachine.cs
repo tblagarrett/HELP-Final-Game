@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using KevinCastejon.FiniteStateMachine;
 using System.Threading;
+using System.Security.Cryptography;
 
 public class PlayerStateMachine : AbstractFiniteStateMachine
 {
@@ -13,6 +14,10 @@ public class PlayerStateMachine : AbstractFiniteStateMachine
 
     //facing vars
     Vector2 mousePos;
+
+    //og color
+    Color og;
+
     public PlayerManager PlayMan { get; set; }
     public enum PlayerState
     {
@@ -33,6 +38,7 @@ public class PlayerStateMachine : AbstractFiniteStateMachine
 
         PlayMan = transform.GetComponent<PlayerManager>();
         rb = PlayMan.Player.GetComponent<Rigidbody2D>();
+        Color og = PlayMan.Player.sRen.color;
     }
 
     public class PlayIdleState : AbstractState
@@ -151,10 +157,13 @@ public class PlayerStateMachine : AbstractFiniteStateMachine
         public override void OnEnter()
         {
             //start anim
+            
 
         }
         public override void OnUpdate()
         {
+            GetStateMachine<PlayerStateMachine>().PlayMan.Player.sRen.color = Color.red;
+
             if (GetStateMachine<PlayerStateMachine>().PlayMan.walking)
             {
                 TransitionToState(PlayerState.PLAY_WALK);
@@ -171,6 +180,7 @@ public class PlayerStateMachine : AbstractFiniteStateMachine
         public override void OnExit()
         {
             //do stuff
+            GetStateMachine<PlayerStateMachine>().PlayMan.Player.sRen.color = GetStateMachine<PlayerStateMachine>().og; ;
         }
     }
 
@@ -180,6 +190,7 @@ public class PlayerStateMachine : AbstractFiniteStateMachine
         {
             //start anim
             GetStateMachine<PlayerStateMachine>().PlayMan.stick.SetActive(true);
+            GetStateMachine<PlayerStateMachine>().rb.velocity = Vector2.zero;
         }
         public override void OnUpdate()
         {
@@ -195,23 +206,23 @@ public class PlayerStateMachine : AbstractFiniteStateMachine
             if ((angle < 45 && angle >= 0) || (angle <= 360 && angle > 315))
             {
                 GetStateMachine<PlayerStateMachine>().PlayMan.Player.sRen.sprite = GetStateMachine<PlayerStateMachine>().PlayMan.right;
-                GetStateMachine<PlayerStateMachine>().PlayMan.anim.Play("Right Swing");
+                GetStateMachine<PlayerStateMachine>().PlayMan.rightSwing();
 
             }
             else if (angle < 315 && angle > 225)
             {
                 GetStateMachine<PlayerStateMachine>().PlayMan.Player.sRen.sprite = GetStateMachine<PlayerStateMachine>().PlayMan.down;
-                GetStateMachine<PlayerStateMachine>().PlayMan.anim.Play("Down Swing");
+                GetStateMachine<PlayerStateMachine>().PlayMan.downSwing();
             }
             else if (angle < -45 && angle > -135)
             {
                 GetStateMachine<PlayerStateMachine>().PlayMan.Player.sRen.sprite = GetStateMachine<PlayerStateMachine>().PlayMan.left;
-                GetStateMachine<PlayerStateMachine>().PlayMan.anim.Play("Left Swing");
+                GetStateMachine<PlayerStateMachine>().PlayMan.leftSwing();
             }
             else if (angle < 135 && angle > 45)
             {
                 GetStateMachine<PlayerStateMachine>().PlayMan.Player.sRen.sprite = GetStateMachine<PlayerStateMachine>().PlayMan.up;
-                GetStateMachine<PlayerStateMachine>().PlayMan.anim.Play("Up Swing");
+                GetStateMachine<PlayerStateMachine>().PlayMan.upSwing();
             }
 
 
