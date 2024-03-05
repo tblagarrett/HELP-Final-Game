@@ -80,7 +80,7 @@ public class PlayerManager : MonoBehaviour
         {
             walking = false;
             idle = false;
-            Slash();
+            StartCoroutine(Slash());
         }
 
         //checking walking
