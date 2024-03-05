@@ -50,6 +50,7 @@ MonoBehaviour:
   Monster: {fileID: 3728377525890497143, guid: 0ac86ae92d3e8104a8dc49777925adc5, type: 3}
   Parent: {fileID: 7869222596745503790}
   VisualRadar: {fileID: 0}
+  Agent: {fileID: 0}
   hungerDelay: 30
   healthDelay: 10
   subHunger: 1
@@ -60,6 +61,12 @@ MonoBehaviour:
   attacking: 0
   chasing: 0
   hurt: 0
+  stay: 0
+  chasingAttack: 0
+  chasingAttackDelay: 0
+  attackDelay: 0.2
+  attackDamage: 1
+  coolDownDelay: 1
 --- !u!114 &7061284650958348147
 MonoBehaviour:
   m_ObjectHideFlags: 0

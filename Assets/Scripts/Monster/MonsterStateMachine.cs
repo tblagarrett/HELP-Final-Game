@@ -158,23 +158,21 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
         public override void OnEnter()
         {
             // start anim
-
+            GetStateMachine<MonsterStateMachine>().Manager.StartAttacking();
         }
         public override void OnUpdate()
         {
-            if (GetStateMachine<MonsterStateMachine>().Manager.hurt)
-            {
-                TransitionToState(MonsterState.MON_HURT);
-            }
+            // checking for collision and attack
+            GetStateMachine<MonsterStateMachine>().Manager.HurtPlayer();
 
-            if (GetStateMachine<MonsterStateMachine>().Manager.idle) // change to once anim over
+            if (GetStateMachine<MonsterStateMachine>().Manager.chasing) // change to once anim over
             {
-                TransitionToState(MonsterState.MON_IDLE); // will return to previous state
+                TransitionToState(MonsterState.MON_CHASE); // will return to previous state
             } 
         }
         public override void OnExit()
         {
-            GetStateMachine<MonsterStateMachine>().Manager.attacking = false;
+            GetStateMachine<MonsterStateMachine>().Manager.EndAttack();
         }
     }
     public class MonHurtState : AbstractState
@@ -218,7 +216,7 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
         public override void OnUpdate()
         {
             // monster will chanse until it attacks or is hurt
-            if (GetStateMachine<MonsterStateMachine>().Manager.attacking)
+            if (GetStateMachine<MonsterStateMachine>().Manager.chasingAttack)
             {
                 TransitionToState(MonsterState.MON_ATTACK);
             }
