@@ -15,7 +15,7 @@ public class MonsterManager : MonoBehaviour
     public GameObject Parent;
     public CircleCollider2D VisualRadar;
     public NavMeshAgent Agent;
-    private MonsterAttack MonAttack;
+    public MonsterAttack MonAttack;
 
     // variables for hunger and healh decay
     [SerializeField] private float hungerDelay;
@@ -48,9 +48,10 @@ public class MonsterManager : MonoBehaviour
     // variables for attacking
     public bool stay = false;
     public bool chasingAttack = false;
-    [SerializeField] private bool chasingAttackDelay = false;
     [SerializeField] private float attackDelay;
     [SerializeField] private int attackDamage;
+    [SerializeField] private int coolDownDelay;
+    private bool attackCoolDown = true;
 
     void Start()
     {
@@ -59,7 +60,7 @@ public class MonsterManager : MonoBehaviour
 
         // navmeshagent
         Agent = Monster.GetComponent<NavMeshAgent>();
-        Agent.updateRotation = false;
+        //Agent.updateRotation = false;
         Agent.updateUpAxis = false;
         // for more information https://github.com/h8man/NavMeshPlus/wiki/HOW-TO#nav-mesh-basics
 
@@ -211,18 +212,27 @@ public class MonsterManager : MonoBehaviour
     {
         Debug.Log("Chasing");
         Agent.SetDestination(player.transform.position);
-        AttackCo = StartCoroutine(ChaseAttack());
+        ChaseAttack();
     }
 
-    private IEnumerator ChaseAttack()
+    public void ChaseAttack()
     {
-        if(attacking) { 
+        if(attacking && attackCoolDown) { 
             chasingAttack = true;
         }
     }
 
+    private IEnumerator AttackCool()
+    {
+        // delay next attack
+        attackCoolDown = false;
+        yield return new WaitForSeconds(coolDownDelay);
+        attackCoolDown = true;
+    }
+
     public IEnumerator Attacking()
     {
+        // start attack anim
         MonAttack.TurnOnAttack();
         
         // delay attack
@@ -237,6 +247,9 @@ public class MonsterManager : MonoBehaviour
     {
         attacking = false;
         MonAttack.TurnOffAttack();
+
+        // delay next attack
+        StartCoroutine(AttackCool());
     }
 
     public void HurtPlayer()
