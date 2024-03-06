@@ -164,7 +164,7 @@ public class MonsterManager : MonoBehaviour
         } // else only entering idle to switch to another state
 
         string state = SelectState();
-        if(state == "walking") { walking = true; } else if (state == "sleep") { sleeping = true; } else { StartIdle(); }
+        if(state == "walk") { walking = true; } else if (state == "sleep") { sleeping = true; } else { StartIdle(); }
     }
 
     public IEnumerator Sleep()
