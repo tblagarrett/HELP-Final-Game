@@ -186,6 +186,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6180963130459756397, guid: 27fd6f60fab0c1c48a2f68b11cbf973c, type: 3}
+      propertyPath: howMuchFood
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 7146479522081772506, guid: 27fd6f60fab0c1c48a2f68b11cbf973c, type: 3}
       propertyPath: m_IsActive
       value: 1
