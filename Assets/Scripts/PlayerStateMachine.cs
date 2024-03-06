@@ -53,6 +53,7 @@ public class PlayerStateMachine : AbstractFiniteStateMachine
         }
         public override void OnUpdate()
         {
+            /*
             //player facing follows mouse
             Vector2 playerPos = GetStateMachine<PlayerStateMachine>().PlayMan.Player.transform.position;
             //set mouse position
@@ -77,7 +78,7 @@ public class PlayerStateMachine : AbstractFiniteStateMachine
             else if(angle < 135 && angle > 45)
             {
                 GetStateMachine<PlayerStateMachine>().PlayMan.Player.sRen.sprite = GetStateMachine<PlayerStateMachine>().PlayMan.up;
-            }
+            }*/
 
             if (GetStateMachine<PlayerStateMachine>().PlayMan.walking)
             {
@@ -206,23 +207,27 @@ public class PlayerStateMachine : AbstractFiniteStateMachine
             if ((angle < 45 && angle >= 0) || (angle <= 360 && angle > 315))
             {
                 GetStateMachine<PlayerStateMachine>().PlayMan.Player.sRen.sprite = GetStateMachine<PlayerStateMachine>().PlayMan.right;
-                GetStateMachine<PlayerStateMachine>().PlayMan.rightSwing();
+                GetStateMachine<PlayerStateMachine>().PlayMan.Swing(0);
+                Debug.Log("angle 0");
 
             }
             else if (angle < 315 && angle > 225)
             {
                 GetStateMachine<PlayerStateMachine>().PlayMan.Player.sRen.sprite = GetStateMachine<PlayerStateMachine>().PlayMan.down;
-                GetStateMachine<PlayerStateMachine>().PlayMan.downSwing();
+                GetStateMachine<PlayerStateMachine>().PlayMan.Swing(90);
+                Debug.Log("angle 90");
             }
             else if (angle < -45 && angle > -135)
             {
                 GetStateMachine<PlayerStateMachine>().PlayMan.Player.sRen.sprite = GetStateMachine<PlayerStateMachine>().PlayMan.left;
-                GetStateMachine<PlayerStateMachine>().PlayMan.leftSwing();
+                GetStateMachine<PlayerStateMachine>().PlayMan.Swing(180);
+                Debug.Log("angle 180");
             }
             else if (angle < 135 && angle > 45)
             {
                 GetStateMachine<PlayerStateMachine>().PlayMan.Player.sRen.sprite = GetStateMachine<PlayerStateMachine>().PlayMan.up;
-                GetStateMachine<PlayerStateMachine>().PlayMan.upSwing();
+                GetStateMachine<PlayerStateMachine>().PlayMan.Swing(-90);
+                Debug.Log("angle -90");
             }
 
 

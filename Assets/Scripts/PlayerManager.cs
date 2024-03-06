@@ -75,13 +75,17 @@ public class PlayerManager : MonoBehaviour
             idle = true;
         }
 
-        //slash + coroutine
-        if (Input.GetMouseButtonDown(0))
+        if(attacking == false)
         {
-            walking = false;
-            idle = false;
-            StartCoroutine(Slash());
+            //slash + coroutine
+            if (Input.GetMouseButtonDown(0))
+            {
+                walking = false;
+                idle = false;
+                StartCoroutine(Slash());
+            }
         }
+        
 
         //checking walking
         if (attacking == false && hurt == false)
@@ -153,24 +157,16 @@ public class PlayerManager : MonoBehaviour
         attacking = false;
     }
 
-    public void rightSwing()
+    public void Swing(int angle)
     {
-        anim.SetTrigger("Right Swing");
+        Vector3 currRot = stick.transform.eulerAngles;
+        currRot.z = angle;
+        stick.transform.eulerAngles = currRot;
+        anim.SetTrigger("hit");
+
+        currRot.z = 0;
+        stick.transform.eulerAngles = currRot;
     }
 
-    public void leftSwing()
-    {
-        anim.SetTrigger("Left Swing");
-    }
-
-    public void upSwing()
-    {
-        anim.SetTrigger("Up Swing");
-    }
-
-    public void downSwing()
-    {
-        anim.SetTrigger("Down Swing");
-    }
 
 }
