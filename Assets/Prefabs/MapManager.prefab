@@ -867,7 +867,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 517c16156e3ae014588e8b5f3b9e8eaf, type: 2}
   - {fileID: 11400000, guid: c22c75de25a073e438d3d5f48d801fb4, type: 2}
   - {fileID: 11400000, guid: 9c8cc2fcbf2508b48998aa5c8fb07ae9, type: 2}
+  - {fileID: 11400000, guid: 5528bb3f451166e4893727e64a215d6d, type: 2}
   groundTile: {fileID: 11400000, guid: b82927207e7a8be408b4bdc844a05d34, type: 2}
+  borderTile: {fileID: 11400000, guid: 3ba52a342fe281d478007567aa2871ab, type: 2}
   terrainCount: 800
   foodPrefab: {fileID: 932342347511325503, guid: f823dd94245887741a983faa7e9b0d59, type: 3}
   foodContainer: {fileID: 8028375594843259294}

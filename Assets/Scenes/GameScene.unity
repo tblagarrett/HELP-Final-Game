@@ -190,6 +190,10 @@ PrefabInstance:
       propertyPath: howMuchFood
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 6180963130459756397, guid: 27fd6f60fab0c1c48a2f68b11cbf973c, type: 3}
+      propertyPath: 'terrainTiles.Array.data[9]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 799a3986efdaa89408f05ba92d2cb274, type: 2}
     - target: {fileID: 7146479522081772506, guid: 27fd6f60fab0c1c48a2f68b11cbf973c, type: 3}
       propertyPath: m_IsActive
       value: 1

@@ -16,6 +16,7 @@ public class MapManager : MonoBehaviour
     [SerializeField] private int mapSizeY;
     [SerializeField] Tile[] terrainTiles;
     [SerializeField] Tile groundTile;
+    [SerializeField] Tile borderTile;
     [SerializeField] private int terrainCount;
 
     [SerializeField] private GameObject foodPrefab;
@@ -78,6 +79,24 @@ public class MapManager : MonoBehaviour
 
             Vector3Int position = new Vector3Int(Random.Range(-(mapSizeX/2) + 1, mapSizeX/2), Random.Range(-(mapSizeY/2) + 1, mapSizeY/2));
             terrainMap.SetTile(position, tile);
+        }
+
+        // place the border around the map
+        for (int i = -(mapSizeX / 2); i < mapSizeX / 2; i++)
+        {
+            // bottom
+            terrainMap.SetTile(new Vector3Int(i, -(mapSizeY / 2) - 1, 0), borderTile);
+
+            // top
+            terrainMap.SetTile(new Vector3Int(i, mapSizeY / 2, 0), borderTile);
+        }
+        for (int i = -(mapSizeY / 2); i < mapSizeY / 2; i++)
+        {
+            // left
+            terrainMap.SetTile(new Vector3Int(-(mapSizeX / 2) - 1, i, 0), borderTile);
+
+            // right
+            terrainMap.SetTile(new Vector3Int(mapSizeX / 2, i, 0), borderTile);
         }
     }
 
