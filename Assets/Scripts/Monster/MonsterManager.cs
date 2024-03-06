@@ -9,6 +9,7 @@ public class MonsterManager : MonoBehaviour
     // access Managers
     public MapManager MapManager;
     public PlayerManager PlayerManager;
+    public GameObject Player;
 
     // variables for monster
     public MonsterScript Monster;
@@ -26,7 +27,7 @@ public class MonsterManager : MonoBehaviour
     // variables for state machine
     public bool idle = true;        // 1
     public bool sleeping = false;   // 2
-    public bool walking = false;    // 3, 4
+    public bool walking = false;    // 3, 4, 5
     public bool attacking = false;
     public bool chasing = false;
     public bool hurt = false;
@@ -56,12 +57,14 @@ public class MonsterManager : MonoBehaviour
     IEnumerator Start()
     {
         yield return new WaitForFixedUpdate();
+        yield return new WaitForFixedUpdate();
+
         // instantiate monster into the scene
         Monster = Instantiate(Monster, Parent.transform);
 
         // navmeshagent
         Agent = Monster.GetComponent<NavMeshAgent>();
-        Agent.updateRotation = false;
+        //Agent.updateRotation = false;
         Agent.updateUpAxis = false;
         // for more information https://github.com/h8man/NavMeshPlus/wiki/HOW-TO#nav-mesh-basics
 
@@ -126,7 +129,7 @@ public class MonsterManager : MonoBehaviour
             yield return new WaitForSeconds(timer);
         } // else only entering idle to switch to another state
 
-        int state = Random.Range(2, 5); // choose to walk or to sleep
+        int state = Random.Range(2, 6); // choose to walk or to sleep
         if(state > 2) { walking = true; } else { sleeping = true; }
     }
 
@@ -145,25 +148,36 @@ public class MonsterManager : MonoBehaviour
         Debug.Log("Walking");
         // decide destination
         Vector2 destination = NearestFood();
+        Debug.Log(destination);
+        Agent.SetDestination(destination);
 
-        // decide an axis
-        axis = Random.Range(0, 2);
+        // path code referenced from ChatGBT
+        NavMeshPath path = new NavMeshPath();
+        NavMesh.CalculatePath(Agent.transform.position, destination, NavMesh.AllAreas, path);
 
-        // create destination for axis
-        /*if(axis == 0)
+        if(path.status == NavMeshPathStatus.PathComplete && path.corners.Length > 1)
         {
-            destination = new Vector2(destination.x, Monster.transform.position.y);
-        } else
-        {
-            destination = new Vector2(Monster.transform.position.x, destination.y);
-        }*/
+            // decide an axis
+            Vector3 direction = path.corners[1] - Agent.transform.position;
+            //Vector3 direction = Agent.destination - Agent.transform.position;
+            //direction.z = Agent.transform.position.z;
 
+            // turn to direction referenced from https://discussions.unity.com/t/prevent-navmesh-from-moving-diagonally/213824
+            if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
+            {
+                direction.y = 0f;
+            } else
+            {
+                direction.x = 0f;
+            }
+            if(direction != Vector3.zero)
+            {
+                Agent.transform.rotation = Quaternion.LookRotation(forward: Vector3.forward, upwards: direction.normalized);
+            }
+        }
+        
         // decide how long to walk in this direction
         timer = Random.Range(2f, 7f);
-
-        Debug.Log(destination);
-        Debug.Log(Monster.transform.position);
-        Agent.SetDestination(destination);
 
         // end of timer stop walking
         yield return new WaitForSeconds(timer);
@@ -171,7 +185,7 @@ public class MonsterManager : MonoBehaviour
 
         Debug.Log("Stop Walk");
         // choose new state
-        int state = Random.Range(1, 5); // choose to walk, sleep, or idle
+        int state = Random.Range(1, 6); // choose to walk, sleep, or idle
         Debug.Log(state);
         if (state > 2) { StartWalking(); } else if (state == 2) { sleeping = true; Debug.Log("seelpign truw"); } else { idle = true; }
     }
@@ -201,10 +215,10 @@ public class MonsterManager : MonoBehaviour
         }
 
         // check player distance
-        distance = Monster.transform.position - PlayerManager.transform.position;
+        distance = Monster.transform.position - Player.transform.position;
         if (((Mathf.Abs(closest.x) + Mathf.Abs(closest.y)) > (Mathf.Abs(distance.x) + Mathf.Abs(distance.y))))
         {
-            closest = PlayerManager.transform.position; // just to convert vector3 to vector 2
+            closest = Player.transform.position; // just to convert vector3 to vector 2
             return closest; // return player position
         } else
         {
