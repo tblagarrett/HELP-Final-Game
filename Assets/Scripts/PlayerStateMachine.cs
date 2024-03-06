@@ -150,6 +150,7 @@ public class PlayerStateMachine : AbstractFiniteStateMachine
         {
             //do stuff
             GetStateMachine<PlayerStateMachine>().PlayMan.idle = true;
+            GetStateMachine<PlayerStateMachine>().rb.velocity = Vector2.zero;
         }
     }
 
@@ -191,7 +192,7 @@ public class PlayerStateMachine : AbstractFiniteStateMachine
         {
             //start anim
             GetStateMachine<PlayerStateMachine>().PlayMan.stick.SetActive(true);
-            GetStateMachine<PlayerStateMachine>().rb.velocity = Vector2.zero;
+            
         }
         public override void OnUpdate()
         {
