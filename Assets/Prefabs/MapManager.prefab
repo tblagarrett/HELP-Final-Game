@@ -855,8 +855,8 @@ MonoBehaviour:
   objectMap: {fileID: 6124475322556026845}
   groundMap: {fileID: 412208779666804311}
   backgroundImage: {fileID: 1353978608215838792}
-  mapSizeX: 20
-  mapSizeY: 20
+  mapSizeX: 256
+  mapSizeY: 256
   terrainTiles:
   - {fileID: 11400000, guid: c77bd74c4fe63b5498c1acd791b016f3, type: 2}
   - {fileID: 11400000, guid: bf938288df656a64d812baaf6a71bbc9, type: 2}
@@ -868,7 +868,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c22c75de25a073e438d3d5f48d801fb4, type: 2}
   - {fileID: 11400000, guid: 9c8cc2fcbf2508b48998aa5c8fb07ae9, type: 2}
   groundTile: {fileID: 11400000, guid: b82927207e7a8be408b4bdc844a05d34, type: 2}
-  terrainCount: 10
+  terrainCount: 800
   foodPrefab: {fileID: 932342347511325503, guid: f823dd94245887741a983faa7e9b0d59, type: 3}
   foodContainer: {fileID: 8028375594843259294}
   howMuchFood: 3
