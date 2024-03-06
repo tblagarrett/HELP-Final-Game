@@ -157,16 +157,23 @@ public class PlayerManager : MonoBehaviour
         attacking = false;
     }
 
-    public void Swing(int angle)
+    public void RightSwing()
     {
-        Vector3 currRot = anim.transform.eulerAngles;
-        currRot.z = angle;
-        anim.transform.eulerAngles = currRot;
-        anim.SetTrigger("hit");
-
-        currRot.z = 0;
-        anim.transform.eulerAngles = currRot;
+        anim.Play("Right Hit");
     }
+    public void LeftSwing()
+    {
+        anim.Play("Left Hit");
+    }
+    public void UpSwing()
+    {
+        anim.Play("Up Hit");
+    }
+    public void DownSwing()
+    {
+        anim.Play("Down Hit");
+    }
+
 
 
 }
