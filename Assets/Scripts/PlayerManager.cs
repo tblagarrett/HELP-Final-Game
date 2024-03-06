@@ -159,13 +159,13 @@ public class PlayerManager : MonoBehaviour
 
     public void Swing(int angle)
     {
-        Vector3 currRot = stick.transform.eulerAngles;
+        Vector3 currRot = anim.transform.eulerAngles;
         currRot.z = angle;
-        stick.transform.eulerAngles = currRot;
+        anim.transform.eulerAngles = currRot;
         anim.SetTrigger("hit");
 
         currRot.z = 0;
-        stick.transform.eulerAngles = currRot;
+        anim.transform.eulerAngles = currRot;
     }
 
 

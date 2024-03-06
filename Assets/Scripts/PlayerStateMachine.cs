@@ -192,10 +192,6 @@ public class PlayerStateMachine : AbstractFiniteStateMachine
         {
             //start anim
             GetStateMachine<PlayerStateMachine>().PlayMan.stick.SetActive(true);
-            
-        }
-        public override void OnUpdate()
-        {
             //check mouse relative to player angle
             Vector2 playerPos = GetStateMachine<PlayerStateMachine>().PlayMan.Player.transform.position;
             //set mouse position
@@ -205,31 +201,35 @@ public class PlayerStateMachine : AbstractFiniteStateMachine
             //mouse angle relative to player
             float angle = (Mathf.Atan2(dir.y, dir.x)) * Mathf.Rad2Deg;
 
-            if ((angle < 45 && angle >= 0) || (angle <= 360 && angle > 315))
+            if (angle < 45 && angle > -45)
             {
                 GetStateMachine<PlayerStateMachine>().PlayMan.Player.sRen.sprite = GetStateMachine<PlayerStateMachine>().PlayMan.right;
                 GetStateMachine<PlayerStateMachine>().PlayMan.Swing(0);
                 Debug.Log("angle 0");
 
             }
-            else if (angle < 315 && angle > 225)
+            else if ((angle < -45) && (angle > -135))
             {
                 GetStateMachine<PlayerStateMachine>().PlayMan.Player.sRen.sprite = GetStateMachine<PlayerStateMachine>().PlayMan.down;
                 GetStateMachine<PlayerStateMachine>().PlayMan.Swing(90);
                 Debug.Log("angle 90");
             }
-            else if (angle < -45 && angle > -135)
+            else if (angle > 135 || angle < -135)
             {
                 GetStateMachine<PlayerStateMachine>().PlayMan.Player.sRen.sprite = GetStateMachine<PlayerStateMachine>().PlayMan.left;
                 GetStateMachine<PlayerStateMachine>().PlayMan.Swing(180);
                 Debug.Log("angle 180");
             }
-            else if (angle < 135 && angle > 45)
+            else if (angle > 45 && angle < 135)
             {
                 GetStateMachine<PlayerStateMachine>().PlayMan.Player.sRen.sprite = GetStateMachine<PlayerStateMachine>().PlayMan.up;
                 GetStateMachine<PlayerStateMachine>().PlayMan.Swing(-90);
                 Debug.Log("angle -90");
             }
+        }
+        public override void OnUpdate()
+        {
+            
 
 
             if (GetStateMachine<PlayerStateMachine>().PlayMan.walking)
