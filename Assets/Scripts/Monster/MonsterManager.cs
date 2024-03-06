@@ -58,13 +58,12 @@ public class MonsterManager : MonoBehaviour
     {
         yield return new WaitForFixedUpdate();
         yield return new WaitForFixedUpdate();
-
+      
         // instantiate monster into the scene
         Monster = Instantiate(Monster, Parent.transform);
 
         // navmeshagent
         Agent = Monster.GetComponent<NavMeshAgent>();
-        //Agent.updateRotation = false;
         Agent.updateUpAxis = false;
         // for more information https://github.com/h8man/NavMeshPlus/wiki/HOW-TO#nav-mesh-basics
 
@@ -75,6 +74,9 @@ public class MonsterManager : MonoBehaviour
         // get monster attack
         GameObject MonAttackChild = Monster.transform.GetChild(2).gameObject;
         MonAttack = MonAttackChild.GetComponent<MonsterAttack>();
+
+        // get player
+        Player = GameObject.FindGameObjectWithTag("Player");
 
         // start hunger and health decay
         StartCoroutine(HungerDecay());
@@ -149,33 +151,49 @@ public class MonsterManager : MonoBehaviour
         // decide destination
         Vector2 destination = NearestFood();
         Debug.Log(destination);
-        Agent.SetDestination(destination);
 
         // path code referenced from ChatGBT
         NavMeshPath path = new NavMeshPath();
         NavMesh.CalculatePath(Agent.transform.position, destination, NavMesh.AllAreas, path);
 
+        // turn agent towards direction
         if(path.status == NavMeshPathStatus.PathComplete && path.corners.Length > 1)
         {
             // decide an axis
             Vector3 direction = path.corners[1] - Agent.transform.position;
-            //Vector3 direction = Agent.destination - Agent.transform.position;
-            //direction.z = Agent.transform.position.z;
 
             // turn to direction referenced from https://discussions.unity.com/t/prevent-navmesh-from-moving-diagonally/213824
             if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
             {
-                direction.y = 0f;
+                if (!Agent.SetDestination(new Vector2(destination.x, Agent.transform.position.y)))
+                {
+                    Agent.SetDestination(new Vector2(Agent.transform.position.x, destination.y));
+                    direction.x = 0f;
+                } else
+                {
+                    direction.y = 0f;
+                }
             } else
             {
-                direction.x = 0f;
+                if (!Agent.SetDestination(new Vector2(Agent.transform.position.x, destination.y)))
+                {
+                    Agent.SetDestination(new Vector2(destination.x, Agent.transform.position.y));
+                    direction.y = 0f;
+                }
+                else
+                {
+                    direction.x = 0f;
+                }
             }
             if(direction != Vector3.zero)
             {
-                Agent.transform.rotation = Quaternion.LookRotation(forward: Vector3.forward, upwards: direction.normalized);
+                Agent.transform.rotation = Quaternion.LookRotation(forward: Vector3.forward, upwards: direction.normalized); 
+                Debug.Log(direction);
             }
         }
-        
+
+        //RaycastHit2D hit = Physics2D.Raycast(Agent.transform.position, Agent.transform.TransformDirection(Vector3.forward), Random.Range(20, 30));
+
         // decide how long to walk in this direction
         timer = Random.Range(2f, 7f);
 
