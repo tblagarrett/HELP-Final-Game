@@ -32,6 +32,10 @@ public class MonsterManager : MonoBehaviour
     public bool chasing = false;
     public bool hurt = false;
 
+    // random selected state
+    [SerializeField] private List<string> states;
+    [SerializeField] private List<float> weights;
+
     // variables to store coroutines
     private Coroutine IdleCo;
     private Coroutine SleepCo;
@@ -122,6 +126,34 @@ public class MonsterManager : MonoBehaviour
         VisualRadar.radius = Monster.curVisRadius;
     }
 
+    // referenced from chatGBT
+    private string SelectState()
+    {
+        float randomNum = Random.Range(0f, SumOfWeights());
+
+        float cumWeight = 0f;
+        for (int i = 0; i < states.Count; i++)
+        {
+            cumWeight += weights[i];
+            if(randomNum <= cumWeight)
+            {
+                return states[i];
+            }
+        }
+
+        // in case
+        return states[states.Count - 1];
+    }
+    private float SumOfWeights()
+    {
+        float sum = 0f;
+        foreach(float weight in weights)
+        {
+            sum += weight;
+        }
+        return sum;
+    }
+
     public IEnumerator Idle()
     {
         Debug.Log("Idle");
@@ -131,8 +163,8 @@ public class MonsterManager : MonoBehaviour
             yield return new WaitForSeconds(timer);
         } // else only entering idle to switch to another state
 
-        int state = Random.Range(2, 6); // choose to walk or to sleep
-        if(state > 2) { walking = true; } else { sleeping = true; }
+        string state = SelectState();
+        if(state == "walk") { walking = true; } else if (state == "sleep") { sleeping = true; } else { StartIdle(); }
     }
 
     public IEnumerator Sleep()
@@ -203,9 +235,8 @@ public class MonsterManager : MonoBehaviour
 
         Debug.Log("Stop Walk");
         // choose new state
-        int state = Random.Range(1, 6); // choose to walk, sleep, or idle
-        Debug.Log(state);
-        if (state > 2) { StartWalking(); } else if (state == 2) { sleeping = true; Debug.Log("seelpign truw"); } else { idle = true; }
+        string state = SelectState();
+        if (state == "idle") { idle = true; } else if (state == "sleep") { sleeping = true; } else { StartWalking(); }
     }
 
     // iterates through all active food
@@ -214,7 +245,7 @@ public class MonsterManager : MonoBehaviour
     private Vector2 NearestFood()
     {
         Vector2 distance;
-        Vector2 closest = new Vector2(0,0);
+        Vector2 closest = Vector2.zero;
         int curFood = -1;
 
         for (int i = 0; i < MapManager.activeFood.Length; i++)
