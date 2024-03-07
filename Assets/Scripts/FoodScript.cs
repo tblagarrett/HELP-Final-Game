@@ -23,7 +23,7 @@ public class FoodScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log(collision.gameObject.tag);
+        Debug.Log("FOOD COLLISION: " + collision.gameObject.tag);
         if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "Monster")
         {
             this.gameObject.SetActive(false);
