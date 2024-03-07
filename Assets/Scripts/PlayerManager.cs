@@ -118,6 +118,10 @@ public class PlayerManager : MonoBehaviour
     {
         Player.health += mod;
 
+        if (Player.health <= 0)
+        {
+            UIManager.Instance.GoToMenu(GameMenu.GameOver);
+        }
     }
 
     //hunger coroutine
