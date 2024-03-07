@@ -11,6 +11,7 @@ public class MonsterAttack : MonoBehaviour
     void Start()
     {
         hitCollider = GetComponent<BoxCollider2D>();
+        Manager = transform.parent.parent.GetComponent<MonsterManager>();
     }
 
     public void TurnOnAttack()

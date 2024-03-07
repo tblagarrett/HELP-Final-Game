@@ -333,10 +333,10 @@ public class MonsterManager : MonoBehaviour
 
     public void HurtPlayer()
     {
-        if(stay && attacking)
+        if (stay && attacking)
         {
             Debug.Log("Hurt PLayer");
-            PlayerManager.ModHealth(attackDamage);
+            PlayerManager.ModHealth(-attackDamage);
             attacking = false;
         }
     }
