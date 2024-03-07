@@ -14,7 +14,7 @@ public class FoodScript : MonoBehaviour
     {
         Manager = transform.parent.parent.GetComponent<MapManager>();
     }
-
+     
     // Update is called once per frame
     void Update()
     {
@@ -23,10 +23,12 @@ public class FoodScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("FOOD COLLISION: " + collision.gameObject.tag);
         if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "Monster")
         {
-            this.gameObject.SetActive(false);
+            var ps = GetComponent<ParticleSystem>();
+            ps.Play();
+            this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+            this.gameObject.GetComponent<BoxCollider2D>().enabled = false;
 
             // set its place in the array to null 
             Manager.activeFood[foodArray] = new Vector2(-10000,-10000);
