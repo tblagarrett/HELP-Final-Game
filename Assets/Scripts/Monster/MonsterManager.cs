@@ -26,10 +26,9 @@ public class MonsterManager : MonoBehaviour
     [SerializeField] private int subHealth;
 
     // variables for state machine
-    public bool idle = true;        // 1
-    public bool sleeping = false;   // 2
-    public bool walking = false;    // 3, 4, 5
-    public bool attacking = false;
+    public bool idle = true;        
+    public bool sleeping = false;   
+    public bool walking = false;    
     public bool chasing = false;
     public bool hurt = false;
 
@@ -51,16 +50,18 @@ public class MonsterManager : MonoBehaviour
     private int axis;
 
     // variables for attacking
-    public bool stay = false;
-    public bool chasingAttack = false;
-    [SerializeField] private float attackDelay;
-    [SerializeField] private int attackDamage;
-    [SerializeField] private int coolDownDelay;
-    private bool attackCoolDown = true;
+    public bool attacking = false;  // in attacking distance - can transition to state - turned on/off by MonsterHitRadar.cs
+    public bool stay = false;       // Player is in attacking area - turned on/off by MonsterAttack.cs
+    public bool chasingAttack = false;  // if attack cooldown is over transition to attack state - only checked to leave chasing state
+    [SerializeField] private float attackDelay; // delay hurting the player (for animation purposes)
+    [SerializeField] private int attackDamage;  // how much damage dealt
+    [SerializeField] private int coolDownDelay; // delay next attack - in chasing state in mean time
+    private bool attackCoolDown = true;         // can you attack? - waiting for cooldown
     public bool tempattackcool = false; // delete later
 
     IEnumerator Start()
     {
+        // wait for navmeshsurface to be created
         yield return new WaitForFixedUpdate();
         yield return new WaitForFixedUpdate();
       
@@ -283,16 +284,20 @@ public class MonsterManager : MonoBehaviour
         }
     }
 
-    public void Chasing(Collider2D player)
+    // follows the player
+    public void Chasing()
     {
         //Debug.Log("Chasing");
-        Agent.SetDestination(player.transform.position);
+        Agent.SetDestination(Player.transform.position);
 
-        Vector3 direction = player.transform.position - Agent.transform.position;
+        Vector3 direction = Player.transform.position - Agent.transform.position;
         Agent.transform.rotation = Quaternion.LookRotation(forward: Vector3.forward, upwards: direction);
+        
+        // check for attacking
         ChaseAttack();
     }
 
+    // checking if monster can attack
     public void ChaseAttack()
     {
         if(attacking && attackCoolDown) { 
@@ -313,18 +318,20 @@ public class MonsterManager : MonoBehaviour
     {
         // start attack anim
         MonAttack.TurnOnAttack();
-        
+
         // delay attack
-        attacking = false;
+        Debug.Log("Turns attack off");
+        chasingAttack = false;
         yield return new WaitForSeconds(attackDelay);
 
         // now start checking for collision
-        attacking = true;
+        Debug.Log("Turns attack on");
+        chasingAttack = true;
     }
 
     public void EndAttack()
     {
-        attacking = false;
+        chasingAttack = false;
         MonAttack.TurnOffAttack();
 
         // delay next attack
@@ -333,16 +340,17 @@ public class MonsterManager : MonoBehaviour
 
     public void HurtPlayer()
     {
-        if (stay && attacking)
+        // if in range and not in cooldown/delay
+        if (chasingAttack && stay)
         {
+            chasingAttack = false;
             Debug.Log("Hurt PLayer");
-            PlayerManager.ModHealth(-attackDamage);
-            attacking = false;
+            PlayerManager.ModHealth(-attackDamage); 
         }
     }
 
     public IEnumerator TempAttack() {
-        yield return new WaitForSeconds(attackDamage);
+        yield return new WaitForSeconds(1);
         tempattackcool = true;
     }
 
@@ -405,9 +413,17 @@ public class MonsterManager : MonoBehaviour
         Agent.speed /= 2;
         Agent.angularSpeed /= 2;
         chasingAttack = false;
+
+        // choose next state if not going back to chasing
+        if(chasing == false)
+        {
+            string state = SelectState();
+            if (state == "walk") { walking = true; } else if (state == "sleep") { sleeping = true; } else { idle = true; }
+        }
     }
     public void StartAttacking()
     {
         StartCoroutine(Attacking());
+        StartCoroutine(TempAttack());
     }
 }

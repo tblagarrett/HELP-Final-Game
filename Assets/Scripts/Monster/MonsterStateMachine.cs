@@ -164,6 +164,7 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
         public override void OnUpdate()
         {
             // checking for collision and attack
+            Debug.Log("Chasing attack is " + GetStateMachine<MonsterStateMachine>().Manager.chasingAttack);
             GetStateMachine<MonsterStateMachine>().Manager.HurtPlayer();
 
             if (GetStateMachine<MonsterStateMachine>().Manager.tempattackcool) // change to once anim over
@@ -217,6 +218,9 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
         }
         public override void OnUpdate()
         {
+            // chase player
+            GetStateMachine<MonsterStateMachine>().Manager.Chasing();
+
             // monster will chanse until it attacks or is hurt
             if (GetStateMachine<MonsterStateMachine>().Manager.chasingAttack)
             {
