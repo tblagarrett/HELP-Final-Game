@@ -17,13 +17,6 @@ public class MonsterVisualRadar : MonoBehaviour
             Manager.chasing = true;
         }
     }
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            Manager.Chasing(collision);
-        }
-    }
 
     private void OnTriggerExit2D(Collider2D collision)
     {

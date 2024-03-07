@@ -11,14 +11,17 @@ public class MonsterAttack : MonoBehaviour
     void Start()
     {
         hitCollider = GetComponent<BoxCollider2D>();
+        Manager = transform.parent.parent.GetComponent<MonsterManager>();
     }
 
     public void TurnOnAttack()
     {
+        Debug.Log("Collider on");
         hitCollider.enabled = true;
     }
     public void TurnOffAttack()
     {
+        Debug.Log("Collider off");
         hitCollider.enabled = false;
     }
 
