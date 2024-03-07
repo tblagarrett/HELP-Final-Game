@@ -15,10 +15,12 @@ public class MonsterAttack : MonoBehaviour
 
     public void TurnOnAttack()
     {
+        Debug.Log("Collider on");
         hitCollider.enabled = true;
     }
     public void TurnOffAttack()
     {
+        Debug.Log("Collider off");
         hitCollider.enabled = false;
     }
 

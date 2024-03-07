@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using KevinCastejon.FiniteStateMachine;
 using UnityEngine.AI;
+using System.IO;
 
 public class MonsterManager : MonoBehaviour
 {
@@ -40,7 +41,6 @@ public class MonsterManager : MonoBehaviour
     private Coroutine IdleCo;
     private Coroutine SleepCo;
     private Coroutine WalkCo;
-    private Coroutine AttackCo;
 
     // random timer for states
     private float timer;
@@ -57,6 +57,7 @@ public class MonsterManager : MonoBehaviour
     [SerializeField] private int attackDamage;
     [SerializeField] private int coolDownDelay;
     private bool attackCoolDown = true;
+    public bool tempattackcool = false; // delete later
 
     IEnumerator Start()
     {
@@ -246,12 +247,13 @@ public class MonsterManager : MonoBehaviour
     {
         Vector2 distance;
         Vector2 closest = Vector2.zero;
+        Vector2 nullFood = new Vector2(-10000, -10000);
         int curFood = -1;
 
         for (int i = 0; i < MapManager.activeFood.Length; i++)
         {
             // skip food that is no longer active
-            if(MapManager.activeFood[i] == new Vector2(-10000, -10000)) { continue; }
+            if(MapManager.activeFood[i] == nullFood) { continue; }
 
             distance = new Vector2(Monster.transform.position.x, Monster.transform.position.y) - MapManager.activeFood[i];
             
@@ -261,6 +263,12 @@ public class MonsterManager : MonoBehaviour
                 closest = distance;
                 curFood = i;
             }
+        }
+
+        if (closest == Vector2.zero)
+        {
+            closest = Player.transform.position; // just to convert vector3 to vector 2
+            return closest;
         }
 
         // check player distance
@@ -277,8 +285,11 @@ public class MonsterManager : MonoBehaviour
 
     public void Chasing(Collider2D player)
     {
-        Debug.Log("Chasing");
+        //Debug.Log("Chasing");
         Agent.SetDestination(player.transform.position);
+
+        Vector3 direction = player.transform.position - Agent.transform.position;
+        Agent.transform.rotation = Quaternion.LookRotation(forward: Vector3.forward, upwards: direction);
         ChaseAttack();
     }
 
@@ -286,6 +297,7 @@ public class MonsterManager : MonoBehaviour
     {
         if(attacking && attackCoolDown) { 
             chasingAttack = true;
+            tempattackcool = false;
         }
     }
 
@@ -323,9 +335,15 @@ public class MonsterManager : MonoBehaviour
     {
         if(stay && attacking)
         {
+            Debug.Log("Hurt PLayer");
             PlayerManager.ModHealth(attackDamage);
             attacking = false;
         }
+    }
+
+    public IEnumerator TempAttack() {
+        yield return new WaitForSeconds(attackDamage);
+        tempattackcool = true;
     }
 
     // temp hurt timer
