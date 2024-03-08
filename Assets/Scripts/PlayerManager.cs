@@ -125,6 +125,10 @@ public class PlayerManager : MonoBehaviour
     public void ModHealth(int mod)
     {
         Player.health += mod;
+        if(Player.health > Player.maxHealth)
+        {
+            Player.health = Player.maxHealth;
+        }
 
         if (Player.health <= 0)
         {
@@ -140,6 +144,15 @@ public class PlayerManager : MonoBehaviour
         if (vignetteManager.isPlaying && Player.health > vignetteAnimThreshold)
         {
             vignetteManager.StopVignetteHurt();
+        }
+    }
+
+    public void ModHunger(int mod)
+    {
+        Player.hunger += mod;
+        if (Player.hunger > Player.maxHunger)
+        {
+            Player.hunger = Player.maxHunger;
         }
     }
 

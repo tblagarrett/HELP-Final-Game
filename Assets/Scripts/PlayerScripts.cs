@@ -8,6 +8,8 @@ public class PlayerScripts : MonoBehaviour
 
     public int health;
     public int hunger;
+    public int maxHealth;
+    public int maxHunger;
     public SpriteRenderer sRen;
     private Rigidbody2D rb;
     public Vector2 mousePos;
