@@ -57,6 +57,9 @@ public class MonsterManager : MonoBehaviour
     [SerializeField] private int attackDamage;  // how much damage dealt
     [SerializeField] private int coolDownDelay; // delay next attack - in chasing state in mean time
     private bool attackCoolDown = true;         // can you attack? - waiting for cooldown
+    public int maxHit;          // max amount of times the monster will tolerate being hit
+    public int minHit;          // min amount of times the monster will tolerate being hit
+    public int curHit = 0;      // current amount of time monster will be hit this encounter
     public bool tempattackcool = false; // delete later
 
     IEnumerator Start()
@@ -287,6 +290,10 @@ public class MonsterManager : MonoBehaviour
     // follows the player
     public void Chasing()
     {
+        if(curHit == 0)
+        {
+            chasing = false;
+        }
         //Debug.Log("Chasing");
         Agent.SetDestination(Player.transform.position);
 
@@ -364,6 +371,7 @@ public class MonsterManager : MonoBehaviour
     }
 
     // for player to use when attacking monster
+    // negative damage will heal monster
     public void HurtMonster(int damage)
     {
         Monster.health -= damage;
@@ -419,6 +427,9 @@ public class MonsterManager : MonoBehaviour
         {
             string state = SelectState();
             if (state == "walk") { walking = true; } else if (state == "sleep") { sleeping = true; } else { idle = true; }
+
+            // reset hit max
+            curHit = 0;
         }
     }
     public void StartAttacking()

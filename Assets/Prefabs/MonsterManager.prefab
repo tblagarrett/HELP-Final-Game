@@ -60,7 +60,6 @@ MonoBehaviour:
   idle: 1
   sleeping: 0
   walking: 0
-  attacking: 0
   chasing: 0
   hurt: 0
   states:
@@ -71,11 +70,16 @@ MonoBehaviour:
   - 0.3
   - 0.1
   - 0.6
+  attacking: 0
   stay: 0
   chasingAttack: 0
   attackDelay: 0.2
   attackDamage: 1
   coolDownDelay: 1
+  maxHit: 6
+  minHit: 2
+  curHit: 0
+  tempattackcool: 0
 --- !u!114 &7061284650958348147
 MonoBehaviour:
   m_ObjectHideFlags: 0

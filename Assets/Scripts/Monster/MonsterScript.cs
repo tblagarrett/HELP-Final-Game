@@ -14,4 +14,14 @@ public class MonsterScript : MonoBehaviour
     public int maxVisRadius;
     public int minVisRadius;
 
+    // collider
+    [SerializeField] private BoxCollider2D body;
+
+    private void Start()
+    {
+        body = GetComponent<BoxCollider2D>();
+    }
+
+
+
 }

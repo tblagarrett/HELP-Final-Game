@@ -215,6 +215,14 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
             // speed up
             GetStateMachine<MonsterStateMachine>().Manager.Agent.speed *= 2;
             GetStateMachine<MonsterStateMachine>().Manager.Agent.angularSpeed *= 2;
+
+            // choose how many times it will get hit before leaving
+            // only set if this is a new encounter
+            if(GetStateMachine<MonsterStateMachine>().Manager.curHit == 0)
+            {
+                GetStateMachine<MonsterStateMachine>().Manager.curHit = Random.Range(GetStateMachine<MonsterStateMachine>().Manager.minHit, GetStateMachine<MonsterStateMachine>().Manager.maxHit);
+                Debug.Log(GetStateMachine<MonsterStateMachine>().Manager.curHit);
+            }
         }
         public override void OnUpdate()
         {
