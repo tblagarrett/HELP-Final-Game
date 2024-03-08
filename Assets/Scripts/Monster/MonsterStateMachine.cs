@@ -11,6 +11,7 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
         MON_IDLE,
         MON_WALK,
         MON_SLEEP,
+        MON_WAKEUP,
         MON_ATTACK,
         MON_HURT,
         MON_CHASE,
@@ -22,6 +23,7 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
             AbstractState.Create<MonIdleState, MonsterState>(MonsterState.MON_IDLE, this),
             AbstractState.Create<MonWalkState, MonsterState>(MonsterState.MON_WALK, this),
             AbstractState.Create<MonSleepState, MonsterState>(MonsterState.MON_SLEEP, this),
+            AbstractState.Create<MonWakeState, MonsterState>(MonsterState.MON_WAKEUP, this),
             AbstractState.Create<MonAttackState, MonsterState>(MonsterState.MON_ATTACK, this),
             AbstractState.Create<MonHurtState, MonsterState>(MonsterState.MON_HURT, this),
             AbstractState.Create<MonChaseState, MonsterState>(MonsterState.MON_CHASE, this),
@@ -143,9 +145,30 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
                 TransitionToState(MonsterState.MON_HURT);
             }
 
+            if (GetStateMachine<MonsterStateMachine>().Manager.chasing)
+            {
+                TransitionToState(MonsterState.MON_WAKEUP);
+            }
+
             if (!GetStateMachine<MonsterStateMachine>().Manager.sleeping) // return to idle once timer is up
             {
                 TransitionToState(MonsterState.MON_IDLE);
+            }
+        }
+    }
+    public class MonWakeState : AbstractState
+    {
+        public override void OnEnter()
+        {
+            // start coroutine (wake up timer)
+            GetStateMachine<MonsterStateMachine>().Manager.StartWakeup();
+        }
+        public override void OnUpdate()
+        {
+            if(GetStateMachine<MonsterStateMachine>().Manager.awaken)
+            {
+                GetStateMachine<MonsterStateMachine>().Manager.StopSleep();
+                TransitionToState(MonsterState.MON_CHASE);
             }
         }
         public override void OnExit()

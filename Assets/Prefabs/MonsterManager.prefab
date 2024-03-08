@@ -58,11 +58,17 @@ MonoBehaviour:
   subHunger: 1
   subHealth: 1
   heal: 4
+  minSleep: 3
+  maxSleep: 6
+  minIdle: 2
+  maxIdle: 5
   idle: 1
   sleeping: 0
   walking: 0
   chasing: 0
   hurt: 0
+  awaken: 0
+  delayChase: 0.5
   states:
   - idle
   - sleep

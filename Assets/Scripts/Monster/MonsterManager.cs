@@ -28,12 +28,21 @@ public class MonsterManager : MonoBehaviour
     // how much to heal for eating
     [SerializeField] private int heal;
 
+    // time in idle and sleeping will change based on health
+    [SerializeField] private float minSleep;
+    [SerializeField] private float maxSleep;
+    [SerializeField] private float minIdle;
+    [SerializeField] private float maxIdle;
+
     // variables for state machine
     public bool idle = true;        
-    public bool sleeping = false;   
+    public bool sleeping = false;
     public bool walking = false;    
     public bool chasing = false;
     public bool hurt = false;
+    // transition state
+    public bool awaken = false;
+    [SerializeField] private float delayChase;
 
     // random selected state
     [SerializeField] private List<string> states;
@@ -188,25 +197,29 @@ public class MonsterManager : MonoBehaviour
         Debug.Log("Idle");
         if (idle) // if entering idle state to be idle
         {
-            timer = Random.Range(1f, 5f);
+            timer = Random.Range(minIdle, maxIdle);
             yield return new WaitForSeconds(timer);
             idle = false;
-        } // else only entering idle to switch to another state
 
-        string state = SelectState();
-        if(state == "walk") { walking = true; } else if (state == "sleep") { sleeping = true; } else { StartIdle(); }
+            string state = SelectState();
+            if (state == "walk") { walking = true; } else if (state == "sleep") { sleeping = true; } else { StartIdle(); }
+        } // else only entering idle to switch to another state
     }
 
     public IEnumerator Sleep()
     {
         Debug.Log("Sleep");
-        timer = Random.Range(1f, 5f);
+        timer = Random.Range(minSleep, maxSleep);
         yield return new WaitForSeconds(timer);
 
         // finish sleeping
         sleeping = false;
     }
-
+    private IEnumerator Wakeup()
+    {
+        yield return new WaitForSeconds(delayChase);
+        awaken = true;
+    }
     public IEnumerator Walking()
     {
         Debug.Log("Walking");
@@ -427,6 +440,7 @@ public class MonsterManager : MonoBehaviour
     {
         sleeping = false;
         StopCoroutine(SleepCo);
+        awaken = false;
     }
     public void StartWalking()
     {
@@ -447,6 +461,7 @@ public class MonsterManager : MonoBehaviour
 
     public void StopChasing()
     {
+        Debug.Log("reset path");
         Agent.ResetPath();
         Agent.speed /= 3;
         //Agent.angularSpeed /= 2;
@@ -466,5 +481,10 @@ public class MonsterManager : MonoBehaviour
     {
         StartCoroutine(Attacking());
         StartCoroutine(TempAttack());
+    }
+
+    public void StartWakeup()
+    {
+        StartCoroutine(Wakeup());
     }
 }
