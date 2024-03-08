@@ -45,9 +45,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a66334e3f130a94fbf5d5a8c6b558ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 10
   Player: {fileID: 0}
+  stick: {fileID: 0}
   PlayerSM: {fileID: 3667802852553213900}
+  MonsterMan: {fileID: 0}
+  hungerDelay: 0
+  healthDelay: 0
+  slashDelay: 0
+  subHunger: 0
+  subHealth: 0
+  idle: 1
+  walking: 0
+  hurt: 0
+  attacking: 0
+  up: {fileID: 0}
+  down: {fileID: 0}
+  left: {fileID: 0}
+  right: {fileID: 0}
+  anim: {fileID: 0}
+  vignetteObj: {fileID: 0}
+  vignetteAnimThreshold: 3
 --- !u!114 &3667802852553213900
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60,3 +77,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b5928555d81ecf4ba314dffe52cef98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveSpeed: 0
