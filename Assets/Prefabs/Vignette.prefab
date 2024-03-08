@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5188467376987008487
+--- !u!1 &7840357918915518467
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,73 +8,59 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3975773505504487197}
-  - component: {fileID: 1071189275063388305}
-  - component: {fileID: 3667802852553213900}
+  - component: {fileID: 6003388172258855446}
+  - component: {fileID: 6362663273981688571}
+  - component: {fileID: 4473863429155300155}
   m_Layer: 0
-  m_Name: PlayerManager
+  m_Name: Vignette
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3975773505504487197
+--- !u!4 &6003388172258855446
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5188467376987008487}
+  m_GameObject: {fileID: 7840357918915518467}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.848979, y: -2.138669, z: -0.08519437}
+  m_LocalPosition: {x: 132.69571, y: 118.59841, z: -9.209082}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1071189275063388305
+--- !u!114 &6362663273981688571
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5188467376987008487}
+  m_GameObject: {fileID: 7840357918915518467}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a66334e3f130a94fbf5d5a8c6b558ff, type: 3}
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 0}
-  stick: {fileID: 0}
-  PlayerSM: {fileID: 3667802852553213900}
-  MonsterMan: {fileID: 0}
-  hungerDelay: 0
-  healthDelay: 0
-  slashDelay: 0
-  subHunger: 0
-  subHealth: 0
-  idle: 1
-  walking: 0
-  hurt: 0
-  attacking: 0
-  up: {fileID: 0}
-  down: {fileID: 0}
-  left: {fileID: 0}
-  right: {fileID: 0}
-  anim: {fileID: 0}
-  vignetteObj: {fileID: 0}
-  vignetteAnimThreshold: 3
---- !u!114 &3667802852553213900
+  m_IsGlobal: 1
+  priority: 0
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: 9e1ffdc2069ab044caf4dcbb8ea89ac6, type: 2}
+--- !u!114 &4473863429155300155
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5188467376987008487}
+  m_GameObject: {fileID: 7840357918915518467}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b5928555d81ecf4ba314dffe52cef98, type: 3}
+  m_Script: {fileID: 11500000, guid: 8962d999bf11fe3498467307b401bde2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 0
+  intensityChange: 0.02
+  isPlaying: 0

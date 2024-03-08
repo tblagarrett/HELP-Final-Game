@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using KevinCastejon.FiniteStateMachine;
+using UnityEngine.Rendering.Universal;
+using System.Runtime.InteropServices;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -39,6 +41,11 @@ public class PlayerManager : MonoBehaviour
 
     public Animator anim;
 
+    //vignette
+    public GameObject vignetteObj;
+    private VignetteClass vignetteManager;
+    [SerializeField] private int vignetteAnimThreshold;
+
     private void Awake()
     {
         if (_instance != null && _instance != this)
@@ -56,8 +63,9 @@ public class PlayerManager : MonoBehaviour
     void Start()
     {
         rb = Player.GetComponent<Rigidbody2D>();
-        anim = stick.GetComponent<Animator>();
+        anim = stick.GetComponent<Animator>(); 
         Player.sRen.sprite = down;
+        vignetteManager = vignetteObj.GetComponent<VignetteClass>();
 
         StartCoroutine(HungerDecay());
 
@@ -121,6 +129,17 @@ public class PlayerManager : MonoBehaviour
         if (Player.health <= 0)
         {
             UIManager.Instance.GoToMenu(GameMenu.GameOver);
+        }
+
+        // Start and stop vignette coroutine as necessary
+        if (!vignetteManager.isPlaying && Player.health <= vignetteAnimThreshold)
+        {
+            StartCoroutine(vignetteManager.PlayVignetteHurt());
+        }
+
+        if (vignetteManager.isPlaying && Player.health > vignetteAnimThreshold)
+        {
+            vignetteManager.StopVignetteHurt();
         }
     }
 
