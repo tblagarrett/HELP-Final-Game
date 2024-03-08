@@ -434,6 +434,11 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &568835666 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7840357918915518467, guid: cb0209d546c2c7844adc0d49d9644063, type: 3}
+  m_PrefabInstance: {fileID: 746647954537361367}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -1286,6 +1291,10 @@ PrefabInstance:
       propertyPath: hungerDelay
       value: 60
       objectReference: {fileID: 0}
+    - target: {fileID: 1071189275063388305, guid: 9c9729c529a1b464382befa60b79deb2, type: 3}
+      propertyPath: vignetteObj
+      value: 
+      objectReference: {fileID: 568835666}
     - target: {fileID: 3667802852553213900, guid: 9c9729c529a1b464382befa60b79deb2, type: 3}
       propertyPath: moveSpeed
       value: 10
