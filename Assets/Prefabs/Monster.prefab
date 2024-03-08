@@ -50,8 +50,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1131e639eb32dee4cb4487f392da4e87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
-  hunger: 10
+  health: 30
+  hunger: 20
+  maxHealth: 30
+  maxHunger: 20
   curVisRadius: 10
   maxVisRadius: 10
   minVisRadius: 3

@@ -9,6 +9,8 @@ public class FoodScript : MonoBehaviour
 
     public MapManager Manager;
 
+    private int hungerIncrease = 2;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +34,16 @@ public class FoodScript : MonoBehaviour
 
             // set its place in the array to null 
             Manager.activeFood[foodArray] = new Vector2(-10000,-10000);
+
+            if(collision.gameObject.tag == "Player")
+            {
+                Manager.PlayManager.ModHunger(hungerIncrease);
+            }
+
+            if (collision.gameObject.tag == "Monster")
+            {
+                Manager.MonManager.ModHunger(hungerIncrease);
+            }
         }
     }
 }

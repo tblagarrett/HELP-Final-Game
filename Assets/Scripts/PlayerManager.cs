@@ -26,6 +26,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private float slashDelay;
     [SerializeField] private int subHunger;
     [SerializeField] private int subHealth;
+    [SerializeField] private int heal;          // how much to heal when eating
 
     //state machine vars
     public bool idle = true;
@@ -154,6 +155,7 @@ public class PlayerManager : MonoBehaviour
         if (Player.hunger > Player.maxHunger)
         {
             Player.hunger = Player.maxHunger;
+            ModHealth(heal);
         }
     }
 

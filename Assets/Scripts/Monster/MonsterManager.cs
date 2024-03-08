@@ -25,6 +25,9 @@ public class MonsterManager : MonoBehaviour
     [SerializeField] private int subHunger;
     [SerializeField] private int subHealth;
 
+    // how much to heal for eating
+    [SerializeField] private int heal;
+
     // variables for state machine
     public bool idle = true;        
     public bool sleeping = false;   
@@ -109,6 +112,21 @@ public class MonsterManager : MonoBehaviour
         else
         {
             StartCoroutine(HungerDecay());
+        }
+    }
+
+    public void ModHunger(int food)
+    {
+        Monster.hunger += food;
+        if (Monster.hunger > Monster.maxHunger)
+        {
+            Monster.hunger = Monster.maxHunger;
+
+            Monster.health += heal;
+            if(Monster.health > Monster.maxHealth)
+            {
+                Monster.health = Monster.maxHealth;
+            }
         }
     }
     public IEnumerator HealthDecay()

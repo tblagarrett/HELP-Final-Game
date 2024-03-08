@@ -57,6 +57,7 @@ MonoBehaviour:
   healthDelay: 10
   subHunger: 1
   subHealth: 1
+  heal: 4
   idle: 1
   sleeping: 0
   walking: 0
@@ -80,6 +81,10 @@ MonoBehaviour:
   minHit: 2
   curHit: 0
   tempattackcool: 0
+  up: {fileID: 0}
+  down: {fileID: 0}
+  left: {fileID: 0}
+  right: {fileID: 0}
 --- !u!114 &7061284650958348147
 MonoBehaviour:
   m_ObjectHideFlags: 0
