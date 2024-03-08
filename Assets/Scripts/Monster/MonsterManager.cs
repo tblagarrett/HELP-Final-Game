@@ -166,6 +166,7 @@ public class MonsterManager : MonoBehaviour
         {
             timer = Random.Range(1f, 5f);
             yield return new WaitForSeconds(timer);
+            idle = false;
         } // else only entering idle to switch to another state
 
         string state = SelectState();

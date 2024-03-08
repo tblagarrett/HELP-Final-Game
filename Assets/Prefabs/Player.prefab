@@ -193,6 +193,7 @@ GameObject:
   - component: {fileID: 4790241360007481012}
   - component: {fileID: 8176329787232772429}
   - component: {fileID: 452475301100970361}
+  - component: {fileID: 9048052918692515992}
   m_Layer: 0
   m_Name: hit1_0
   m_TagString: Untagged
@@ -337,3 +338,18 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.4208658, y: 1.8225523}
   m_EdgeRadius: 0
+--- !u!114 &9048052918692515992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8860358629115096911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 498de1c55096a904eb0668382d022a47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MonsterBody: {fileID: 0}
+  Manager: {fileID: 0}
+  playerDamage: 2
