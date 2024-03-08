@@ -215,8 +215,8 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
             // start anim
 
             // speed up
-            GetStateMachine<MonsterStateMachine>().Manager.Agent.speed *= 2;
-            GetStateMachine<MonsterStateMachine>().Manager.Agent.angularSpeed *= 2;
+            GetStateMachine<MonsterStateMachine>().Manager.Agent.speed *= 3;
+            //GetStateMachine<MonsterStateMachine>().Manager.Agent.angularSpeed *= 2;
 
             // choose how many times it will get hit before leaving
             // only set if this is a new encounter

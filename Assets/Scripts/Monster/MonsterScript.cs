@@ -14,4 +14,12 @@ public class MonsterScript : MonoBehaviour
     public int maxVisRadius;
     public int minVisRadius;
 
+    // sprites
+    public SpriteRenderer spriteRen;
+
+    private void Start()
+    {
+        spriteRen = GetComponent<SpriteRenderer>();
+    }
+
 }

@@ -62,6 +62,12 @@ public class MonsterManager : MonoBehaviour
     public int curHit = 0;      // current amount of time monster will be hit this encounter
     public bool tempattackcool = false; // delete later
 
+    // sprites for directions
+    public Sprite up;
+    public Sprite down;
+    public Sprite left;
+    public Sprite right;
+
     IEnumerator Start()
     {
         // wait for navmeshsurface to be created
@@ -190,7 +196,7 @@ public class MonsterManager : MonoBehaviour
         Vector2 destination = NearestFood();
         Debug.Log(destination);
 
-        // path code referenced from ChatGBT
+        /*/ path code referenced from ChatGBT
         NavMeshPath path = new NavMeshPath();
         NavMesh.CalculatePath(Agent.transform.position, destination, NavMesh.AllAreas, path);
 
@@ -199,36 +205,41 @@ public class MonsterManager : MonoBehaviour
         {
             // decide an axis
             Vector3 direction = path.corners[1] - Agent.transform.position;
-
-            // turn to direction referenced from https://discussions.unity.com/t/prevent-navmesh-from-moving-diagonally/213824
-            if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
+        */
+        Vector2 direction = destination - new Vector2(Agent.transform.position.x, Agent.transform.position.y);
+        // turn to direction referenced from https://discussions.unity.com/t/prevent-navmesh-from-moving-diagonally/213824
+        if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
+        {
+            Debug.Log(destination.x + ", " + Agent.transform.position.y);
+            if (!Agent.SetDestination(new Vector2(destination.x, Agent.transform.position.y)))
             {
-                if (!Agent.SetDestination(new Vector2(destination.x, Agent.transform.position.y)))
-                {
-                    Agent.SetDestination(new Vector2(Agent.transform.position.x, destination.y));
-                    direction.x = 0f;
-                } else
-                {
-                    direction.y = 0f;
-                }
+                Debug.Log("failed");
+                Debug.Log(Agent.SetDestination(new Vector2(Agent.transform.position.x, destination.y)));
+                direction.x = 0f;
             } else
             {
-                if (!Agent.SetDestination(new Vector2(Agent.transform.position.x, destination.y)))
-                {
-                    Agent.SetDestination(new Vector2(destination.x, Agent.transform.position.y));
-                    direction.y = 0f;
-                }
-                else
-                {
-                    direction.x = 0f;
-                }
+                direction.y = 0f;
             }
-            if(direction != Vector3.zero)
+        } else
+        {
+            Debug.Log(Agent.transform.position.x + ", " + destination.y);
+            if (!Agent.SetDestination(new Vector2(Agent.transform.position.x, destination.y)))
             {
-                Agent.transform.rotation = Quaternion.LookRotation(forward: Vector3.forward, upwards: direction.normalized); 
-                Debug.Log(direction);
+                Debug.Log("failed");
+                Debug.Log(Agent.SetDestination(new Vector2(destination.x, Agent.transform.position.y)));
+                direction.y = 0f;
+            }
+            else
+            {
+                direction.x = 0f;
             }
         }
+        if(direction != Vector2.zero)
+        {
+            Agent.transform.rotation = Quaternion.LookRotation(forward: Vector3.forward, upwards: direction.normalized); 
+            Debug.Log(direction);
+        }
+        
 
         //RaycastHit2D hit = Physics2D.Raycast(Agent.transform.position, Agent.transform.TransformDirection(Vector3.forward), Random.Range(20, 30));
 
@@ -299,7 +310,7 @@ public class MonsterManager : MonoBehaviour
         Agent.SetDestination(Player.transform.position);
 
         Vector3 direction = Player.transform.position - Agent.transform.position;
-        Agent.transform.rotation = Quaternion.LookRotation(forward: Vector3.forward, upwards: direction);
+        Agent.transform.rotation = Quaternion.LookRotation(forward: Vector3.forward, upwards: direction.normalized);
         
         // check for attacking
         ChaseAttack();
@@ -419,8 +430,8 @@ public class MonsterManager : MonoBehaviour
     public void StopChasing()
     {
         Agent.ResetPath();
-        Agent.speed /= 2;
-        Agent.angularSpeed /= 2;
+        Agent.speed /= 3;
+        //Agent.angularSpeed /= 2;
         chasingAttack = false;
 
         // choose next state if not going back to chasing
