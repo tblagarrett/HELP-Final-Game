@@ -932,6 +932,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 10
   hunger: 10
+  maxHealth: 10
+  maxHunger: 10
   sRen: {fileID: 1523614343}
   mousePos: {x: 0, y: 0}
 --- !u!1 &1545092871

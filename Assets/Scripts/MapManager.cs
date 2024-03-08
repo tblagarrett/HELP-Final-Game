@@ -41,7 +41,7 @@ public class MapManager : MonoBehaviour
         {
             _instance = this;
         }
-        DontDestroyOnLoad(this);
+        // DontDestroyOnLoad(this);
     }
 
     // Start is called before the first frame update

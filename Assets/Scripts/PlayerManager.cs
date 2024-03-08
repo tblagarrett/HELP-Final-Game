@@ -56,7 +56,7 @@ public class PlayerManager : MonoBehaviour
         {
             _instance = this;
         }
-        DontDestroyOnLoad(this);
+        // DontDestroyOnLoad(this);
     }
 
     // Start is called before the first frame update
@@ -132,6 +132,7 @@ public class PlayerManager : MonoBehaviour
 
         if (Player.health <= 0)
         {
+            // MUST START GAME FROM UI SCENE FOR THIS NOT TO ERROR
             UIManager.Instance.GoToMenu(GameMenu.GameOver);
         }
 
