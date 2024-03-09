@@ -38,7 +38,7 @@ public class PlayerStateMachine : AbstractFiniteStateMachine
 
         PlayMan = transform.GetComponent<PlayerManager>();
         rb = PlayMan.Player.GetComponent<Rigidbody2D>();
-        Color og = PlayMan.Player.sRen.color;
+        og = PlayMan.Player.sRen.color;
     }
 
     public class PlayIdleState : AbstractState
@@ -53,32 +53,6 @@ public class PlayerStateMachine : AbstractFiniteStateMachine
         }
         public override void OnUpdate()
         {
-            /*
-            //player facing follows mouse
-            Vector2 playerPos = GetStateMachine<PlayerStateMachine>().PlayMan.Player.transform.position;
-            //set mouse position
-            GetStateMachine<PlayerStateMachine>().mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector2 dir = GetStateMachine<PlayerStateMachine>().mousePos - playerPos;
-
-            //mouse angle relative to player
-            float angle = (Mathf.Atan2(dir.y, dir.x)) * Mathf.Rad2Deg;
-
-            if((angle < 45 && angle >= 0) || (angle <= 360 && angle > 315))
-            {
-                GetStateMachine<PlayerStateMachine>().PlayMan.Player.sRen.sprite = GetStateMachine<PlayerStateMachine>().PlayMan.right;
-            }
-            else if(angle < 315 && angle > 225)
-            {
-                GetStateMachine<PlayerStateMachine>().PlayMan.Player.sRen.sprite = GetStateMachine<PlayerStateMachine>().PlayMan.down;
-            }
-            else if(angle < -45 && angle > -135)
-            {
-                GetStateMachine<PlayerStateMachine>().PlayMan.Player.sRen.sprite = GetStateMachine<PlayerStateMachine>().PlayMan.left;
-            }
-            else if(angle < 135 && angle > 45)
-            {
-                GetStateMachine<PlayerStateMachine>().PlayMan.Player.sRen.sprite = GetStateMachine<PlayerStateMachine>().PlayMan.up;
-            }*/
 
             if (GetStateMachine<PlayerStateMachine>().PlayMan.walking)
             {

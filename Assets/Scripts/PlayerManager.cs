@@ -87,7 +87,7 @@ public class PlayerManager : MonoBehaviour
         if (attacking == false)
         {
             //slash + coroutine
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonUp(0))
             {
                 walking = false;
                 idle = false;

@@ -42,7 +42,7 @@ public class FoodScript : MonoBehaviour
             if(collision.gameObject.tag == "Player")
             {
                 Manager.PlayManager.ModHunger(hungerIncrease);
-                p_aud.aud.resource = p_aud.eat;
+                p_aud.aud.clip = p_aud.eat;
                 p_aud.aud.Play();
             }
 

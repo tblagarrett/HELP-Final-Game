@@ -25,9 +25,9 @@ public class AudioManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(PlayMan.hurt == true)
+        if(PlayMan.hurt)
         {
-            aud.resource = hurt;
+            aud.clip = hurt;
             aud.Play();
         }
         else
@@ -35,14 +35,14 @@ public class AudioManager : MonoBehaviour
             aud.Stop();
         }
 
-        if(aud.resource = eat)
+        if(aud.clip == eat)
         {
             aud.loop = false;
         }
 
-        if(PlayMan.walking == true)
+        if(PlayMan.walking)
         {
-            aud.resource = walk;
+            aud.clip = walk;
             aud.loop = true;
             aud.Play();
         }
@@ -51,9 +51,9 @@ public class AudioManager : MonoBehaviour
             aud.Stop();
         }
 
-        if (PlayMan.attacking == true)
+        if (PlayMan.attacking)
         {
-            aud.resource = atk;
+            aud.clip = atk;
             aud.loop = false;
             aud.Play();
         }
