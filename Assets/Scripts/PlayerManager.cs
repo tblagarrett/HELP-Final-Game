@@ -147,7 +147,7 @@ public class PlayerManager : MonoBehaviour
         {
             vignetteManager.StopVignetteHurt();
         }
-    }
+    
 
     public void ModHunger(int mod)
     {
