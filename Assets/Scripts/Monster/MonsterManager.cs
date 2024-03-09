@@ -418,6 +418,8 @@ public class MonsterManager : MonoBehaviour
 
         // lower duration of sleeping and idle based on health percentage
         // lower speed
+        // lower how often sleep and idle
+        // increase how often walking
         if (changes == 2 && Monster.health <= Monster.maxHealth/4)
         {
             Agent.speed = 0.5f;
@@ -425,12 +427,18 @@ public class MonsterManager : MonoBehaviour
             minSleep -= 1;
             maxIdle -= 1;
             minIdle -= 1;
+            weights[0] -= 0.07f;
+            weights[1] -= 0.07f;
+            weights[2] += 0.14f;
             changes++;
         }else if (changes == 1 && Monster.health <= Monster.maxHealth/2)
         {
             Agent.speed = 1;
             maxSleep -= 1;
             maxIdle -= 1;
+            weights[0] -= 0.05f;
+            weights[1] -= 0.05f;
+            weights[2] += 0.1f;
             changes++;
         }
         else if(changes == 0 && Monster.health <= Monster.maxHealth * 0.75)
@@ -438,6 +446,9 @@ public class MonsterManager : MonoBehaviour
             Agent.speed = 1.5f;
             maxSleep -= 1;
             maxIdle -= 1;
+            weights[0] -= 0.025f;
+            weights[1] -= 0.025f;
+            weights[2] += 0.05f;
             changes++;
         }
     }

@@ -75,8 +75,8 @@ MonoBehaviour:
   - walk
   weights:
   - 0.3
-  - 0.1
-  - 0.6
+  - 0.2
+  - 0.5
   attacking: 0
   stay: 0
   chasingAttack: 0
