@@ -64,7 +64,7 @@ public class PlayerManager : MonoBehaviour
     void Start()
     {
         rb = Player.GetComponent<Rigidbody2D>();
-        anim = stick.GetComponent<Animator>(); 
+        anim = stick.GetComponent<Animator>();
         Player.sRen.sprite = down;
         vignetteManager = vignetteObj.GetComponent<VignetteClass>();
 
@@ -77,14 +77,14 @@ public class PlayerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
         //setting state
-        if(Input.anyKey == false)
+        if (Input.anyKey == false)
         {
             idle = true;
         }
 
-        if(attacking == false)
+        if (attacking == false)
         {
             //slash + coroutine
             if (Input.GetMouseButtonDown(0))
@@ -94,7 +94,7 @@ public class PlayerManager : MonoBehaviour
                 StartCoroutine(Slash());
             }
         }
-        
+
 
         //checking walking
         if (attacking == false && hurt == false)
@@ -112,8 +112,8 @@ public class PlayerManager : MonoBehaviour
         }
 
 
-        
-        
+
+
     }
 
     //health access func
@@ -126,7 +126,7 @@ public class PlayerManager : MonoBehaviour
     public void ModHealth(int mod)
     {
         Player.health += mod;
-        if(Player.health > Player.maxHealth)
+        if (Player.health > Player.maxHealth)
         {
             Player.health = Player.maxHealth;
         }
@@ -147,7 +147,7 @@ public class PlayerManager : MonoBehaviour
         {
             vignetteManager.StopVignetteHurt();
         }
-    
+    }
 
     public void ModHunger(int mod)
     {
@@ -212,7 +212,5 @@ public class PlayerManager : MonoBehaviour
     {
         anim.Play("Down Hit");
     }
-
-
 
 }
