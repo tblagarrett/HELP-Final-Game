@@ -5,21 +5,16 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour
 {
     //audio source
-    AudioSource aud;
+    public AudioSource aud;
 
     //player and monster managers
-    public PlayerManager PlayMan { get; set; }
-    public MonsterManager MonMan { get; set; }
-
-    //checkers
-    float m_dist;
-    bool isEat;
+    public PlayerManager PlayMan;
 
     //audio clips
-    [SerializeField] private AudioClip hurt;
-    [SerializeField] private AudioClip eat;
-    [SerializeField] private AudioClip atk;
-    [SerializeField] private AudioClip walk;
+    public AudioClip hurt;
+    public AudioClip eat;
+    public AudioClip atk;
+    public AudioClip walk;
 
     // Start is called before the first frame update
     void Start()
@@ -32,7 +27,34 @@ public class AudioManager : MonoBehaviour
     {
         if(PlayMan.hurt == true)
         {
-            aud.clip = hurt;
+            aud.resource = hurt;
+            aud.Play();
+        }
+        else
+        {
+            aud.Stop();
+        }
+
+        if(aud.resource = eat)
+        {
+            aud.loop = false;
+        }
+
+        if(PlayMan.walking == true)
+        {
+            aud.resource = walk;
+            aud.loop = true;
+            aud.Play();
+        }
+        else
+        {
+            aud.Stop();
+        }
+
+        if (PlayMan.attacking == true)
+        {
+            aud.resource = atk;
+            aud.loop = false;
             aud.Play();
         }
         else

@@ -1099,10 +1099,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e41a0f141fecd9f4e89d0a994dfbc597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  aud: {fileID: 5996694575701072234}
+  PlayMan: {fileID: 62152101}
   hurt: {fileID: 8300000, guid: 2b3c77ee32ba7ad4d9e3b475faa3292c, type: 3}
   eat: {fileID: 8300000, guid: db2762cfab616244aaf6d4471fbd77d1, type: 3}
-  atk: {fileID: 0}
-  walk: {fileID: 0}
+  atk: {fileID: 8300000, guid: 68459db6f88cb334085a682fa18fa1ab, type: 3}
+  walk: {fileID: 8300000, guid: 438ad8c1f44f4db4991e891ba7456975, type: 3}
 --- !u!1001 &8594773552751971364
 PrefabInstance:
   m_ObjectHideFlags: 0

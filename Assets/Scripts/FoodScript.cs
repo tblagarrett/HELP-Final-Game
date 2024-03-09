@@ -11,10 +11,14 @@ public class FoodScript : MonoBehaviour
 
     private int hungerIncrease = 2;
 
+    //player audio manager
+    public AudioManager p_aud;
+
     // Start is called before the first frame update
     void Start()
     {
         Manager = transform.parent.parent.GetComponent<MapManager>();
+        p_aud = FindFirstObjectByType<AudioManager>();
     }
      
     // Update is called once per frame
@@ -38,6 +42,8 @@ public class FoodScript : MonoBehaviour
             if(collision.gameObject.tag == "Player")
             {
                 Manager.PlayManager.ModHunger(hungerIncrease);
+                p_aud.aud.resource = p_aud.eat;
+                p_aud.aud.Play();
             }
 
             if (collision.gameObject.tag == "Monster")
