@@ -33,6 +33,7 @@ public class MonsterManager : MonoBehaviour
     [SerializeField] private float maxSleep;
     [SerializeField] private float minIdle;
     [SerializeField] private float maxIdle;
+    private int changes = 0;
 
     // variables for state machine
     public bool idle = true;        
@@ -55,11 +56,6 @@ public class MonsterManager : MonoBehaviour
 
     // random timer for states
     private float timer;
-
-    // randomly choose axis
-    // 0 = x axis
-    // 1 = y axis;
-    private int axis;
 
     // variables for attacking
     public bool attacking = false;  // in attacking distance - can transition to state - turned on/off by MonsterHitRadar.cs
@@ -419,6 +415,31 @@ public class MonsterManager : MonoBehaviour
     {
         Monster.health -= damage;
         hurt = true;
+
+        // lower duration of sleeping and idle based on health percentage
+        // lower speed
+        if (changes == 2 && Monster.health <= Monster.maxHealth/4)
+        {
+            Agent.speed = 0.5f;
+            maxSleep -= 1;
+            minSleep -= 1;
+            maxIdle -= 1;
+            minIdle -= 1;
+            changes++;
+        }else if (changes == 1 && Monster.health <= Monster.maxHealth/2)
+        {
+            Agent.speed = 1;
+            maxSleep -= 1;
+            maxIdle -= 1;
+            changes++;
+        }
+        else if(changes == 0 && Monster.health <= Monster.maxHealth * 0.75)
+        {
+            Agent.speed = 1.5f;
+            maxSleep -= 1;
+            maxIdle -= 1;
+            changes++;
+        }
     }
 
     // functions for statemachine to start and stop coroutines
@@ -461,10 +482,8 @@ public class MonsterManager : MonoBehaviour
 
     public void StopChasing()
     {
-        Debug.Log("reset path");
         Agent.ResetPath();
-        Agent.speed /= 3;
-        //Agent.angularSpeed /= 2;
+        Agent.speed /= 2;
         chasingAttack = false;
 
         // choose next state if not going back to chasing
