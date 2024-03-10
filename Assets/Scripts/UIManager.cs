@@ -119,6 +119,12 @@ public class UIManager : MonoBehaviour
         return Menus[(int)Menu];
     }
 
+    public void SetHearts(int health)
+    {
+        // Call the setHearts function in the NoneMenu script
+        Menus[(int) GameMenu.None].GetComponent<NoneMenu>().setHearts(health);
+    }
+
     // How to make exit game button https://www.youtube.com/watch?v=6nenEHhcNwQ&ab_channel=ThegamedevTraum
     public void Exit()
     {

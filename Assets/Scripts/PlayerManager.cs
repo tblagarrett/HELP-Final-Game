@@ -123,7 +123,7 @@ public class PlayerManager : MonoBehaviour
         return Player.health;
     }
 
-    //health manipulation func
+   //health manipulation func
     public void ModHealth(int mod)
     {
         Player.health += mod;
@@ -148,6 +148,9 @@ public class PlayerManager : MonoBehaviour
         {
             vignetteManager.StopVignetteHurt();
         }
+
+        // Adjust hearts UI
+        UIManager.Instance.SetHearts(Player.health);
     }
 
     public void ModHunger(int mod)
