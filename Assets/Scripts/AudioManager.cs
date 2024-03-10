@@ -16,6 +16,10 @@ public class AudioManager : MonoBehaviour
     public AudioClip atk;
     public AudioClip walk;
 
+    //checking playing
+    bool instate;
+    bool toggleplay;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,42 +29,46 @@ public class AudioManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(PlayMan.hurt)
+        if (PlayMan.hurt)
         {
             aud.clip = hurt;
-            aud.Play();
-        }
-        else
-        {
-            aud.Stop();
-        }
-
-        if(aud.clip == eat)
-        {
             aud.loop = false;
-        }
-
-        if(PlayMan.walking)
+            instate = true;
+        }else if (PlayMan.walking)
         {
             aud.clip = walk;
             aud.loop = true;
-            aud.Play();
-        }
-        else
-        {
-            aud.Stop();
-        }
+            aud.volume = 0.5f;
+            instate = true;
 
-        if (PlayMan.attacking)
+        }
+        else if (PlayMan.attacking)
         {
             aud.clip = atk;
             aud.loop = false;
-            aud.Play();
+            aud.volume = 1;
+            instate = true;
         }
         else
         {
-            aud.Stop();
+            instate = false;
         }
 
+        if (instate == true && toggleplay == false)
+        {
+            aud.Play();
+            toggleplay = true;
+        }
+        else if (instate == false)
+        {
+            aud.Stop();
+            toggleplay = false;
+        }
+
+
+        if (aud.clip == eat)
+        {
+            aud.loop = false;
+        }
     }
 }
