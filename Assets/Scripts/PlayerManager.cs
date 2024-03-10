@@ -4,6 +4,7 @@ using UnityEngine;
 using KevinCastejon.FiniteStateMachine;
 using UnityEngine.Rendering.Universal;
 using System.Runtime.InteropServices;
+using static PlayerStateMachine;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -193,7 +194,16 @@ public class PlayerManager : MonoBehaviour
     {
         attacking = true;
         yield return new WaitForSeconds(slashDelay);
-        attacking = false;
+
+        if (walking)
+        {
+            PlayerSM.TransitionToState(PlayerState.PLAY_WALK);
+        } else if (hurt)
+        {
+            PlayerSM.TransitionToState(PlayerState.PLAY_HURT);
+        } else {
+            PlayerSM.TransitionToState(PlayerState.PLAY_IDLE);
+        }
     }
 
     public void RightSwing()

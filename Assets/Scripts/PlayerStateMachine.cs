@@ -209,7 +209,7 @@ public class PlayerStateMachine : AbstractFiniteStateMachine
             
 
 
-            if (GetStateMachine<PlayerStateMachine>().PlayMan.walking)
+            /*if (GetStateMachine<PlayerStateMachine>().PlayMan.walking)
             {
                 TransitionToState(PlayerState.PLAY_WALK);
             }
@@ -220,7 +220,7 @@ public class PlayerStateMachine : AbstractFiniteStateMachine
             if (GetStateMachine<PlayerStateMachine>().PlayMan.idle)
             {
                 TransitionToState(PlayerState.PLAY_IDLE);
-            }
+            }*/
         }
         public override void OnExit()
         {
