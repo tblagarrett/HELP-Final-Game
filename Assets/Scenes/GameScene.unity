@@ -1142,6 +1142,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1523614345}
     - target: {fileID: 1071189275063388305, guid: 9c9729c529a1b464382befa60b79deb2, type: 3}
+      propertyPath: walking
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1071189275063388305, guid: 9c9729c529a1b464382befa60b79deb2, type: 3}
       propertyPath: subHealth
       value: 1
       objectReference: {fileID: 0}
@@ -1149,6 +1153,10 @@ PrefabInstance:
       propertyPath: subHunger
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1071189275063388305, guid: 9c9729c529a1b464382befa60b79deb2, type: 3}
+      propertyPath: uiManager
+      value: 
+      objectReference: {fileID: 800154511093418450, guid: 89192233cb00ce44eaaa0b6d41af1e51, type: 3}
     - target: {fileID: 1071189275063388305, guid: 9c9729c529a1b464382befa60b79deb2, type: 3}
       propertyPath: MonsterMan
       value: 

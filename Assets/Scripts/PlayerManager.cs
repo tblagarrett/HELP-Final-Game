@@ -58,7 +58,7 @@ public class PlayerManager : MonoBehaviour
         {
             _instance = this;
         }
-        // DontDestroyOnLoad(this);
+        DontDestroyOnLoad(this);
     }
 
     // Start is called before the first frame update
@@ -148,7 +148,6 @@ public class PlayerManager : MonoBehaviour
         {
             vignetteManager.StopVignetteHurt();
         }
-
         // Adjust hearts UI
         UIManager.Instance.SetHearts(Player.health);
     }

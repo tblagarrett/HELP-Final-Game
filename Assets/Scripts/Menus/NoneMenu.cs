@@ -34,7 +34,7 @@ public class NoneMenu : Menu
     public void setHearts(int health)
     {
         int healthToHearts = health - 1;
-        for (int i = 0; i <= 10; i++)
+        for (int i = 0; i < 10; i++)
         {
             if (i <= healthToHearts)
             {

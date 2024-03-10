@@ -391,7 +391,7 @@ public class MonsterManager : MonoBehaviour
         {
             chasingAttack = false;
             Debug.Log("Hurt PLayer");
-            PlayerManager.ModHealth(-attackDamage); 
+            PlayerManager.Instance.ModHealth(-attackDamage); 
         }
     }
 
