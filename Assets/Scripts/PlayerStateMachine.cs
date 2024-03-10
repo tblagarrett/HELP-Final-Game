@@ -70,6 +70,7 @@ public class PlayerStateMachine : AbstractFiniteStateMachine
         public override void OnExit()
         {
             //do stuff
+            GetStateMachine<PlayerStateMachine>().PlayMan.idle = false;
         }
     }
 
@@ -125,6 +126,7 @@ public class PlayerStateMachine : AbstractFiniteStateMachine
             //do stuff
             GetStateMachine<PlayerStateMachine>().PlayMan.idle = true;
             GetStateMachine<PlayerStateMachine>().rb.velocity = Vector2.zero;
+            GetStateMachine<PlayerStateMachine>().PlayMan.walking = false;
         }
     }
 
@@ -156,7 +158,8 @@ public class PlayerStateMachine : AbstractFiniteStateMachine
         public override void OnExit()
         {
             //do stuff
-            GetStateMachine<PlayerStateMachine>().PlayMan.Player.sRen.color = GetStateMachine<PlayerStateMachine>().og; ;
+            GetStateMachine<PlayerStateMachine>().PlayMan.Player.sRen.color = GetStateMachine<PlayerStateMachine>().og;
+            GetStateMachine<PlayerStateMachine>().PlayMan.hurt = false;
         }
     }
 
@@ -224,6 +227,7 @@ public class PlayerStateMachine : AbstractFiniteStateMachine
             //do stuff
             GetStateMachine<PlayerStateMachine>().PlayMan.stick.SetActive(false);
             GetStateMachine<PlayerStateMachine>().PlayMan.idle = true;
+            GetStateMachine<PlayerStateMachine>().PlayMan.attacking = false;
         }
     }
 /*
