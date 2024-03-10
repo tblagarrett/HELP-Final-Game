@@ -58,7 +58,7 @@ public class PlayerManager : MonoBehaviour
         {
             _instance = this;
         }
-        DontDestroyOnLoad(this);
+        //DontDestroyOnLoad(this);
     }
 
     // Start is called before the first frame update
@@ -160,6 +160,8 @@ public class PlayerManager : MonoBehaviour
             Player.hunger = Player.maxHunger;
             ModHealth(heal);
         }
+
+        UIManager.Instance.SetHunger(Player.hunger);
     }
 
     //hunger coroutine
@@ -167,6 +169,7 @@ public class PlayerManager : MonoBehaviour
     {
         yield return new WaitForSeconds(hungerDelay);
         Player.hunger -= subHunger;
+        UIManager.Instance.SetHunger(Player.hunger);
 
         if (Player.hunger <= 0)
         {
