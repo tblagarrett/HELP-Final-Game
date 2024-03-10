@@ -25,12 +25,25 @@ public class MonsterManager : MonoBehaviour
     [SerializeField] private int subHunger;
     [SerializeField] private int subHealth;
 
+    // how much to heal for eating
+    [SerializeField] private int heal;
+
+    // time in idle and sleeping will change based on health
+    [SerializeField] private float minSleep;
+    [SerializeField] private float maxSleep;
+    [SerializeField] private float minIdle;
+    [SerializeField] private float maxIdle;
+    private int changes = 0;
+
     // variables for state machine
     public bool idle = true;        
-    public bool sleeping = false;   
+    public bool sleeping = false;
     public bool walking = false;    
     public bool chasing = false;
     public bool hurt = false;
+    // transition state
+    public bool awaken = false;
+    [SerializeField] private float delayChase;
 
     // random selected state
     [SerializeField] private List<string> states;
@@ -44,11 +57,6 @@ public class MonsterManager : MonoBehaviour
     // random timer for states
     private float timer;
 
-    // randomly choose axis
-    // 0 = x axis
-    // 1 = y axis;
-    private int axis;
-
     // variables for attacking
     public bool attacking = false;  // in attacking distance - can transition to state - turned on/off by MonsterHitRadar.cs
     public bool stay = false;       // Player is in attacking area - turned on/off by MonsterAttack.cs
@@ -57,7 +65,16 @@ public class MonsterManager : MonoBehaviour
     [SerializeField] private int attackDamage;  // how much damage dealt
     [SerializeField] private int coolDownDelay; // delay next attack - in chasing state in mean time
     private bool attackCoolDown = true;         // can you attack? - waiting for cooldown
+    public int maxHit;          // max amount of times the monster will tolerate being hit
+    public int minHit;          // min amount of times the monster will tolerate being hit
+    public int curHit = 0;      // current amount of time monster will be hit this encounter
     public bool tempattackcool = false; // delete later
+
+    // sprites for directions
+    public Sprite up;
+    public Sprite down;
+    public Sprite left;
+    public Sprite right;
 
     IEnumerator Start()
     {
@@ -100,6 +117,21 @@ public class MonsterManager : MonoBehaviour
         else
         {
             StartCoroutine(HungerDecay());
+        }
+    }
+
+    public void ModHunger(int food)
+    {
+        Monster.hunger += food;
+        if (Monster.hunger > Monster.maxHunger)
+        {
+            Monster.hunger = Monster.maxHunger;
+
+            Monster.health += heal;
+            if(Monster.health > Monster.maxHealth)
+            {
+                Monster.health = Monster.maxHealth;
+            }
         }
     }
     public IEnumerator HealthDecay()
@@ -161,24 +193,29 @@ public class MonsterManager : MonoBehaviour
         Debug.Log("Idle");
         if (idle) // if entering idle state to be idle
         {
-            timer = Random.Range(1f, 5f);
+            timer = Random.Range(minIdle, maxIdle);
             yield return new WaitForSeconds(timer);
-        } // else only entering idle to switch to another state
+            idle = false;
 
-        string state = SelectState();
-        if(state == "walk") { walking = true; } else if (state == "sleep") { sleeping = true; } else { StartIdle(); }
+            string state = SelectState();
+            if (state == "walk") { walking = true; } else if (state == "sleep") { sleeping = true; } else { StartIdle(); }
+        } // else only entering idle to switch to another state
     }
 
     public IEnumerator Sleep()
     {
         Debug.Log("Sleep");
-        timer = Random.Range(1f, 5f);
+        timer = Random.Range(minSleep, maxSleep);
         yield return new WaitForSeconds(timer);
 
         // finish sleeping
         sleeping = false;
     }
-
+    private IEnumerator Wakeup()
+    {
+        yield return new WaitForSeconds(delayChase);
+        awaken = true;
+    }
     public IEnumerator Walking()
     {
         Debug.Log("Walking");
@@ -186,7 +223,7 @@ public class MonsterManager : MonoBehaviour
         Vector2 destination = NearestFood();
         Debug.Log(destination);
 
-        // path code referenced from ChatGBT
+        /*/ path code referenced from ChatGBT
         NavMeshPath path = new NavMeshPath();
         NavMesh.CalculatePath(Agent.transform.position, destination, NavMesh.AllAreas, path);
 
@@ -195,36 +232,41 @@ public class MonsterManager : MonoBehaviour
         {
             // decide an axis
             Vector3 direction = path.corners[1] - Agent.transform.position;
-
-            // turn to direction referenced from https://discussions.unity.com/t/prevent-navmesh-from-moving-diagonally/213824
-            if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
+        */
+        Vector2 direction = destination - new Vector2(Agent.transform.position.x, Agent.transform.position.y);
+        // turn to direction referenced from https://discussions.unity.com/t/prevent-navmesh-from-moving-diagonally/213824
+        if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
+        {
+            Debug.Log(destination.x + ", " + Agent.transform.position.y);
+            if (!Agent.SetDestination(new Vector2(destination.x, Agent.transform.position.y)))
             {
-                if (!Agent.SetDestination(new Vector2(destination.x, Agent.transform.position.y)))
-                {
-                    Agent.SetDestination(new Vector2(Agent.transform.position.x, destination.y));
-                    direction.x = 0f;
-                } else
-                {
-                    direction.y = 0f;
-                }
+                Debug.Log("failed");
+                Debug.Log(Agent.SetDestination(new Vector2(Agent.transform.position.x, destination.y)));
+                direction.x = 0f;
             } else
             {
-                if (!Agent.SetDestination(new Vector2(Agent.transform.position.x, destination.y)))
-                {
-                    Agent.SetDestination(new Vector2(destination.x, Agent.transform.position.y));
-                    direction.y = 0f;
-                }
-                else
-                {
-                    direction.x = 0f;
-                }
+                direction.y = 0f;
             }
-            if(direction != Vector3.zero)
+        } else
+        {
+            Debug.Log(Agent.transform.position.x + ", " + destination.y);
+            if (!Agent.SetDestination(new Vector2(Agent.transform.position.x, destination.y)))
             {
-                Agent.transform.rotation = Quaternion.LookRotation(forward: Vector3.forward, upwards: direction.normalized); 
-                Debug.Log(direction);
+                Debug.Log("failed");
+                Debug.Log(Agent.SetDestination(new Vector2(destination.x, Agent.transform.position.y)));
+                direction.y = 0f;
+            }
+            else
+            {
+                direction.x = 0f;
             }
         }
+        if(direction != Vector2.zero)
+        {
+            Agent.transform.rotation = Quaternion.LookRotation(forward: Vector3.forward, upwards: direction.normalized); 
+            Debug.Log(direction);
+        }
+        
 
         //RaycastHit2D hit = Physics2D.Raycast(Agent.transform.position, Agent.transform.TransformDirection(Vector3.forward), Random.Range(20, 30));
 
@@ -287,11 +329,15 @@ public class MonsterManager : MonoBehaviour
     // follows the player
     public void Chasing()
     {
+        if(curHit == 0)
+        {
+            chasing = false;
+        }
         //Debug.Log("Chasing");
         Agent.SetDestination(Player.transform.position);
 
         Vector3 direction = Player.transform.position - Agent.transform.position;
-        Agent.transform.rotation = Quaternion.LookRotation(forward: Vector3.forward, upwards: direction);
+        Agent.transform.rotation = Quaternion.LookRotation(forward: Vector3.forward, upwards: direction.normalized);
         
         // check for attacking
         ChaseAttack();
@@ -364,10 +410,47 @@ public class MonsterManager : MonoBehaviour
     }
 
     // for player to use when attacking monster
+    // negative damage will heal monster
     public void HurtMonster(int damage)
     {
         Monster.health -= damage;
         hurt = true;
+
+        // lower duration of sleeping and idle based on health percentage
+        // lower speed
+        // lower how often sleep and idle
+        // increase how often walking
+        if (changes == 2 && Monster.health <= Monster.maxHealth/4)
+        {
+            Agent.speed = 0.5f;
+            maxSleep -= 1;
+            minSleep -= 1;
+            maxIdle -= 1;
+            minIdle -= 1;
+            weights[0] -= 0.07f;
+            weights[1] -= 0.07f;
+            weights[2] += 0.14f;
+            changes++;
+        }else if (changes == 1 && Monster.health <= Monster.maxHealth/2)
+        {
+            Agent.speed = 1;
+            maxSleep -= 1;
+            maxIdle -= 1;
+            weights[0] -= 0.05f;
+            weights[1] -= 0.05f;
+            weights[2] += 0.1f;
+            changes++;
+        }
+        else if(changes == 0 && Monster.health <= Monster.maxHealth * 0.75)
+        {
+            Agent.speed = 1.5f;
+            maxSleep -= 1;
+            maxIdle -= 1;
+            weights[0] -= 0.025f;
+            weights[1] -= 0.025f;
+            weights[2] += 0.05f;
+            changes++;
+        }
     }
 
     // functions for statemachine to start and stop coroutines
@@ -389,6 +472,7 @@ public class MonsterManager : MonoBehaviour
     {
         sleeping = false;
         StopCoroutine(SleepCo);
+        awaken = false;
     }
     public void StartWalking()
     {
@@ -411,7 +495,6 @@ public class MonsterManager : MonoBehaviour
     {
         Agent.ResetPath();
         Agent.speed /= 2;
-        Agent.angularSpeed /= 2;
         chasingAttack = false;
 
         // choose next state if not going back to chasing
@@ -419,11 +502,19 @@ public class MonsterManager : MonoBehaviour
         {
             string state = SelectState();
             if (state == "walk") { walking = true; } else if (state == "sleep") { sleeping = true; } else { idle = true; }
+
+            // reset hit max
+            curHit = 0;
         }
     }
     public void StartAttacking()
     {
         StartCoroutine(Attacking());
         StartCoroutine(TempAttack());
+    }
+
+    public void StartWakeup()
+    {
+        StartCoroutine(Wakeup());
     }
 }

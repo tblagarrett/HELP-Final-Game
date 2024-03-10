@@ -11,6 +11,7 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
         MON_IDLE,
         MON_WALK,
         MON_SLEEP,
+        MON_WAKEUP,
         MON_ATTACK,
         MON_HURT,
         MON_CHASE,
@@ -22,6 +23,7 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
             AbstractState.Create<MonIdleState, MonsterState>(MonsterState.MON_IDLE, this),
             AbstractState.Create<MonWalkState, MonsterState>(MonsterState.MON_WALK, this),
             AbstractState.Create<MonSleepState, MonsterState>(MonsterState.MON_SLEEP, this),
+            AbstractState.Create<MonWakeState, MonsterState>(MonsterState.MON_WAKEUP, this),
             AbstractState.Create<MonAttackState, MonsterState>(MonsterState.MON_ATTACK, this),
             AbstractState.Create<MonHurtState, MonsterState>(MonsterState.MON_HURT, this),
             AbstractState.Create<MonChaseState, MonsterState>(MonsterState.MON_CHASE, this),
@@ -143,9 +145,30 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
                 TransitionToState(MonsterState.MON_HURT);
             }
 
+            if (GetStateMachine<MonsterStateMachine>().Manager.chasing)
+            {
+                TransitionToState(MonsterState.MON_WAKEUP);
+            }
+
             if (!GetStateMachine<MonsterStateMachine>().Manager.sleeping) // return to idle once timer is up
             {
                 TransitionToState(MonsterState.MON_IDLE);
+            }
+        }
+    }
+    public class MonWakeState : AbstractState
+    {
+        public override void OnEnter()
+        {
+            // start coroutine (wake up timer)
+            GetStateMachine<MonsterStateMachine>().Manager.StartWakeup();
+        }
+        public override void OnUpdate()
+        {
+            if(GetStateMachine<MonsterStateMachine>().Manager.awaken)
+            {
+                GetStateMachine<MonsterStateMachine>().Manager.StopSleep();
+                TransitionToState(MonsterState.MON_CHASE);
             }
         }
         public override void OnExit()
@@ -190,14 +213,16 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
             if (!GetStateMachine<MonsterStateMachine>().Manager.hurt) // change to if anim over
             {
                 // if health reaches 0 die
-                if(GetStateMachine<MonsterStateMachine>().Manager.Monster.health == 0)
+                if(GetStateMachine<MonsterStateMachine>().Manager.Monster.health <= 0)
                 {
+                    Debug.Log("Dead");
                     TransitionToState(MonsterState.MON_DEATH);
+                } else
+                {
+                    Debug.Log("Back to idle");
+                    // send back to idle which will send it back to it's previous state
+                    TransitionToState(MonsterState.MON_IDLE);
                 }
-
-                Debug.Log("Back to idle");
-                // send back to idle which will send it back to it's previous state
-                TransitionToState(MonsterState.MON_IDLE);
             }
         }
         public override void OnExit()
@@ -214,7 +239,14 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
 
             // speed up
             GetStateMachine<MonsterStateMachine>().Manager.Agent.speed *= 2;
-            GetStateMachine<MonsterStateMachine>().Manager.Agent.angularSpeed *= 2;
+
+            // choose how many times it will get hit before leaving
+            // only set if this is a new encounter
+            if(GetStateMachine<MonsterStateMachine>().Manager.curHit == 0)
+            {
+                GetStateMachine<MonsterStateMachine>().Manager.curHit = Random.Range(GetStateMachine<MonsterStateMachine>().Manager.minHit, GetStateMachine<MonsterStateMachine>().Manager.maxHit);
+                Debug.Log(GetStateMachine<MonsterStateMachine>().Manager.curHit);
+            }
         }
         public override void OnUpdate()
         {
@@ -249,7 +281,7 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
         public override void OnEnter()
         {
             // start anim
-            GetStateMachine<MonsterStateMachine>().Manager.Monster.enabled = false;
+            GetStateMachine<MonsterStateMachine>().Manager.gameObject.SetActive(false);
         }
         public override void OnUpdate()
         {

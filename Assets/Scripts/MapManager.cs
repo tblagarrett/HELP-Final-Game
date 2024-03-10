@@ -23,6 +23,10 @@ public class MapManager : MonoBehaviour
     [SerializeField] private GameObject foodContainer;
     [SerializeField] private int howMuchFood;
 
+    // Managers for foodscript to use
+    public MonsterManager MonManager;
+    public PlayerManager PlayManager;
+
     // Singleton Initialization
     private static MapManager _instance; // make a static private variable of the component data type
     public static MapManager Instance { get { return _instance; } } // make a public way to access the private variable
@@ -56,6 +60,10 @@ public class MapManager : MonoBehaviour
 
         // Place down some food at the start
         PlaceFood(howMuchFood);
+
+        // get managers
+        MonManager = FindAnyObjectByType<MonsterManager>();
+        PlayManager = FindAnyObjectByType<PlayerManager>();
     }
 
     // Update is called once per frame

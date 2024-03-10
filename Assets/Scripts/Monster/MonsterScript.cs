@@ -8,10 +8,21 @@ public class MonsterScript : MonoBehaviour
     public int health;
     public int hunger;
 
+    public int maxHealth;
+    public int maxHunger;
+
     // variables for radius of view
     // How far away the monster can see depending on state
     public int curVisRadius;
     public int maxVisRadius;
     public int minVisRadius;
+
+    // sprites
+    public SpriteRenderer spriteRen;
+
+    private void Start()
+    {
+        spriteRen = GetComponent<SpriteRenderer>();
+    }
 
 }

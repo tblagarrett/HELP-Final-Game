@@ -4,6 +4,7 @@ using UnityEngine;
 using KevinCastejon.FiniteStateMachine;
 using UnityEngine.Rendering.Universal;
 using System.Runtime.InteropServices;
+using static PlayerStateMachine;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -26,6 +27,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private float slashDelay;
     [SerializeField] private int subHunger;
     [SerializeField] private int subHealth;
+    [SerializeField] private int heal;          // how much to heal when eating
 
     //state machine vars
     public bool idle = true;
@@ -63,7 +65,7 @@ public class PlayerManager : MonoBehaviour
     void Start()
     {
         rb = Player.GetComponent<Rigidbody2D>();
-        anim = stick.GetComponent<Animator>(); 
+        anim = stick.GetComponent<Animator>();
         Player.sRen.sprite = down;
         vignetteManager = vignetteObj.GetComponent<VignetteClass>();
 
@@ -76,14 +78,14 @@ public class PlayerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
         //setting state
-        if(Input.anyKey == false)
+        if (Input.anyKey == false)
         {
             idle = true;
         }
 
-        if(attacking == false)
+        if (attacking == false)
         {
             //slash + coroutine
             if (Input.GetMouseButtonDown(0))
@@ -93,7 +95,7 @@ public class PlayerManager : MonoBehaviour
                 StartCoroutine(Slash());
             }
         }
-        
+
 
         //checking walking
         if (attacking == false && hurt == false)
@@ -111,8 +113,8 @@ public class PlayerManager : MonoBehaviour
         }
 
 
-        
-        
+
+
     }
 
     //health access func
@@ -125,7 +127,7 @@ public class PlayerManager : MonoBehaviour
     public void ModHealth(int mod)
     {
         Player.health += mod;
-        if(Player.health > Player.maxHealth)
+        if (Player.health > Player.maxHealth)
         {
             Player.health = Player.maxHealth;
         }
@@ -154,6 +156,7 @@ public class PlayerManager : MonoBehaviour
         if (Player.hunger > Player.maxHunger)
         {
             Player.hunger = Player.maxHunger;
+            ModHealth(heal);
         }
     }
 
@@ -191,7 +194,16 @@ public class PlayerManager : MonoBehaviour
     {
         attacking = true;
         yield return new WaitForSeconds(slashDelay);
-        attacking = false;
+
+        if (walking)
+        {
+            PlayerSM.TransitionToState(PlayerState.PLAY_WALK);
+        } else if (hurt)
+        {
+            PlayerSM.TransitionToState(PlayerState.PLAY_HURT);
+        } else {
+            PlayerSM.TransitionToState(PlayerState.PLAY_IDLE);
+        }
     }
 
     public void RightSwing()
@@ -210,7 +222,5 @@ public class PlayerManager : MonoBehaviour
     {
         anim.Play("Down Hit");
     }
-
-
 
 }

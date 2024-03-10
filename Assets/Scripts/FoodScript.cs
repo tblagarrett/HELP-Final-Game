@@ -9,10 +9,16 @@ public class FoodScript : MonoBehaviour
 
     public MapManager Manager;
 
+    private int hungerIncrease = 2;
+
+    //player audio manager
+    public AudioManager p_aud;
+
     // Start is called before the first frame update
     void Start()
     {
         Manager = transform.parent.parent.GetComponent<MapManager>();
+        p_aud = FindFirstObjectByType<AudioManager>();
     }
      
     // Update is called once per frame
@@ -32,6 +38,18 @@ public class FoodScript : MonoBehaviour
 
             // set its place in the array to null 
             Manager.activeFood[foodArray] = new Vector2(-10000,-10000);
+
+            if(collision.gameObject.tag == "Player")
+            {
+                Manager.PlayManager.ModHunger(hungerIncrease);
+                p_aud.aud.clip = p_aud.eat;
+                p_aud.aud.Play();
+            }
+
+            if (collision.gameObject.tag == "Monster")
+            {
+                Manager.MonManager.ModHunger(hungerIncrease);
+            }
         }
     }
 }
