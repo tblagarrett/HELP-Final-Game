@@ -1311,11 +1311,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1950928931}
+  m_Father: {fileID: 1777523475}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 1961, y: -726}
+  m_AnchoredPosition: {x: -121, y: -57}
   m_SizeDelta: {x: 160, y: 49.6927}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &938628334
@@ -2287,6 +2287,7 @@ RectTransform:
   - {fileID: 1979839394}
   - {fileID: 2031927573}
   - {fileID: 1987341817}
+  - {fileID: 938628333}
   m_Father: {fileID: 1950928931}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2469,7 +2470,6 @@ RectTransform:
   - {fileID: 1555482241}
   - {fileID: 238839132}
   - {fileID: 1777523475}
-  - {fileID: 938628333}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2609,10 +2609,10 @@ RectTransform:
   - {fileID: 425096959}
   m_Father: {fileID: 1777523475}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -428.5, y: -368.80798}
-  m_SizeDelta: {x: 160, y: 46.3839}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 9, y: 169.26733}
+  m_SizeDelta: {x: 160, y: 46.38391}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1987341818
 MonoBehaviour:
@@ -2819,7 +2819,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 11, y: 64.732666}
+  m_AnchoredPosition: {x: 10, y: 99}
   m_SizeDelta: {x: 160, y: 46.5346}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2031927574
@@ -2874,6 +2874,18 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1950928932}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: SetHearts
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 10
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0

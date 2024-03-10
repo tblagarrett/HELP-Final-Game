@@ -25,7 +25,7 @@ public class NoneMenu : Menu
             // Calculate the y-position relative to the top of the canvas
             float yPos = canvasHeight;
 
-            heart.GetComponent<RectTransform>().position = new Vector3(50 + 70 * i, -200);
+            heart.GetComponent<RectTransform>().position = new Vector3(50 + 50 * i, -150);
             hearts.Add(heart);
         }
     }
