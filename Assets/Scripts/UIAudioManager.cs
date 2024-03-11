@@ -12,22 +12,30 @@ public class UIAudioManager : MonoBehaviour
 
     //click audio clips
     public AudioClip clip1;
-    public AudioClip clip2;
-    public AudioClip clip3;
-
-    //checking playing
-    bool toggleplay;
 
 
     // Start is called before the first frame update
     void Start()
     {
         aud = GetComponent<AudioSource>();
+        aud.clip = clip1;
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void playSound()
+    {
+        StartCoroutine(Click());
+    }
+
+    public IEnumerator Click()
+    {
+        aud.Play();
+        yield return new WaitForSeconds(0.14f);
+        aud.Stop();
     }
 }
