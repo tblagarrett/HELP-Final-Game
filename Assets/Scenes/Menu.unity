@@ -596,6 +596,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1625592661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1258924008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8bb8c0bfcd677443b317e3b2972b71b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  aud: {fileID: 1625592660}
+  man: {fileID: 1625592655}
+  clip1: {fileID: 0}
+  clip2: {fileID: 0}
+  clip3: {fileID: 0}
 --- !u!1001 &4806078549742933438
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -802,6 +819,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3112344904310210317, guid: 89192233cb00ce44eaaa0b6d41af1e51, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1625592660}
+    - targetCorrespondingSourceObject: {fileID: 3112344904310210317, guid: 89192233cb00ce44eaaa0b6d41af1e51, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1625592661}
   m_SourcePrefab: {fileID: 100100000, guid: 89192233cb00ce44eaaa0b6d41af1e51, type: 3}
 --- !u!224 &4806078549742933439 stripped
 RectTransform:
