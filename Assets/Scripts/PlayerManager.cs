@@ -159,6 +159,7 @@ public class PlayerManager : MonoBehaviour
         {
             Player.hunger = Player.maxHunger;
             ModHealth(heal);
+            Debug.Log("JUST HEALED " + heal);
         }
 
         UIManager.Instance.SetHunger(Player.hunger);

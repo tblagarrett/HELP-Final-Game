@@ -25,7 +25,6 @@ public class NoneMenu : Menu
         {
             if (i <= healthToHearts)
             {
-                Debug.Log(i);
                 hearts[i].GetComponent<Image>().sprite = heartFilled;
             } else
             {

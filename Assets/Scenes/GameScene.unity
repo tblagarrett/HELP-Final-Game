@@ -1126,6 +1126,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -6972091813066732394, guid: cf9628a3c00388e408f8d159983d7213, type: 3}
     - target: {fileID: 1071189275063388305, guid: 9c9729c529a1b464382befa60b79deb2, type: 3}
+      propertyPath: heal
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1071189275063388305, guid: 9c9729c529a1b464382befa60b79deb2, type: 3}
       propertyPath: left
       value: 
       objectReference: {fileID: -4143886939304239777, guid: e8a329c891f752f44b2579795fa10e10, type: 3}
