@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class NoneMenu : Menu
 {
-    private List<GameObject> hearts;
-    private List<GameObject> foodSprites;
+    public List<GameObject> hearts;
+    public List<GameObject> foodSprites;
     [SerializeField] private GameObject heartPrefab;
     [SerializeField] private GameObject foodPrefab;
     [SerializeField] private Sprite heartFilled;
@@ -15,37 +15,6 @@ public class NoneMenu : Menu
     [SerializeField] private Sprite foodEmpty;
     private void Start()
     {
-        hearts = new List<GameObject>();
-        foodSprites = new List<GameObject>();
-
-
-        // Get the height of the canvas
-        RectTransform canvasRectTransform = GetComponent<RectTransform>();
-        float canvasHeight = canvasRectTransform.rect.height;
-
-        // Spawn the heart sprites
-        for (int i = 0; i < 10; i++)
-        {
-            GameObject heart = Instantiate(heartPrefab, this.gameObject.transform, false);
-
-            // Calculate the y-position relative to the top of the canvas
-            float yPos = canvasHeight;
-
-            heart.GetComponent<RectTransform>().position = new Vector3(50 + 50 * i, -150);
-            hearts.Add(heart);
-        }
-
-        // Spawn the food sprites
-        for (int i = 0; i < 10; i++)
-        {
-            GameObject foodSprite = Instantiate(foodPrefab, this.gameObject.transform, false);
-
-            // Calculate the y-position relative to the top of the canvas
-            float yPos = canvasHeight;
-
-            foodSprite.GetComponent<RectTransform>().position = new Vector3(50 + 50 * i, -190);
-            foodSprites.Add(foodSprite);
-        }
     }
 
     // HEALTH MUST BE BETWEEN MIN HEALTH AND MAX HEALTH
@@ -56,6 +25,7 @@ public class NoneMenu : Menu
         {
             if (i <= healthToHearts)
             {
+                Debug.Log(i);
                 hearts[i].GetComponent<Image>().sprite = heartFilled;
             } else
             {
