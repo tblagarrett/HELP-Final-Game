@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6395665170638791596}
   m_Layer: 0
   m_Name: FoodPrefab
-  m_TagString: Untagged
+  m_TagString: Food
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -150,6 +150,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   foodArray: 0
   Manager: {fileID: 0}
+  p_aud: {fileID: 0}
 --- !u!198 &5564267054224406369
 ParticleSystem:
   m_ObjectHideFlags: 0
