@@ -48,6 +48,8 @@ public class PlayerManager : MonoBehaviour
     private VignetteClass vignetteManager;
     [SerializeField] private int vignetteAnimThreshold;
 
+    //eat check
+    public bool eat;
     private void Awake()
     {
         if (_instance != null && _instance != this)
@@ -227,6 +229,23 @@ public class PlayerManager : MonoBehaviour
     public void DownSwing()
     {
         anim.Play("Down Hit");
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Food"))
+        {
+            eat = true;
+        }
+        else
+        {
+            eat = false;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        eat = false;
     }
 
 }

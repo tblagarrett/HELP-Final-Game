@@ -49,6 +49,13 @@ public class AudioManager : MonoBehaviour
             aud.volume = 1;
             instate = true;
         }
+        else if (PlayMan.eat)
+        {
+            aud.clip = eat;
+            aud.loop = false;
+            aud.volume = 1;
+            instate = true;
+        }
         else
         {
             instate = false;
