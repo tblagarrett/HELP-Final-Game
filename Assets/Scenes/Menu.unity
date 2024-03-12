@@ -2528,7 +2528,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aud: {fileID: 1625592660}
   man: {fileID: 1625592655}
-  clip1: {fileID: 0}
+  clip1: {fileID: 8300000, guid: 4491cd44e191b8d4b9e76bdf1d70e516, type: 3}
   clip2: {fileID: 0}
   clip3: {fileID: 0}
 --- !u!1001 &1693814974
