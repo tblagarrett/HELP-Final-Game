@@ -46,6 +46,7 @@ public class FoodScript : MonoBehaviour
             if (collision.gameObject.tag == "Monster")
             {
                 Manager.MonManager.ModHunger(hungerIncrease);
+                Manager.MonManager.eat = true;
             }
         }
     }

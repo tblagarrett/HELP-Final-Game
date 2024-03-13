@@ -44,6 +44,8 @@ public class MonsterManager : MonoBehaviour
     // transition state
     public bool awaken = false;
     [SerializeField] private float delayChase;
+    // for audio
+    public bool eat = false;
 
     // random selected state
     [SerializeField] private List<string> states;

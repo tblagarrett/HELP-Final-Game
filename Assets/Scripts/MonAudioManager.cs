@@ -54,10 +54,11 @@ public class MonAudioManager : MonoBehaviour
         }
         else if (MonMan.eat)
         {
-            //aud.clip = eat;
-            //aud.loop = false;
-            //aud.volume = 1;
-            //instate = true;
+            aud.clip = eat;
+            aud.loop = false;
+            aud.volume = 1;
+            instate = true;
+            MonMan.eat = false;
         }
         else
         {
