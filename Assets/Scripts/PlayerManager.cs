@@ -231,21 +231,4 @@ public class PlayerManager : MonoBehaviour
         anim.Play("Down Hit");
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Food"))
-        {
-            eat = true;
-        }
-        else
-        {
-            eat = false;
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        eat = false;
-    }
-
 }

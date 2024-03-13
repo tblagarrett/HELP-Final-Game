@@ -874,6 +874,8 @@ MonoBehaviour:
   foodPrefab: {fileID: 932342347511325503, guid: f823dd94245887741a983faa7e9b0d59, type: 3}
   foodContainer: {fileID: 8028375594843259294}
   howMuchFood: 3
+  MonManager: {fileID: 0}
+  PlayManager: {fileID: 0}
   activeFood: []
 --- !u!114 &-5816701699373269220
 MonoBehaviour:

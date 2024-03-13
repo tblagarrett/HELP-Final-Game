@@ -186,6 +186,22 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4540671004020723891, guid: 27fd6f60fab0c1c48a2f68b11cbf973c, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 32
+      objectReference: {fileID: 0}
+    - target: {fileID: 4540671004020723891, guid: 27fd6f60fab0c1c48a2f68b11cbf973c, type: 3}
+      propertyPath: m_IncludeLayers.m_Bits
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 6180963130459756397, guid: 27fd6f60fab0c1c48a2f68b11cbf973c, type: 3}
+      propertyPath: mapSizeX
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6180963130459756397, guid: 27fd6f60fab0c1c48a2f68b11cbf973c, type: 3}
+      propertyPath: mapSizeY
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 6180963130459756397, guid: 27fd6f60fab0c1c48a2f68b11cbf973c, type: 3}
       propertyPath: howMuchFood
       value: 10
@@ -976,7 +992,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8929064251012008928, guid: b458b1ffc3cca1345badf058b56d4667, type: 3}
       propertyPath: m_IsTrigger
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

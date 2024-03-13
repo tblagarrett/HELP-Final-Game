@@ -55,6 +55,7 @@ public class AudioManager : MonoBehaviour
             aud.loop = false;
             aud.volume = 1;
             instate = true;
+            PlayMan.eat = false;
         }
         else
         {
