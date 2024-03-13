@@ -29,12 +29,14 @@ public class AudioManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+ 
+
         if (PlayMan.hurt)
         {
             aud.clip = hurt;
             aud.loop = false;
             instate = true;
-        }else if (PlayMan.walking)
+        }else if (PlayMan.walking && !PlayMan.eat)
         {
             aud.clip = walk;
             aud.loop = true;
@@ -51,10 +53,10 @@ public class AudioManager : MonoBehaviour
         }
         else if (PlayMan.eat)
         {
-            aud.clip = eat;
-            aud.loop = false;
-            aud.volume = 1;
-            instate = true;
+            //aud.clip = eat;
+            //aud.loop = false;
+            //aud.volume = 1;
+            //instate = true;
         }
         else
         {
