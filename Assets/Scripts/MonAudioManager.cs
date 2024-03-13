@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AudioManager : MonoBehaviour
+public class MonAudioManager : MonoBehaviour
 {
     //audio source
     public AudioSource aud;
 
-    //player manager
-    public PlayerManager PlayMan;
+    //monster manager
+    public MonsterManager MonMan;
 
     //audio clips
     public AudioClip hurt;
@@ -29,14 +29,15 @@ public class AudioManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
- 
 
-        if (PlayMan.hurt)
+
+        if (MonMan.hurt)
         {
             aud.clip = hurt;
             aud.loop = false;
             instate = true;
-        }else if (PlayMan.walking && !PlayMan.eat)
+        }
+        else if (MonMan.walking && !MonMan.eat)
         {
             aud.clip = walk;
             aud.loop = true;
@@ -44,14 +45,14 @@ public class AudioManager : MonoBehaviour
             instate = true;
 
         }
-        else if (PlayMan.attacking)
+        else if (MonMan.attacking)
         {
             aud.clip = atk;
             aud.loop = false;
             aud.volume = 1;
             instate = true;
         }
-        else if (PlayMan.eat)
+        else if (MonMan.eat)
         {
             //aud.clip = eat;
             //aud.loop = false;
