@@ -41,10 +41,10 @@ public class FoodScript : MonoBehaviour
 
             if(collision.gameObject.tag == "Player")
             {
-                PlayerManager.Instance.ModHunger(hungerIncrease);
-
                 // for the audio manager
                 PlayerManager.Instance.eat = true;
+
+                PlayerManager.Instance.ModHunger(hungerIncrease);
             }
 
             if (collision.gameObject.tag == "Monster")

@@ -34,7 +34,7 @@ public class AudioManager : MonoBehaviour
             aud.clip = hurt;
             aud.loop = false;
             instate = true;
-        }else if (PlayMan.walking)
+        }else if (PlayMan.walking && !PlayMan.eat)
         {
             aud.clip = walk;
             aud.loop = true;
@@ -55,7 +55,6 @@ public class AudioManager : MonoBehaviour
             aud.loop = false;
             aud.volume = 1;
             instate = true;
-            PlayMan.eat = false;
         }
         else
         {
