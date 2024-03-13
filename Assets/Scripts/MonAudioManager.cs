@@ -24,6 +24,7 @@ public class MonAudioManager : MonoBehaviour
     void Start()
     {
         aud = GetComponent<AudioSource>();
+        MonMan = this.GetComponentInParent<MonsterManager>();
     }
 
     // Update is called once per frame
