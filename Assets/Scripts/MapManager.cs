@@ -12,8 +12,8 @@ public class MapManager : MonoBehaviour
     [SerializeField] private GameObject backgroundImage;
 
     // Fields for setting up the map generation
-    [SerializeField] private int mapSizeX;
-    [SerializeField] private int mapSizeY;
+    public int mapSizeX;
+    public int mapSizeY;
     [SerializeField] Tile[] terrainTiles;
     [SerializeField] Tile groundTile;
     [SerializeField] Tile borderTile;

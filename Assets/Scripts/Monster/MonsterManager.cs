@@ -36,11 +36,12 @@ public class MonsterManager : MonoBehaviour
     private int changes = 0;
 
     // variables for state machine
-    public bool idle = true;        
+    public bool idle = true;
     public bool sleeping = false;
-    public bool walking = false;    
+    public bool walking = false;
     public bool chasing = false;
     public bool hurt = false;
+    public bool running = false;
     // transition state
     public bool awaken = false;
     [SerializeField] private float delayChase;
@@ -83,7 +84,7 @@ public class MonsterManager : MonoBehaviour
         // wait for navmeshsurface to be created
         yield return new WaitForFixedUpdate();
         yield return new WaitForFixedUpdate();
-      
+
         // instantiate monster into the scene
         Monster = Instantiate(Monster, Parent.transform);
 
@@ -130,7 +131,7 @@ public class MonsterManager : MonoBehaviour
             Monster.hunger = Monster.maxHunger;
 
             Monster.health += heal;
-            if(Monster.health > Monster.maxHealth)
+            if (Monster.health > Monster.maxHealth)
             {
                 Monster.health = Monster.maxHealth;
             }
@@ -145,7 +146,8 @@ public class MonsterManager : MonoBehaviour
         if (Monster.hunger <= 0 && Monster.health != 0)
         {
             StartCoroutine(HealthDecay());
-        } else if (Monster.hunger > 0 && Monster.health != 0)
+        }
+        else if (Monster.hunger > 0 && Monster.health != 0)
         {
             StartCoroutine(HungerDecay());
         }
@@ -171,7 +173,7 @@ public class MonsterManager : MonoBehaviour
         for (int i = 0; i < states.Count; i++)
         {
             cumWeight += weights[i];
-            if(randomNum <= cumWeight)
+            if (randomNum <= cumWeight)
             {
                 return states[i];
             }
@@ -183,7 +185,7 @@ public class MonsterManager : MonoBehaviour
     private float SumOfWeights()
     {
         float sum = 0f;
-        foreach(float weight in weights)
+        foreach (float weight in weights)
         {
             sum += weight;
         }
@@ -245,11 +247,13 @@ public class MonsterManager : MonoBehaviour
                 Debug.Log("failed");
                 Debug.Log(Agent.SetDestination(new Vector2(Agent.transform.position.x, destination.y)));
                 direction.x = 0f;
-            } else
+            }
+            else
             {
                 direction.y = 0f;
             }
-        } else
+        }
+        else
         {
             Debug.Log(Agent.transform.position.x + ", " + destination.y);
             if (!Agent.SetDestination(new Vector2(Agent.transform.position.x, destination.y)))
@@ -263,12 +267,12 @@ public class MonsterManager : MonoBehaviour
                 direction.x = 0f;
             }
         }
-        if(direction != Vector2.zero)
+        if (direction != Vector2.zero)
         {
-            Agent.transform.rotation = Quaternion.LookRotation(forward: Vector3.forward, upwards: direction.normalized); 
+            Agent.transform.rotation = Quaternion.LookRotation(forward: Vector3.forward, upwards: direction.normalized);
             Debug.Log(direction);
         }
-        
+
 
         //RaycastHit2D hit = Physics2D.Raycast(Agent.transform.position, Agent.transform.TransformDirection(Vector3.forward), Random.Range(20, 30));
 
@@ -298,12 +302,12 @@ public class MonsterManager : MonoBehaviour
         for (int i = 0; i < MapManager.activeFood.Length; i++)
         {
             // skip food that is no longer active
-            if(MapManager.activeFood[i] == nullFood) { continue; }
+            if (MapManager.activeFood[i] == nullFood) { continue; }
 
             distance = new Vector2(Monster.transform.position.x, Monster.transform.position.y) - MapManager.activeFood[i];
-            
+
             // if the current closest food is farther away then replace
-            if (curFood < 0 || ((Mathf.Abs(closest.x) + Mathf.Abs(closest.y)) > (Mathf.Abs(distance.x) + Mathf.Abs(distance.y)))) 
+            if (curFood < 0 || ((Mathf.Abs(closest.x) + Mathf.Abs(closest.y)) > (Mathf.Abs(distance.x) + Mathf.Abs(distance.y))))
             {
                 closest = distance;
                 curFood = i;
@@ -322,33 +326,75 @@ public class MonsterManager : MonoBehaviour
         {
             closest = Player.transform.position; // just to convert vector3 to vector 2
             return closest; // return player position
-        } else
+        }
+        else
         {
             return MapManager.activeFood[curFood]; // return closest food
         }
+    }
+    // compare distance to every corner
+    private Vector2 FurthestCorner()
+    {
+        Vector2 corner = new(MapManager.mapSizeX / 2, MapManager.mapSizeY / 2);
+        Vector2 monPos = Monster.transform.position;
+        Vector2 distance = monPos - corner;
+        Vector2 furthest = distance;
+
+        distance = monPos - new Vector2(MapManager.mapSizeX / 2, -MapManager.mapSizeY / 2);
+
+        // find furthest corner
+        if ((Mathf.Abs(furthest.x) + Mathf.Abs(furthest.y)) < (Mathf.Abs(distance.x) + Mathf.Abs(distance.y)))
+        {
+            corner = new Vector2(MapManager.mapSizeX / 2, -MapManager.mapSizeY / 2);
+            furthest = distance;
+        }
+
+        distance = monPos - new Vector2(-MapManager.mapSizeX, -MapManager.mapSizeY);
+
+        if ((Mathf.Abs(furthest.x) + Mathf.Abs(furthest.y)) < (Mathf.Abs(distance.x) + Mathf.Abs(distance.y)))
+        {
+            furthest = distance;
+            corner = new Vector2(-MapManager.mapSizeX / 2, -MapManager.mapSizeY / 2);
+        }
+
+        distance = monPos - new Vector2(-MapManager.mapSizeX / 2, MapManager.mapSizeY / 2);
+
+        if ((Mathf.Abs(furthest.x) + Mathf.Abs(furthest.y)) < (Mathf.Abs(distance.x) + Mathf.Abs(distance.y)))
+        {
+            corner = new Vector2(-MapManager.mapSizeX / 2, MapManager.mapSizeY / 2);
+        }
+
+        return corner;
     }
 
     // follows the player
     public void Chasing()
     {
-        if(curHit == 0)
+        if (curHit == 0)
         {
+            Debug.Log("Start Runnign");
             chasing = false;
-        }
-        //Debug.Log("Chasing");
-        Agent.SetDestination(Player.transform.position);
+            running = true;
 
-        Vector3 direction = Player.transform.position - Agent.transform.position;
-        Agent.transform.rotation = Quaternion.LookRotation(forward: Vector3.forward, upwards: direction.normalized);
-        
-        // check for attacking
-        ChaseAttack();
+        }
+        else
+        {
+            //Debug.Log("Chasing");
+            Agent.SetDestination(Player.transform.position);
+
+            Vector3 direction = Player.transform.position - Agent.transform.position;
+            Agent.transform.rotation = Quaternion.LookRotation(forward: Vector3.forward, upwards: direction.normalized);
+
+            // check for attacking
+            ChaseAttack();
+        }
     }
 
     // checking if monster can attack
     public void ChaseAttack()
     {
-        if(attacking && attackCoolDown) { 
+        if (attacking && attackCoolDown)
+        {
             chasingAttack = true;
             tempattackcool = false;
         }
@@ -393,11 +439,12 @@ public class MonsterManager : MonoBehaviour
         {
             chasingAttack = false;
             Debug.Log("Hurt PLayer");
-            PlayerManager.Instance.ModHealth(-attackDamage); 
+            PlayerManager.Instance.ModHealth(-attackDamage);
         }
     }
 
-    public IEnumerator TempAttack() {
+    public IEnumerator TempAttack()
+    {
         yield return new WaitForSeconds(1);
         tempattackcool = true;
     }
@@ -409,6 +456,7 @@ public class MonsterManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         Debug.Log("Stop hurting");
         hurt = false;
+        running = true;
     }
 
     // for player to use when attacking monster
@@ -422,7 +470,7 @@ public class MonsterManager : MonoBehaviour
         // lower speed
         // lower how often sleep and idle
         // increase how often walking
-        if (changes == 2 && Monster.health <= Monster.maxHealth/4)
+        if (changes == 2 && Monster.health <= Monster.maxHealth / 4)
         {
             Agent.speed = 0.5f;
             maxSleep -= 1;
@@ -433,7 +481,8 @@ public class MonsterManager : MonoBehaviour
             weights[1] -= 0.07f;
             weights[2] += 0.14f;
             changes++;
-        }else if (changes == 1 && Monster.health <= Monster.maxHealth/2)
+        }
+        else if (changes == 1 && Monster.health <= Monster.maxHealth / 2)
         {
             Agent.speed = 1;
             maxSleep -= 1;
@@ -443,7 +492,7 @@ public class MonsterManager : MonoBehaviour
             weights[2] += 0.1f;
             changes++;
         }
-        else if(changes == 0 && Monster.health <= Monster.maxHealth * 0.75)
+        else if (changes == 0 && Monster.health <= Monster.maxHealth * 0.75)
         {
             Agent.speed = 1.5f;
             maxSleep -= 1;
@@ -455,7 +504,19 @@ public class MonsterManager : MonoBehaviour
         }
     }
 
-    // functions for statemachine to start and stop coroutines
+    public IEnumerator Run()
+    {
+        Agent.SetDestination(FurthestCorner());
+
+        yield return new WaitForSeconds(Random.Range(3, 6));
+        Agent.ResetPath();
+        Agent.speed /= 2;
+        running = false;
+
+        string state = SelectState();
+        if (state == "walk") { walking = true; } else if (state == "sleep") { sleeping = true; } else { idle = true; }
+    }
+        // functions for statemachine to start and stop coroutines
     public void StartIdle()
     {
         IdleCo = StartCoroutine(Idle());
@@ -500,7 +561,7 @@ public class MonsterManager : MonoBehaviour
         chasingAttack = false;
 
         // choose next state if not going back to chasing
-        if(chasing == false)
+        if (chasing == false)
         {
             string state = SelectState();
             if (state == "walk") { walking = true; } else if (state == "sleep") { sleeping = true; } else { idle = true; }
@@ -518,5 +579,9 @@ public class MonsterManager : MonoBehaviour
     public void StartWakeup()
     {
         StartCoroutine(Wakeup());
+    }
+    public void StartRun()
+    {
+        StartCoroutine(Run());
     }
 }

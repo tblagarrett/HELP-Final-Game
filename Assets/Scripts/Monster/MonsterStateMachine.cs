@@ -15,6 +15,7 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
         MON_ATTACK,
         MON_HURT,
         MON_CHASE,
+        MON_RUN,
         MON_DEATH
     }
     private void Awake()
@@ -27,6 +28,7 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
             AbstractState.Create<MonAttackState, MonsterState>(MonsterState.MON_ATTACK, this),
             AbstractState.Create<MonHurtState, MonsterState>(MonsterState.MON_HURT, this),
             AbstractState.Create<MonChaseState, MonsterState>(MonsterState.MON_CHASE, this),
+            AbstractState.Create<MonRunState, MonsterState>(MonsterState.MON_RUN, this),
             AbstractState.Create<MonDeathState, MonsterState>(MonsterState.MON_DEATH, this)
         );
 
@@ -49,6 +51,7 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
                 {
                     GetStateMachine<MonsterStateMachine>().Manager.StopIdle();
                 }
+                Debug.Log("From idle to chase");
                 TransitionToState(MonsterState.MON_CHASE);
             }
 
@@ -217,6 +220,9 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
                 {
                     Debug.Log("Dead");
                     TransitionToState(MonsterState.MON_DEATH);
+                } else if (GetStateMachine<MonsterStateMachine>().Manager.running)
+                {
+                    TransitionToState(MonsterState.MON_RUN);
                 } else
                 {
                     Debug.Log("Back to idle");
@@ -236,7 +242,7 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
         public override void OnEnter()
         {
             // start anim
-
+            Debug.Log("Enter Chasing");
             // speed up
             GetStateMachine<MonsterStateMachine>().Manager.Agent.speed *= 2;
 
@@ -245,7 +251,7 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
             if(GetStateMachine<MonsterStateMachine>().Manager.curHit == 0)
             {
                 GetStateMachine<MonsterStateMachine>().Manager.curHit = Random.Range(GetStateMachine<MonsterStateMachine>().Manager.minHit, GetStateMachine<MonsterStateMachine>().Manager.maxHit);
-                Debug.Log(GetStateMachine<MonsterStateMachine>().Manager.curHit);
+                Debug.Log("Curhit = " + GetStateMachine<MonsterStateMachine>().Manager.curHit);
             }
         }
         public override void OnUpdate()
@@ -265,6 +271,12 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
                 TransitionToState(MonsterState.MON_HURT);
             }
 
+            // in case it goes back to chasing after getting hurt
+            if (GetStateMachine<MonsterStateMachine>().Manager.running)
+            {
+                TransitionToState(MonsterState.MON_RUN);
+            }
+
             // if player has left radar then return to idle
             if (!GetStateMachine<MonsterStateMachine>().Manager.chasing)
             {
@@ -276,19 +288,32 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
             GetStateMachine<MonsterStateMachine>().Manager.StopChasing();
         }
     }
+    public class MonRunState : AbstractState
+    {
+        public override void OnEnter()
+        {
+            // start anim
+
+            // speed up
+            GetStateMachine<MonsterStateMachine>().Manager.Agent.speed *= 2;
+
+            // start running
+            GetStateMachine<MonsterStateMachine>().Manager.StartRun();
+        }
+        public override void OnUpdate()
+        {
+            if (!GetStateMachine<MonsterStateMachine>().Manager.running)
+            {
+                TransitionToState(MonsterState.MON_IDLE);
+            }
+        }
+    }
     public class MonDeathState : AbstractState
     {
         public override void OnEnter()
         {
             // start anim
             GetStateMachine<MonsterStateMachine>().Manager.gameObject.SetActive(false);
-        }
-        public override void OnUpdate()
-        {
-
-        }
-        public override void OnExit()
-        {
         }
     }
 }
