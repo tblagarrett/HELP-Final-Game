@@ -94,6 +94,7 @@ public class MonsterManager : MonoBehaviour
         // navmeshagent
         Agent = Monster.GetComponent<NavMeshAgent>();
         Agent.updateUpAxis = false;
+        Agent.updateRotation = false;
         curSpeed = Agent.speed;
         // for more information https://github.com/h8man/NavMeshPlus/wiki/HOW-TO#nav-mesh-basics
 

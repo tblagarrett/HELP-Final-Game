@@ -281,21 +281,21 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
             GetStateMachine<MonsterStateMachine>().Manager.Chasing();
 
             // check for direction
-            float angle = GetStateMachine<MonsterStateMachine>().Manager.Agent.transform.localRotation.eulerAngles.z;
+            float angle = GetStateMachine<MonsterStateMachine>().Manager.Agent.transform.eulerAngles.z;
             Debug.Log("Angle is " + angle);
-            if (angle < 45 && angle > -45)
+            if (angle < 315 && angle > 235)
             {
                 GetStateMachine<MonsterStateMachine>().Manager.RightIdle();
             }
-            else if ((angle < -45) && (angle > -135))
+            else if ((angle > 135) && (angle < 235))
             {
                 GetStateMachine<MonsterStateMachine>().Manager.FrontIdle();
             }
-            else if (angle > 135 || angle < -135)
+            else if (angle > 45 && angle < 135)
             {
                 GetStateMachine<MonsterStateMachine>().Manager.LeftIdle();
             }
-            else if (angle > 45 && angle < 135)
+            else if (angle > 0 && angle < 45 || angle > 315 && angle < 360)
             {
                 GetStateMachine<MonsterStateMachine>().Manager.BackIdle();
             }
