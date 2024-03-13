@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: edbfdb379b82b404bb2a7c513e79a863
+guid: 462c18f96beb6ae43866c3cbc0801970
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -9086870051622203570
-    second: MonFrontIdle3_0
+      213: -3719331694570883525
+    second: MonBackIdle1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,22 +113,22 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: MonFrontIdle3_0
+      name: MonBackIdle1_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 384
+        width: 568
         height: 402
-      alignment: 2
-      pivot: {x: 0.5, y: 1}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e4f4ce415d3f4e180800000000000000
-      internalID: -9086870051622203570
+      spriteID: b3630479787426cc0800000000000000
+      internalID: -3719331694570883525
       vertices: []
       indices: 
       edges: []
@@ -136,7 +136,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 87a6dffee57190e4c90d2c063ef8ea2a
+    spriteID: a1abbc13872851249ba8a2f053bd9965
     internalID: 0
     vertices: []
     indices: 
@@ -144,7 +144,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      MonFrontIdle3_0: -9086870051622203570
+      MonBackIdle1_0: -3719331694570883525
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
