@@ -94,7 +94,27 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
         }
         public override void OnUpdate()
         {
-            //Debug.Log("Chek while walk");
+            // check for direction
+            float angle = GetStateMachine<MonsterStateMachine>().Manager.Agent.transform.rotation.z;
+
+            if (angle < 45 && angle > -45)
+            {
+                GetStateMachine<MonsterStateMachine>().Manager.RightIdle();
+            }
+            else if ((angle < -45) && (angle > -135))
+            {
+                GetStateMachine<MonsterStateMachine>().Manager.FrontIdle();
+            }
+            else if (angle > 135 || angle < -135)
+            {
+                GetStateMachine<MonsterStateMachine>().Manager.LeftIdle();
+            }
+            else if (angle > 45 && angle < 135)
+            {
+                GetStateMachine<MonsterStateMachine>().Manager.BackIdle();
+            }
+
+            // switch states
             if (GetStateMachine<MonsterStateMachine>().Manager.chasing)
             {
                 GetStateMachine<MonsterStateMachine>().Manager.StopWalking();
@@ -259,6 +279,26 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
         {
             // chase player
             GetStateMachine<MonsterStateMachine>().Manager.Chasing();
+
+            // check for direction
+            float angle = GetStateMachine<MonsterStateMachine>().Manager.Agent.transform.localRotation.eulerAngles.z;
+            Debug.Log("Angle is " + angle);
+            if (angle < 45 && angle > -45)
+            {
+                GetStateMachine<MonsterStateMachine>().Manager.RightIdle();
+            }
+            else if ((angle < -45) && (angle > -135))
+            {
+                GetStateMachine<MonsterStateMachine>().Manager.FrontIdle();
+            }
+            else if (angle > 135 || angle < -135)
+            {
+                GetStateMachine<MonsterStateMachine>().Manager.LeftIdle();
+            }
+            else if (angle > 45 && angle < 135)
+            {
+                GetStateMachine<MonsterStateMachine>().Manager.BackIdle();
+            }
 
             // monster will chanse until it attacks or is hurt
             if (GetStateMachine<MonsterStateMachine>().Manager.chasingAttack)

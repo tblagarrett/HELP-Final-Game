@@ -79,6 +79,7 @@ public class MonsterManager : MonoBehaviour
     public Sprite down;
     public Sprite left;
     public Sprite right;
+    public Animator anim;
 
     IEnumerator Start()
     {
@@ -88,6 +89,7 @@ public class MonsterManager : MonoBehaviour
 
         // instantiate monster into the scene
         Monster = Instantiate(Monster, Parent.transform);
+        anim = Monster.GetComponentInChildren<Animator>();
 
         // navmeshagent
         Agent = Monster.GetComponent<NavMeshAgent>();
@@ -154,6 +156,7 @@ public class MonsterManager : MonoBehaviour
             StartCoroutine(HungerDecay());
         }
     }
+    // set visual radar radius
     public void SetMax()
     {
         Monster.curVisRadius = Monster.maxVisRadius;
@@ -229,16 +232,6 @@ public class MonsterManager : MonoBehaviour
         Vector2 destination = NearestFood();
         Debug.Log(destination);
 
-        /*/ path code referenced from ChatGBT
-        NavMeshPath path = new NavMeshPath();
-        NavMesh.CalculatePath(Agent.transform.position, destination, NavMesh.AllAreas, path);
-
-        // turn agent towards direction
-        if(path.status == NavMeshPathStatus.PathComplete && path.corners.Length > 1)
-        {
-            // decide an axis
-            Vector3 direction = path.corners[1] - Agent.transform.position;
-        */
         Vector2 direction = destination - new Vector2(Agent.transform.position.x, Agent.transform.position.y);
         // turn to direction referenced from https://discussions.unity.com/t/prevent-navmesh-from-moving-diagonally/213824
         if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
@@ -587,5 +580,24 @@ public class MonsterManager : MonoBehaviour
     public void StartRun()
     {
         StartCoroutine(Run());
+    }
+
+    // animation functions
+    public void RightIdle()
+    {
+        anim.Play("RightIdle");
+    }
+    public void LeftIdle()
+    {
+        anim.Play("LeftIdle");
+    }
+    public void BackIdle()
+    {
+        Debug.Log("back idle anim");
+        anim.Play("BackIdle");
+    }
+    public void FrontIdle()
+    {
+        anim.Play("FrontIdle");
     }
 }
