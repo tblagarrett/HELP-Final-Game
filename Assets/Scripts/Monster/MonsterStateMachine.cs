@@ -150,6 +150,7 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
 
             if (GetStateMachine<MonsterStateMachine>().Manager.chasing)
             {
+                Debug.Log("Start Wake up");
                 TransitionToState(MonsterState.MON_WAKEUP);
             }
 
@@ -244,7 +245,7 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
             // start anim
             Debug.Log("Enter Chasing");
             // speed up
-            GetStateMachine<MonsterStateMachine>().Manager.Agent.speed *= 2;
+            GetStateMachine<MonsterStateMachine>().Manager.Agent.speed = 4;
 
             // choose how many times it will get hit before leaving
             // only set if this is a new encounter
@@ -271,12 +272,6 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
                 TransitionToState(MonsterState.MON_HURT);
             }
 
-            // in case it goes back to chasing after getting hurt
-            if (GetStateMachine<MonsterStateMachine>().Manager.running)
-            {
-                TransitionToState(MonsterState.MON_RUN);
-            }
-
             // if player has left radar then return to idle
             if (!GetStateMachine<MonsterStateMachine>().Manager.chasing)
             {
@@ -295,7 +290,7 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
             // start anim
 
             // speed up
-            GetStateMachine<MonsterStateMachine>().Manager.Agent.speed *= 2;
+            GetStateMachine<MonsterStateMachine>().Manager.Agent.speed = 6;
 
             // start running
             GetStateMachine<MonsterStateMachine>().Manager.StartRun();

@@ -17,6 +17,7 @@ public class MonsterManager : MonoBehaviour
     public GameObject Parent;
     public CircleCollider2D VisualRadar;
     public NavMeshAgent Agent;
+    public float curSpeed;
     public MonsterAttack MonAttack;
 
     // variables for hunger and healh decay
@@ -91,6 +92,7 @@ public class MonsterManager : MonoBehaviour
         // navmeshagent
         Agent = Monster.GetComponent<NavMeshAgent>();
         Agent.updateUpAxis = false;
+        curSpeed = Agent.speed;
         // for more information https://github.com/h8man/NavMeshPlus/wiki/HOW-TO#nav-mesh-basics
 
         // set colliders
@@ -372,10 +374,7 @@ public class MonsterManager : MonoBehaviour
     {
         if (curHit == 0)
         {
-            Debug.Log("Start Runnign");
             chasing = false;
-            running = true;
-
         }
         else
         {
@@ -456,7 +455,11 @@ public class MonsterManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         Debug.Log("Stop hurting");
         hurt = false;
-        running = true;
+
+        if(curHit == 0)
+        {
+            running = true;
+        }
     }
 
     // for player to use when attacking monster
@@ -472,7 +475,7 @@ public class MonsterManager : MonoBehaviour
         // increase how often walking
         if (changes == 2 && Monster.health <= Monster.maxHealth / 4)
         {
-            Agent.speed = 0.5f;
+            Agent.speed -= .5f;
             maxSleep -= 1;
             minSleep -= 1;
             maxIdle -= 1;
@@ -484,7 +487,7 @@ public class MonsterManager : MonoBehaviour
         }
         else if (changes == 1 && Monster.health <= Monster.maxHealth / 2)
         {
-            Agent.speed = 1;
+            Agent.speed -= .5f;
             maxSleep -= 1;
             maxIdle -= 1;
             weights[0] -= 0.05f;
@@ -494,7 +497,7 @@ public class MonsterManager : MonoBehaviour
         }
         else if (changes == 0 && Monster.health <= Monster.maxHealth * 0.75)
         {
-            Agent.speed = 1.5f;
+            Agent.speed -= .5f;
             maxSleep -= 1;
             maxIdle -= 1;
             weights[0] -= 0.025f;
@@ -502,15 +505,16 @@ public class MonsterManager : MonoBehaviour
             weights[2] += 0.05f;
             changes++;
         }
+        curSpeed = Agent.speed;
     }
 
     public IEnumerator Run()
     {
         Agent.SetDestination(FurthestCorner());
 
-        yield return new WaitForSeconds(Random.Range(3, 6));
+        yield return new WaitForSeconds(Random.Range(5, 10));
         Agent.ResetPath();
-        Agent.speed /= 2;
+        Agent.speed = curSpeed;
         running = false;
 
         string state = SelectState();
@@ -557,7 +561,7 @@ public class MonsterManager : MonoBehaviour
     public void StopChasing()
     {
         Agent.ResetPath();
-        Agent.speed /= 2;
+        Agent.speed = curSpeed;
         chasingAttack = false;
 
         // choose next state if not going back to chasing

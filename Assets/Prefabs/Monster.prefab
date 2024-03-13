@@ -56,9 +56,9 @@ MonoBehaviour:
   hunger: 20
   maxHealth: 30
   maxHunger: 20
-  curVisRadius: 10
-  maxVisRadius: 10
-  minVisRadius: 3
+  curVisRadius: 12
+  maxVisRadius: 12
+  minVisRadius: 4
   spriteRen: {fileID: 0}
 --- !u!195 &-4635267837324243826
 NavMeshAgent:
@@ -70,7 +70,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.96
-  m_Speed: 1
+  m_Speed: 2
   m_Acceleration: 8
   avoidancePriority: 1
   m_AngularSpeed: 0
@@ -264,6 +264,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6027f796a5764e141be19cb524664776, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  aud: {fileID: 0}
+  MonMan: {fileID: 0}
+  hurt: {fileID: 0}
+  eat: {fileID: 0}
+  atk: {fileID: 0}
+  walk: {fileID: 0}
 --- !u!1 &1881078624889136477
 GameObject:
   m_ObjectHideFlags: 0
@@ -332,7 +338,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 10
+  m_Radius: 12
 --- !u!114 &5569361725232057178
 MonoBehaviour:
   m_ObjectHideFlags: 0
