@@ -95,21 +95,20 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
         public override void OnUpdate()
         {
             // check for direction
-            float angle = GetStateMachine<MonsterStateMachine>().Manager.Agent.transform.rotation.z;
-
-            if (angle < 45 && angle > -45)
+            float angle = GetStateMachine<MonsterStateMachine>().Manager.Agent.transform.eulerAngles.z;
+            if (angle == 270)
             {
                 GetStateMachine<MonsterStateMachine>().Manager.RightIdle();
             }
-            else if ((angle < -45) && (angle > -135))
+            else if (angle == 180)
             {
                 GetStateMachine<MonsterStateMachine>().Manager.FrontIdle();
             }
-            else if (angle > 135 || angle < -135)
+            else if (angle == 90)
             {
                 GetStateMachine<MonsterStateMachine>().Manager.LeftIdle();
             }
-            else if (angle > 45 && angle < 135)
+            else if (angle == 0)
             {
                 GetStateMachine<MonsterStateMachine>().Manager.BackIdle();
             }
@@ -281,21 +280,20 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
             GetStateMachine<MonsterStateMachine>().Manager.Chasing();
 
             // check for direction
-            float angle = GetStateMachine<MonsterStateMachine>().Manager.Agent.transform.localRotation.eulerAngles.z;
-            Debug.Log("Angle is " + angle);
-            if (angle < 45 && angle > -45)
+            float angle = GetStateMachine<MonsterStateMachine>().Manager.Agent.transform.eulerAngles.z;
+            if (angle == 270)
             {
                 GetStateMachine<MonsterStateMachine>().Manager.RightIdle();
             }
-            else if ((angle < -45) && (angle > -135))
+            else if (angle == 180)
             {
                 GetStateMachine<MonsterStateMachine>().Manager.FrontIdle();
             }
-            else if (angle > 135 || angle < -135)
+            else if (angle == 90)
             {
                 GetStateMachine<MonsterStateMachine>().Manager.LeftIdle();
             }
-            else if (angle > 45 && angle < 135)
+            else if (angle == 0)
             {
                 GetStateMachine<MonsterStateMachine>().Manager.BackIdle();
             }
@@ -337,6 +335,24 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
         }
         public override void OnUpdate()
         {
+            float angle = GetStateMachine<MonsterStateMachine>().Manager.Agent.transform.eulerAngles.z;
+            if (angle == 270)
+            {
+                GetStateMachine<MonsterStateMachine>().Manager.RightIdle();
+            }
+            else if (angle == 180)
+            {
+                GetStateMachine<MonsterStateMachine>().Manager.FrontIdle();
+            }
+            else if (angle == 90)
+            {
+                GetStateMachine<MonsterStateMachine>().Manager.LeftIdle();
+            }
+            else if (angle == 0)
+            {
+                GetStateMachine<MonsterStateMachine>().Manager.BackIdle();
+            }
+
             if (!GetStateMachine<MonsterStateMachine>().Manager.running)
             {
                 TransitionToState(MonsterState.MON_IDLE);

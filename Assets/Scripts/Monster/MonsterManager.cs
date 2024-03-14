@@ -75,10 +75,6 @@ public class MonsterManager : MonoBehaviour
     public bool tempattackcool = false; // delete later
 
     // sprites for directions
-    public Sprite up;
-    public Sprite down;
-    public Sprite left;
-    public Sprite right;
     public Animator anim;
 
     IEnumerator Start()
@@ -92,8 +88,9 @@ public class MonsterManager : MonoBehaviour
         anim = Monster.GetComponentInChildren<Animator>();
 
         // navmeshagent
-        Agent = Monster.GetComponent<NavMeshAgent>();
+        Agent = Monster.GetComponentInChildren<NavMeshAgent>();
         Agent.updateUpAxis = false;
+        Agent.updateRotation = false;
         curSpeed = Agent.speed;
         // for more information https://github.com/h8man/NavMeshPlus/wiki/HOW-TO#nav-mesh-basics
 
@@ -265,7 +262,6 @@ public class MonsterManager : MonoBehaviour
         if (direction != Vector2.zero)
         {
             Agent.transform.rotation = Quaternion.LookRotation(forward: Vector3.forward, upwards: direction.normalized);
-            Debug.Log(direction);
         }
 
 
@@ -375,6 +371,15 @@ public class MonsterManager : MonoBehaviour
             Agent.SetDestination(Player.transform.position);
 
             Vector3 direction = Player.transform.position - Agent.transform.position;
+            //Debug.Log(direction);
+            if(Mathf.Abs(direction.x) < Mathf.Abs(direction.y))
+            {
+                direction.x = 0;
+            } else
+            {
+                direction.y = 0;
+            }
+            
             Agent.transform.rotation = Quaternion.LookRotation(forward: Vector3.forward, upwards: direction.normalized);
 
             // check for attacking
@@ -504,7 +509,19 @@ public class MonsterManager : MonoBehaviour
     public IEnumerator Run()
     {
         Agent.SetDestination(FurthestCorner());
+        Vector3 direction = Agent.destination - Agent.transform.position;
 
+        if (Mathf.Abs(direction.x) < Mathf.Abs(direction.y))
+        {
+            direction.x = 0;
+        }
+        else
+        {
+            direction.y = 0;
+        }
+
+        Agent.transform.rotation = Quaternion.LookRotation(forward: Vector3.forward, upwards: direction.normalized);
+        
         yield return new WaitForSeconds(Random.Range(5, 10));
         Agent.ResetPath();
         Agent.speed = curSpeed;
