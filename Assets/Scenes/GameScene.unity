@@ -542,6 +542,22 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 49442012906171472, guid: 33a2b5fab21b08a42be9cd60d27be140, type: 3}
+      propertyPath: atkAud
+      value: 
+      objectReference: {fileID: 8300000, guid: dcae73691453eef42887c3ad2238fa38, type: 3}
+    - target: {fileID: 49442012906171472, guid: 33a2b5fab21b08a42be9cd60d27be140, type: 3}
+      propertyPath: eatAud
+      value: 
+      objectReference: {fileID: 8300000, guid: b170e006e8f452849b3d46aaf257da57, type: 3}
+    - target: {fileID: 49442012906171472, guid: 33a2b5fab21b08a42be9cd60d27be140, type: 3}
+      propertyPath: hurtAud
+      value: 
+      objectReference: {fileID: 8300000, guid: b43bd8548fc2cd5479a1ca48993c4ef8, type: 3}
+    - target: {fileID: 49442012906171472, guid: 33a2b5fab21b08a42be9cd60d27be140, type: 3}
+      propertyPath: walkAud
+      value: 
+      objectReference: {fileID: 8300000, guid: ab15fd2b38a478241873f0eef117739e, type: 3}
+    - target: {fileID: 49442012906171472, guid: 33a2b5fab21b08a42be9cd60d27be140, type: 3}
       propertyPath: MapManager
       value: 
       objectReference: {fileID: 1163151207}

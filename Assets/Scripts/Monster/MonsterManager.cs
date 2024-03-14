@@ -232,6 +232,10 @@ public class MonsterManager : MonoBehaviour
 
         // finish sleeping
         sleeping = false;
+
+        // choose next state
+        string state = SelectState();
+        if (state == "walk") { walking = true; } else if (state == "sleep") { sleeping = true; } else { StartIdle(); }
     }
     private IEnumerator Wakeup()
     {
@@ -643,7 +647,6 @@ public class MonsterManager : MonoBehaviour
     }
     public void BackIdle()
     {
-        Debug.Log("back idle anim");
         anim.Play("BackIdle");
     }
     public void FrontIdle()

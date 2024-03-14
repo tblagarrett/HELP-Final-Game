@@ -65,6 +65,7 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
                 if (GetStateMachine<MonsterStateMachine>().Manager.idle)
                 {
                     GetStateMachine<MonsterStateMachine>().Manager.StopIdle();
+                    GetStateMachine<MonsterStateMachine>().Manager.idle = true;
                 }
                 TransitionToState(MonsterState.MON_HURT);
             }
@@ -76,11 +77,7 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
         }
         public override void OnExit()
         {
-            // if hurt from hunger decay return to idle
-            if (!GetStateMachine<MonsterStateMachine>().Manager.hurt)
-            {
-                GetStateMachine<MonsterStateMachine>().Manager.idle = false;
-            }
+
         }
     }
     public class MonWalkState : AbstractState
@@ -385,6 +382,7 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
         {
             // start anim
             GetStateMachine<MonsterStateMachine>().Manager.gameObject.SetActive(false);
+            UIManager.Instance.GoToMenu(GameMenu.GameOver);
         }
     }
 }
