@@ -2021,9 +2021,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e4db986e39ebcc4ea53ca6fa7eb50a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hearts: []
+  foodSprites: []
   heartPrefab: {fileID: 5429622960241090090, guid: 43a171c7fd31a694f8bd4fb43a8e196d, type: 3}
+  foodPrefab: {fileID: 0}
   heartFilled: {fileID: -5390123095117124330, guid: 74f8b4d56cb24724abef2f7c526fd9ca, type: 3}
   heartEmpty: {fileID: -8880520576215733831, guid: 74f8b4d56cb24724abef2f7c526fd9ca, type: 3}
+  foodFilled: {fileID: 0}
+  foodEmpty: {fileID: 0}
 --- !u!1 &7747362309046392453
 GameObject:
   m_ObjectHideFlags: 0
