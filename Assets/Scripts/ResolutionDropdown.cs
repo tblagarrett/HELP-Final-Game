@@ -1,10 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using TMPro.EditorUtilities;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 public class ResolutionDropdown : MonoBehaviour
 {
@@ -31,7 +28,7 @@ public class ResolutionDropdown : MonoBehaviour
                 Screen.SetResolution(1920, 1440, false);
                 break;
             case 2:
-                Screen.SetResolution(1920, 1440, false);
+                Screen.SetResolution(800, 600, false);
                 break;
             default:
                 break;
