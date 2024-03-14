@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public enum GameMenu
 {
@@ -21,6 +22,11 @@ public class UIManager : MonoBehaviour
     public GameMenu currentMenu;
     public KeyCode nextKey;
     public KeyCode[] menuKeys; // these should be linked to Menus by order entered. 1st key opens 1st menu, etc.
+
+    // Variables for setting the Game Over Screen
+    public GameObject gameOverImage;
+    public Sprite playerWinImage;
+    public Sprite playerLoseImage;
 
     private static UIManager _instance; // make a static private variable of the component data type
     public static UIManager Instance { get { return _instance; } } // make a public way to access the private variable
@@ -143,5 +149,16 @@ public class UIManager : MonoBehaviour
     {
         SceneManager.LoadScene("GameScene", LoadSceneMode.Single);
         GoToMenu(GameMenu.None);
+    }
+
+    public void SetWinScreen(bool didPlayerWin)
+    {
+        if (didPlayerWin)
+        {
+            gameOverImage.GetComponent<Image>().sprite = playerWinImage;
+        } else
+        {
+            gameOverImage.GetComponent<Image>().sprite = playerLoseImage;
+        }
     }
 }

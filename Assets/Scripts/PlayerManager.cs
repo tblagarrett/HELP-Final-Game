@@ -137,6 +137,7 @@ public class PlayerManager : MonoBehaviour
         if (Player.health <= 0)
         {
             // MUST START GAME FROM UI SCENE FOR THIS NOT TO ERROR
+            UIManager.Instance.SetWinScreen(false);
             UIManager.Instance.GoToMenu(GameMenu.GameOver);
         }
 

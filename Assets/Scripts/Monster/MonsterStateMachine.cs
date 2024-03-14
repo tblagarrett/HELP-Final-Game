@@ -382,6 +382,7 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
         {
             // start anim
             GetStateMachine<MonsterStateMachine>().Manager.gameObject.SetActive(false);
+            UIManager.Instance.SetWinScreen(true);
             UIManager.Instance.GoToMenu(GameMenu.GameOver);
         }
     }
