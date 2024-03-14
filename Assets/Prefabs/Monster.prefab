@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 6394545437634998352}
   - component: {fileID: 3728377525890497143}
-  - component: {fileID: -4635267837324243826}
   - component: {fileID: 3740434063657465623}
   - component: {fileID: 6736502386942987386}
   - component: {fileID: -3289442819618160216}
   - component: {fileID: 5562724548384621408}
+  - component: {fileID: 3931479755706406408}
   m_Layer: 0
   m_Name: Monster
   m_TagString: Monster
@@ -60,28 +60,6 @@ MonoBehaviour:
   maxVisRadius: 12
   minVisRadius: 4
   spriteRen: {fileID: 0}
---- !u!195 &-4635267837324243826
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 568935892173783569}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.96
-  m_Speed: 2
-  m_Acceleration: 8
-  avoidancePriority: 1
-  m_AngularSpeed: 0
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 0
-  m_AutoRepath: 1
-  m_Height: 0.53
-  m_BaseOffset: -0.51
-  m_WalkableMask: 3
-  m_ObstacleAvoidanceType: 1
 --- !u!61 &3740434063657465623
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -116,7 +94,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.97363657, y: 0.27260888}
+  m_Offset: {x: 0.88946223, y: 0.6397209}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -126,7 +104,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1.9645997, y: 1.7261364}
+  m_Size: {x: 1.7906489, y: 2.460361}
   m_EdgeRadius: 0
 --- !u!50 &6736502386942987386
 Rigidbody2D:
@@ -270,6 +248,28 @@ MonoBehaviour:
   eat: {fileID: 0}
   atk: {fileID: 0}
   walk: {fileID: 0}
+--- !u!195 &3931479755706406408
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 568935892173783569}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 1.45
+  m_Speed: 2
+  m_Acceleration: 8
+  avoidancePriority: 7
+  m_AngularSpeed: 0
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1.54
+  m_BaseOffset: -0.45
+  m_WalkableMask: 3
+  m_ObstacleAvoidanceType: 1
 --- !u!1 &1881078624889136477
 GameObject:
   m_ObjectHideFlags: 0
@@ -297,7 +297,7 @@ Transform:
   m_GameObject: {fileID: 1881078624889136477}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.91, y: 0.52, z: 0}
+  m_LocalPosition: {x: 1.02, y: 0.52, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -379,7 +379,7 @@ Transform:
   m_GameObject: {fileID: 2839376198832229832}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.65, y: 0.66, z: 0}
+  m_LocalPosition: {x: 1.28, y: 0.66, z: 0}
   m_LocalScale: {x: 0.9941636, y: 0.31941, z: 0.31941}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -473,7 +473,7 @@ Transform:
   m_GameObject: {fileID: 7063220596293999756}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 1.93, y: -0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -522,7 +522,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 47443291473812495, guid: 8f0c692dfe6165241abd512a2f583537, type: 3}
+  m_Sprite: {fileID: -1787304710399244480, guid: d0d966e9c09ac434a853b6ca6d31c319, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -583,8 +583,8 @@ BoxCollider2D:
   m_Offset: {x: -2.085613, y: -0.928738}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 5.68, y: 4.02}
+    pivot: {x: 0.5, y: 1}
+    oldSize: {x: 3.84, y: 4.02}
     newSize: {x: 3.84, y: 3.61}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
