@@ -28,6 +28,9 @@ public class UIManager : MonoBehaviour
     public Sprite playerWinImage;
     public Sprite playerLoseImage;
 
+    // heart shake animation
+    public Animator heartShake;
+
     private static UIManager _instance; // make a static private variable of the component data type
     public static UIManager Instance { get { return _instance; } } // make a public way to access the private variable
     private void Awake()
@@ -160,5 +163,10 @@ public class UIManager : MonoBehaviour
         {
             gameOverImage.GetComponent<Image>().sprite = playerLoseImage;
         }
+    }
+
+    public void ShakeHearts()
+    {
+        heartShake.Play("Heart Shake");
     }
 }

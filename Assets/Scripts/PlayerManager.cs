@@ -134,6 +134,11 @@ public class PlayerManager : MonoBehaviour
             Player.health = Player.maxHealth;
         }
 
+        if (mod < 0)
+        {
+            UIManager.Instance.ShakeHearts();
+        }
+
         if (Player.health <= 0)
         {
             // MUST START GAME FROM UI SCENE FOR THIS NOT TO ERROR
