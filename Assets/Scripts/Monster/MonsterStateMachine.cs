@@ -166,6 +166,7 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
         {
             if (GetStateMachine<MonsterStateMachine>().Manager.hurt)
             {
+                GetStateMachine<MonsterStateMachine>().Manager.SetMax();
                 GetStateMachine<MonsterStateMachine>().Manager.StopSleep();
                 TransitionToState(MonsterState.MON_HURT);
             }
@@ -178,6 +179,7 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
 
             if (!GetStateMachine<MonsterStateMachine>().Manager.sleeping) // return to idle once timer is up
             {
+                GetStateMachine<MonsterStateMachine>().Manager.SetMax();
                 TransitionToState(MonsterState.MON_IDLE);
             }
         }
