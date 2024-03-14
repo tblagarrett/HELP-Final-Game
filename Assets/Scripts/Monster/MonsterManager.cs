@@ -75,10 +75,6 @@ public class MonsterManager : MonoBehaviour
     public bool tempattackcool = false; // delete later
 
     // sprites for directions
-    public Sprite up;
-    public Sprite down;
-    public Sprite left;
-    public Sprite right;
     public Animator anim;
 
     IEnumerator Start()

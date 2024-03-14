@@ -244,10 +244,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aud: {fileID: 0}
   MonMan: {fileID: 0}
-  hurt: {fileID: 0}
-  eat: {fileID: 0}
-  atk: {fileID: 0}
-  walk: {fileID: 0}
+  hurt: {fileID: 8300000, guid: b43bd8548fc2cd5479a1ca48993c4ef8, type: 3}
+  eat: {fileID: 8300000, guid: b170e006e8f452849b3d46aaf257da57, type: 3}
+  atk: {fileID: 8300000, guid: dcae73691453eef42887c3ad2238fa38, type: 3}
+  walk: {fileID: 8300000, guid: ab15fd2b38a478241873f0eef117739e, type: 3}
 --- !u!195 &3931479755706406408
 NavMeshAgent:
   m_ObjectHideFlags: 0
