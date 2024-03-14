@@ -77,6 +77,19 @@ public class MonsterManager : MonoBehaviour
     // sprites for directions
     public Animator anim;
 
+    //audio source
+    public AudioSource aud;
+
+    //audio clips
+    public AudioClip hurtAud;
+    public AudioClip eatAud;
+    public AudioClip atkAud;
+    public AudioClip walkAud;
+
+    //checking playing
+    bool instate;
+    bool toggleplay;
+
     IEnumerator Start()
     {
         // wait for navmeshsurface to be created
@@ -85,7 +98,10 @@ public class MonsterManager : MonoBehaviour
 
         // instantiate monster into the scene
         Monster = Instantiate(Monster, Parent.transform);
+
+        // anim + audio
         anim = Monster.GetComponentInChildren<Animator>();
+        aud = Monster.GetComponent<AudioSource>();
 
         // navmeshagent
         Agent = Monster.GetComponentInChildren<NavMeshAgent>();
@@ -224,6 +240,9 @@ public class MonsterManager : MonoBehaviour
     }
     public IEnumerator Walking()
     {
+        // start walking sound
+        WalkingAud();
+
         Debug.Log("Walking");
         // decide destination
         Vector2 destination = NearestFood();
@@ -277,7 +296,7 @@ public class MonsterManager : MonoBehaviour
         Debug.Log("Stop Walk");
         // choose new state
         string state = SelectState();
-        if (state == "idle") { idle = true; } else if (state == "sleep") { sleeping = true; } else { StartWalking(); }
+        if (state == "idle") { idle = true; aud.Stop(); } else if (state == "sleep") { sleeping = true; aud.Stop(); } else { StartWalking(); }
     }
 
     // iterates through all active food
@@ -407,6 +426,12 @@ public class MonsterManager : MonoBehaviour
 
     public IEnumerator Attacking()
     {
+        Debug.Log("Attack sound");
+        aud.clip = atkAud;
+        aud.loop = false;
+        aud.volume = 1;
+        aud.Play();
+
         // start attack anim
         MonAttack.TurnOnAttack();
 
@@ -449,6 +474,11 @@ public class MonsterManager : MonoBehaviour
     // temp hurt timer
     public IEnumerator Hurting()
     {
+        aud.clip = hurtAud;
+        aud.loop = false;
+        aud.volume = 1;
+        aud.Play();
+
         Debug.Log("Start hurting");
         yield return new WaitForSeconds(0.5f);
         Debug.Log("Stop hurting");
@@ -526,6 +556,7 @@ public class MonsterManager : MonoBehaviour
         Agent.ResetPath();
         Agent.speed = curSpeed;
         running = false;
+        aud.Stop();
 
         string state = SelectState();
         if (state == "walk") { walking = true; } else if (state == "sleep") { sleeping = true; } else { idle = true; }
@@ -561,6 +592,7 @@ public class MonsterManager : MonoBehaviour
         Debug.Log("Stop Walking coroutine");
         Agent.ResetPath();
         StopCoroutine(WalkCo);
+        aud.Stop();
     }
 
     public void StartHurting()
@@ -573,6 +605,7 @@ public class MonsterManager : MonoBehaviour
         Agent.ResetPath();
         Agent.speed = curSpeed;
         chasingAttack = false;
+        aud.Stop();
 
         // choose next state if not going back to chasing
         if (chasing == false)
@@ -616,5 +649,23 @@ public class MonsterManager : MonoBehaviour
     public void FrontIdle()
     {
         anim.Play("FrontIdle");
+    }
+
+    //audio functions
+    public void Eating()
+    {
+        aud.clip = eatAud;
+        aud.loop = false;
+        aud.volume = 1;
+        eat = false;
+        aud.Play();
+    }
+
+    public void WalkingAud()
+    {
+        aud.clip = walkAud;
+        aud.loop = true;
+        aud.volume = 0.5f;
+        aud.Play();
     }
 }

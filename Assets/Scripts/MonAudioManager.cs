@@ -30,12 +30,12 @@ public class MonAudioManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-
         if (MonMan.hurt)
         {
+            Debug.Log("Hurtsound");
             aud.clip = hurt;
             aud.loop = false;
+            aud.volume = 1;
             instate = true;
         }
         else if (MonMan.walking && !MonMan.eat)
@@ -46,8 +46,9 @@ public class MonAudioManager : MonoBehaviour
             instate = true;
 
         }
-        else if (MonMan.attacking)
+        else if (MonMan.chasingAttack)
         {
+            Debug.Log("Attack sound");
             aud.clip = atk;
             aud.loop = false;
             aud.volume = 1;

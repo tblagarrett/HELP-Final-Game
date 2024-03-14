@@ -94,6 +94,12 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
         }
         public override void OnUpdate()
         {
+            //Play eating sound
+            if (GetStateMachine<MonsterStateMachine>().Manager.eat)
+            {
+                GetStateMachine<MonsterStateMachine>().Manager.Eating();
+            }
+
             // check for direction
             float angle = GetStateMachine<MonsterStateMachine>().Manager.Agent.transform.eulerAngles.z;
             if (angle == 270)
@@ -265,10 +271,11 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
             Debug.Log("Enter Chasing");
             // speed up
             GetStateMachine<MonsterStateMachine>().Manager.Agent.speed = 4;
+            GetStateMachine<MonsterStateMachine>().Manager.WalkingAud();
 
             // choose how many times it will get hit before leaving
             // only set if this is a new encounter
-            if(GetStateMachine<MonsterStateMachine>().Manager.curHit == 0)
+            if (GetStateMachine<MonsterStateMachine>().Manager.curHit == 0)
             {
                 GetStateMachine<MonsterStateMachine>().Manager.curHit = Random.Range(GetStateMachine<MonsterStateMachine>().Manager.minHit, GetStateMachine<MonsterStateMachine>().Manager.maxHit);
                 Debug.Log("Curhit = " + GetStateMachine<MonsterStateMachine>().Manager.curHit);
@@ -276,6 +283,12 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
         }
         public override void OnUpdate()
         {
+            //Play eating sound
+            if (GetStateMachine<MonsterStateMachine>().Manager.eat)
+            {
+                GetStateMachine<MonsterStateMachine>().Manager.Eating();
+            }
+
             // chase player
             GetStateMachine<MonsterStateMachine>().Manager.Chasing();
 
@@ -332,9 +345,16 @@ public class MonsterStateMachine : AbstractFiniteStateMachine
 
             // start running
             GetStateMachine<MonsterStateMachine>().Manager.StartRun();
+            GetStateMachine<MonsterStateMachine>().Manager.WalkingAud();
         }
         public override void OnUpdate()
         {
+            //Play eating sound
+            if (GetStateMachine<MonsterStateMachine>().Manager.eat)
+            {
+                GetStateMachine<MonsterStateMachine>().Manager.Eating();
+            }
+
             float angle = GetStateMachine<MonsterStateMachine>().Manager.Agent.transform.eulerAngles.z;
             if (angle == 270)
             {
